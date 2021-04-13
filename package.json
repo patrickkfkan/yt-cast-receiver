@@ -1,0 +1,36 @@
+{
+  "name": "yt-cast-receiver",
+  "version": "0.1.0-a",
+  "description": "YouTube Cast Receiver for Node",
+  "main": "lib/index.js",
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "async-task-queue": "^1.0.1",
+    "express": "^4.17.1",
+    "line-by-line": "^0.1.6",
+    "newline-remove": "^1.0.2",
+    "node-fetch": "^2.6.1",
+    "peer-dial": "github:patrickkfkan/peer-dial",
+    "query-string": "^7.0.0",
+    "timer-node": "^4.1.0",
+    "uuid": "^8.3.2",
+    "yt-mix-playlist": "^0.1.1-b",
+    "ytdl-core": "^4.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickkfkan/yt-cast-receiver.git"
+  },
+  "keywords": [
+    "youtube",
+    "chromecast",
+    "cast",
+    "dial"
+  ],
+  "author": "Patrick Kan",
+  "license": "MIT"
+}
