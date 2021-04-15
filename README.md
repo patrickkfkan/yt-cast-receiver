@@ -2,7 +2,9 @@
 
 A YouTube Cast Receiver for Node.
 
-When your start the receiver, your device becomes discoverable and can be selected through the Cast button in the YouTube mobile app or on the YouTube website running in a Chrome desktop browser. When connected, the app or website acts as a remote control and issues commands to the receiver for controlling playback of videos (like Chromecast).
+When your start the receiver, your device becomes discoverable and can be selected through the Cast button in the YouTube mobile app or website. When connected, the app or website acts as a remote control and issues commands to the receiver for controlling playback of videos (like Chromecast).
+
+>Not all browsers support casting from the YouTube website. This module has been tested to work with the Chrome and Edge desktop browsers.
 
 The receiver itself does not include a player. It is intended to be integrated into your application where you implement the player yourself. When the receiver receives a playback command from the YouTube mobile app or website (such as play, pause and seek), it will pass this command to your player. It is up to you to decide how you would handle these commands.
 
