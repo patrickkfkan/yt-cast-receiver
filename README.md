@@ -223,6 +223,9 @@ You can provide your own loader with the `autoplayLoader` option in `instance()`
 
 # Changelog
 
+0.1.1-b
+- [Changed] More robust fetching of mix playlists for 'Up Next' videos
+
 0.1.0b
 - [Fixed] Connection issue with YouTube mobile app version 16.22.35 and later
 
