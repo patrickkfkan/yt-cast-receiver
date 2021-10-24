@@ -1,6 +1,6 @@
 {
   "name": "yt-cast-receiver",
-  "version": "0.1.0-b",
+  "version": "0.1.1-b",
   "description": "YouTube Cast Receiver for Node",
   "main": "lib/index.js",
   "dependencies": {
