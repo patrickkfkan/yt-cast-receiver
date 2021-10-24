@@ -14,7 +14,7 @@
     "query-string": "^7.0.0",
     "timer-node": "^4.1.0",
     "uuid": "^8.3.2",
-    "yt-mix-playlist": "^0.1.1-b",
+    "yt-mix-playlist": "0.1.2-b.2",
     "ytdl-core": "github:patrickkfkan/node-ytdl-core#4.8.3-node8"
   },
   "devDependencies": {},
