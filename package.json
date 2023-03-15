@@ -10,7 +10,7 @@
     "line-by-line": "^0.1.6",
     "newline-remove": "^1.0.2",
     "node-fetch": "^2.6.1",
-    "peer-dial": "github:patrickkfkan/peer-dial",
+    "peer-dial": "git+https://github.com/patrickkfkan/peer-dial",
     "query-string": "^7.0.0",
     "timer-node": "^4.1.0",
     "uuid": "^8.3.2",
