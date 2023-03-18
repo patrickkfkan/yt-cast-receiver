@@ -73,6 +73,9 @@ Creates a receiver instance.
     - screenApp
     - defaultAutoplay: `true` or `false`. On connected, whether to enable autoplay if supported (default: `true`)
     - autoplayLoader: specify your own loader to retrieve the next video Id for autoplay
+    - friendlyName: friendly name of the cast receiver
+    - manufacturer: manufacturer of the cast receiver
+    - modelName: model name of the cast receiver
     - debug: `true` or `false`. Whether to output debug messages (default: `false`)
 
 ### `start()`
