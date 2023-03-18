@@ -226,6 +226,10 @@ You can provide your own loader with the `autoplayLoader` option in `instance()`
 
 # Changelog
 
+0.1.2
+- [Added] More options (credit: [mas94uk](https://github.com/mas94uk))
+- [Fixed] Git repo dependency paths
+
 0.1.1-b
 - [Changed] More robust fetching of mix playlists for 'Up Next' videos
 
