@@ -1,36 +1,79 @@
 {
-  "name": "yt-cast-receiver",
-  "version": "0.1.2",
+  "name": "yt-cast-receiver-next",
+  "version": "1.0.0",
+  "type": "module",
   "description": "YouTube Cast Receiver for Node",
-  "main": "lib/index.js",
-  "dependencies": {
-    "abort-controller": "^3.0.0",
-    "async-task-queue": "^1.0.1",
-    "express": "^4.17.1",
-    "line-by-line": "^0.1.6",
-    "newline-remove": "^1.0.2",
-    "node-fetch": "^2.6.1",
-    "peer-dial": "git+https://github.com/patrickkfkan/peer-dial",
-    "query-string": "^7.0.0",
-    "timer-node": "^4.1.0",
-    "uuid": "^8.3.2",
-    "yt-mix-playlist": "0.1.2-b.2",
-    "ytdl-core": "^4.5.0"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run prepare",
+    "build:esm": "npx tsc -p tsconfig-esm.json",
+    "build:cjs": "npx tsc -p tsconfig.json",
+    "preprepare": "rm -rf dist",
+    "prepare": "npm run build:esm && npm run build:cjs",
+    "postprepare": "bash fixup.sh",
+    "eslint": "npx eslint ./src",
+    "eslint:fix": "npx eslint ./src --fix",
+    "typedoc": "npx typedoc",
+    "example": "npx ts-node -P ./tsconfig-esm.json --esm ./example",
+    "example:no-ui": "npx ts-node -P ./tsconfig-esm.json --esm ./example --no-ui"
   },
+  "main": "./dist/cjs/index-cjs.js",
+  "module": "./dist/mjs/index.js",
+  "types": "./dist/mjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/mjs/index.d.ts",
+        "default": "./dist/mjs/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index-cjs.js"
+      }
+    }
+  },
+  "author": "Patrick Kan <patrickkfkan@gmail.com> (https://github.com/patrickkfkan)",
   "repository": {
     "type": "git",
     "url": "https://github.com/patrickkfkan/yt-cast-receiver.git"
   },
-  "keywords": [
-    "youtube",
-    "chromecast",
-    "cast",
-    "dial"
-  ],
-  "author": "Patrick Kan",
-  "license": "MIT"
+  "license": "MIT",
+  "directories": {
+    "dist": "./dist"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "devDependencies": {
+    "@types/blessed": "^0.1.21",
+    "@types/express": "^4.17.17",
+    "@types/line-by-line": "^0.1.6",
+    "@types/newline-remove": "^1.0.0",
+    "@types/node": "^14.18.38",
+    "@types/uuid": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
+    "typedoc-plugin-rename-defaults": "^0.6.4",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@patrickkfkan/peer-dial": "^0.1.1",
+    "@types/node-fetch": "^2.6.2",
+    "@types/peer-dial": "0.0.1",
+    "abort-controller": "^3.0.0",
+    "blessed": "^0.1.81",
+    "express": "^4.18.2",
+    "line-by-line": "^0.1.6",
+    "newline-remove": "^1.0.2",
+    "node-fetch": "^2.6.9",
+    "query-string": "^7.0.0",
+    "timer-node": "^5.0.7",
+    "uuid": "^9.0.0",
+    "yt-mix-playlist": "^1.0.1",
+    "ytdl-core": "^4.11.3"
+  }
 }
