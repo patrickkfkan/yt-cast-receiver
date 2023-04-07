@@ -64,57 +64,57 @@ export default abstract class Player extends EventEmitter {
    * @param position - The position, in seconds, from which to start playback.
    * @returns Promise that resolves to `true` on successful playback; `false` otherwise.
    */
-  abstract doPlay(videoId: string, context: PlayerContext, position: number): Promise<boolean>;
+  protected abstract doPlay(videoId: string, context: PlayerContext, position: number): Promise<boolean>;
 
   /**
    * Implementations shall pause current playback.
    * @returns Promise that resolves to `true` when playback was paused; `false` otherwise.
    */
-  abstract doPause(): Promise<boolean>;
+  protected abstract doPause(): Promise<boolean>;
 
   /**
    * Implementations shall resume paused playback.
    * @returns Promise that resolves to `true` when playback was resumed; `false` otherwise.
    */
-  abstract doResume(): Promise<boolean>;
+  protected abstract doResume(): Promise<boolean>;
 
   /**
    * Implementations shall stop current playback.
    * @returns Promise that resolves to `true` when playback was stopped; `false` otherwise.
    */
-  abstract doStop(): Promise<boolean>;
+  protected abstract doStop(): Promise<boolean>;
 
   /**
    * Implementations shall seek to the specified position.
    * @param position The position, in seconds, to seek to.
    * @returns Promise that resolves to `true` if seek operation was successful; `false` otherwise.
    */
-  abstract doSeek(position: number): Promise<boolean>;
+  protected abstract doSeek(position: number): Promise<boolean>;
 
   /**
    * Implementations shall set the volume to the specified level.
    * @param volume The volume level to set (0 - 100).
    * @returns Promise that resolves to `true` when volume was set; `false` otherwise.
    */
-  abstract doSetVolume(volume: number): Promise<boolean>;
+  protected abstract doSetVolume(volume: number): Promise<boolean>;
 
   /**
    * Implementations shall return the current volume level.
    * @returns Promise that resolves to the value of the current volume level (0 - 100).
    */
-  abstract doGetVolume(): Promise<number>;
+  protected abstract doGetVolume(): Promise<number>;
 
   /**
    * Implementations shall return the current playback position.
    * @returns Promise that resolves to the current playback position (in seconds).
    */
-  abstract doGetPosition(): Promise<number>;
+  protected abstract doGetPosition(): Promise<number>;
 
   /**
    * Implementations shall return the duration of the current video.
    * @returns Promise that resolves to the duration of the current video (in seconds).
    */
-  abstract doGetDuration(): Promise<number>;
+  protected abstract doGetDuration(): Promise<number>;
 
   constructor() {
     super();
