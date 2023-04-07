@@ -172,7 +172,7 @@ You can configure the `YouTubeCastReceiver` instance by passing options to its c
 - `brand`: (string) defaults to 'Generic'.
 - `model`: (string) defaults to 'SmartTV'.
 - `logger`: `Logger` implementation (default: `DefaultLogger` instance) - see [Logging](#logging).
-- `logLevel`: one of [Constants.LOG_LEVELS](#constant) (default: INFO).
+- `logLevel`: one of [Constants.LOG_LEVELS](#constants) (default: INFO).
 - `app`: (object) receiver app options
   - `autoplayLoader`: `AutoplayLoader` implementation, or `null` to disable autoplay (default: `DefaultAutoplayLoader` instance) - see [Autoplay](#autoplay).
   - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects.
