@@ -41,6 +41,7 @@
     "dist": "./dist"
   },
   "engines": {
+    "npm" : ">=7.24.2",
     "node": ">=14"
   },
   "devDependencies": {
