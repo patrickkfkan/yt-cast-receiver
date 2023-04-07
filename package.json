@@ -10,9 +10,9 @@
     "preprepare": "rm -rf dist",
     "prepare": "npm run build:esm && npm run build:cjs",
     "postprepare": "bash fixup.sh",
-    "eslint": "npx eslint ./src",
-    "eslint:fix": "npx eslint ./src --fix",
-    "typedoc": "npx typedoc",
+    "lint": "npx eslint ./src",
+    "lint:fix": "npx eslint ./src --fix",
+    "doc": "npx typedoc",
     "example": "npx ts-node -P ./tsconfig-esm.json --esm ./example",
     "example:no-ui": "npx ts-node -P ./tsconfig-esm.json --esm ./example --no-ui"
   },
