@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / Logger
+[yt-cast-receiver](../README.md) / Logger
 
 # Interface: Logger
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-lib/utils/Logger.ts:13
+[lib/utils/Logger.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L13)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-lib/utils/Logger.ts:10
+[lib/utils/Logger.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L10)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-lib/utils/Logger.ts:12
+[lib/utils/Logger.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L12)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-lib/utils/Logger.ts:14
+[lib/utils/Logger.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L14)
 
 ___
 
@@ -114,4 +114,4 @@ ___
 
 #### Defined in
 
-lib/utils/Logger.ts:11
+[lib/utils/Logger.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L11)

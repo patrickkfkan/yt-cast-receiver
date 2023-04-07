@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / Sender
+[yt-cast-receiver](../README.md) / Sender
 
 # Class: Sender
 
@@ -26,7 +26,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-lib/app/Sender.ts:9
+[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Sender.ts#L9)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-lib/app/Sender.ts:10
+[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Sender.ts#L10)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-lib/app/Sender.ts:11
+[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Sender.ts#L11)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-lib/app/Sender.ts:7
+[lib/app/Sender.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Sender.ts#L7)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-lib/app/Sender.ts:8
+[lib/app/Sender.ts:8](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Sender.ts#L8)
 
 ## Methods
 
@@ -84,4 +84,4 @@ lib/app/Sender.ts:8
 
 #### Defined in
 
-lib/app/Sender.ts:42
+[lib/app/Sender.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Sender.ts#L42)

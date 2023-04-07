@@ -49,16 +49,12 @@ class MyPlayer extends Player {
 The methods you need to implement are:
 
 <details>
-<summary><code>doPlay(videoId, context, position): Promise&lt;boolean&gt;</code></summary>
+<summary><code>doPlay(videoId, position): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>Implementations shall play the target video from the specified position.</p>
 
 **Params**
 - `videoId`: (string) Id of the target video.
-- `context`: (object) additional info that might be useful.
-  - `playlistId`: (string) Id of the playlist representing the player queue.
-  - `clientCredentialsTransferToken`: (string) token for accessing private videos.
-  - `cpn`: (kind of) player Id that can be included in requests.
 - `position`: (number) the position, in seconds, from which to start playback.
 
 **Returns**
@@ -242,7 +238,7 @@ A user interacts with controls provided by the sender app to manage content play
 
 When a user interacts with a control, the sender app sends the corresponding command to the receiver. The receiver responds by calling one of the following 'control' methods defined in the `Player` class:
 
-<a href="controlMethods"></a>
+<a name="control-methods"></a>
 <details>
 <summary><code>play(videoId, position, AID): Promise&lt;boolean&gt;</code></summary>
 <br />
@@ -372,15 +368,12 @@ If your application also provides controls for the user to manage playback on th
 
 ```
 // Example: user clicks 'pause' button in your application's UI
-
-// await player.doPause();  <---- Don't do this
-
-await player.pause();  <---- Do this
+await player.pause();
 ```
 
-### Handling changes in player state
+## Handling changes in player state
 
-If a change in player state is effected by one of the previously mentioned ['control' methods](#controlMethods), then you don't have to do anything as those methods will send status updates to senders.
+If a change in player state is effected by one of the previously mentioned ['control' methods](#control-methods), then you don't have to do anything as those methods will send status updates to senders.
 
 On the other hand, if a change is one that only your player implementation knows about, then it is your responsibility to deal with it. Situations where this will arise are:
 
@@ -443,7 +436,6 @@ service.stop();
 ```
 In your application, you would inform the user of the pairing code inside the `response` event.
 
-<a href="autoplay"></a>
 ## Autoplay
 
 If autoplay is enabled, the receiver will fetch the autoplay (aka 'Up Next') video when playback reaches the end of the player queue.
@@ -477,17 +469,14 @@ By default, autoplay videos are obtained through a `DefaultAutoplayLoader` insta
 <p>
 The <code>AutoplayLoader</code> interface defines the one method you have to implement in your own autoplay loader:
 
-<code>getAutoplayVideoId(videoId, context, logger): Promise<string | null></code>
+<code>getAutoplayVideoId(videoId, player, logger): Promise<string | null></code>
 
 Fetches the autoplay video for the specified video.
 
 **Params**
-- `videoId`: (string) the Id of the target video
-- `context`: (object) additional info that might be useful
-  - `playlistId`: the Id of the playlist representing the player queue
-  - `currentVideoIds`: (Array<`string`>) The Ids of the videos currently in the player queue
-  - `clientCredentialsTransferToken`: token for accessing private videos
-- `logger`: `Logger` implementation for logging messages
+- `videoId`: (string) the Id of the target video.
+- `player`: the `Player` implementation associated with this request.
+- `logger`: `Logger` implementation for logging messages.
 </p>
 
 **Returns**
@@ -500,17 +489,17 @@ Example:
 
 ```
 // ESM + Typescript:
-import { AutoplayLoader, AutoplayLoaderContext, Logger } from 'yt-cast-receiver';
+import { AutoplayLoader, Logger, Player } from "yt-cast-receiver";
 
 class MyAutoplayLoader implements AutoplayLoader {
-  getAutoplayVideoId(videoId: string, context: AutoplayLoaderContext, logger: Logger): Promise<string | null> {
+  getAutoplayVideoId(videoId: string, player: Player, logger: Logger): Promise<string | null> {
     // Do your stuff here
   }
 }
 
 // CJS; no Typescript
 class MyAutoplayLoader {
-  getAutoplayVideoId(videoId, context, logger) {
+  getAutoplayVideoId(videoId, player, logger) {
     // Do your stuff here
   }
 }
@@ -532,7 +521,6 @@ receiver.setAutoplayLoader(new MyAutoplayLoader());
 ```
 </details>
 
-<a href="#logging"></a>
 ## Logging
 
 You can set log level as follows:
@@ -629,7 +617,6 @@ class MyLogger extends DefaultLogger {
 ```
 </details>
 
-<a name="constants"></a>
 ## Constants
 
 Constants are defined for convenience. For example:
@@ -767,4 +754,6 @@ Note: demo uses port 8099.
 
 MIT
 
-However, the project uses a [forked version](https://github.com/patrickkfkan/peer-dial) of [peer-dial](https://github.com/fraunhoferfokus/peer-dial) for DIAL server implementation, which is provided "free for non commercial use" under GPLv3. This means if you want to use `yt-cast-receiver` in a commercial product (not recommended anyway), you should contact the author of the [peer-dial](https://github.com/fraunhoferfokus/peer-dial) module for consent.
+*Note on commercial use*:
+
+This project uses a [forked version](https://github.com/patrickkfkan/peer-dial) of [peer-dial](https://github.com/fraunhoferfokus/peer-dial) for DIAL server implementation, which is provided "free for non commercial use" under GPLv3. This means if you want to use `yt-cast-receiver` in a commercial product (not recommended anyway), you should contact the author of the [peer-dial](https://github.com/fraunhoferfokus/peer-dial) module for consent.

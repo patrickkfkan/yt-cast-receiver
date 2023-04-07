@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / AppError
+[yt-cast-receiver](../README.md) / AppError
 
 # Class: AppError
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-lib/utils/Errors.ts:71
+[lib/utils/Errors.ts:71](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L71)
 
 ## Properties
 
@@ -56,7 +56,7 @@ lib/utils/Errors.ts:71
 
 #### Defined in
 
-lib/utils/Errors.ts:3
+[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L3)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-lib/utils/Errors.ts:4
+[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L4)
 
 ## Methods
 
@@ -92,4 +92,4 @@ lib/utils/Errors.ts:4
 
 #### Defined in
 
-lib/utils/Errors.ts:17
+[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L17)

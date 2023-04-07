@@ -1,6 +1,6 @@
-yt-cast-receiver-next
+yt-cast-receiver
 
-# yt-cast-receiver-next
+# yt-cast-receiver
 
 ## Table of contents
 
@@ -27,9 +27,7 @@ yt-cast-receiver-next
 ### Interfaces
 
 - [AutoplayLoader](interfaces/AutoplayLoader.md)
-- [AutoplayLoaderContext](interfaces/AutoplayLoaderContext.md)
 - [Logger](interfaces/Logger.md)
-- [PlayerContext](interfaces/PlayerContext.md)
 - [PlayerNavInfo](interfaces/PlayerNavInfo.md)
 - [PlayerState](interfaces/PlayerState.md)
 
@@ -72,7 +70,7 @@ yt-cast-receiver-next
 
 #### Defined in
 
-lib/app/YouTubeApp.ts:18
+[lib/app/YouTubeApp.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/YouTubeApp.ts#L18)
 
 ___
 
@@ -82,7 +80,7 @@ ___
 
 #### Defined in
 
-lib/app/Playlist.ts:3
+[lib/app/Playlist.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L1)
 
 ___
 
@@ -94,7 +92,7 @@ One of the values in [AUTOPLAY_MODES](README.md#autoplay_modes).
 
 #### Defined in
 
-lib/Player.ts:11
+[lib/Player.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L11)
 
 ___
 
@@ -117,7 +115,7 @@ ___
 
 #### Defined in
 
-lib/dial/DialServer.ts:10
+[lib/dial/DialServer.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/dial/DialServer.ts#L10)
 
 ___
 
@@ -129,7 +127,7 @@ One of the values in [LOG_LEVELS](README.md#log_levels).
 
 #### Defined in
 
-lib/utils/Logger.ts:7
+[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L7)
 
 ___
 
@@ -141,7 +139,7 @@ One of the values in [PLAYER_STATUSES](README.md#player_statuses).
 
 #### Defined in
 
-lib/Player.ts:16
+[lib/Player.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L16)
 
 ___
 
@@ -164,7 +162,7 @@ Options consumed by constructor of `YouTubeCastReceiver` class.
 
 #### Defined in
 
-lib/YouTubeCastReceiver.ts:16
+[lib/YouTubeCastReceiver.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/YouTubeCastReceiver.ts#L16)
 
 ___
 
@@ -176,7 +174,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-lib/YouTubeCastReceiver.ts:32
+[lib/YouTubeCastReceiver.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/YouTubeCastReceiver.ts#L32)
 
 ## Variables
 
@@ -194,7 +192,7 @@ lib/YouTubeCastReceiver.ts:32
 
 #### Defined in
 
-lib/Constants.ts:22
+[lib/Constants.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L22)
 
 ___
 
@@ -213,7 +211,7 @@ ___
 
 #### Defined in
 
-lib/Constants.ts:15
+[lib/Constants.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L15)
 
 ___
 
@@ -233,7 +231,7 @@ ___
 
 #### Defined in
 
-lib/Constants.ts:36
+[lib/Constants.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L36)
 
 ___
 
@@ -253,7 +251,7 @@ ___
 
 #### Defined in
 
-lib/Constants.ts:28
+[lib/Constants.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L28)
 
 ___
 
@@ -272,4 +270,4 @@ ___
 
 #### Defined in
 
-lib/Constants.ts:44
+[lib/Constants.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L44)

@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / AutoplayLoader
+[yt-cast-receiver](../README.md) / AutoplayLoader
 
 # Interface: AutoplayLoader
 
@@ -18,7 +18,7 @@ Fetches and returns the autoplay (aka 'Up Next') video for a given video.
 
 ### getAutoplayVideoId
 
-▸ **getAutoplayVideoId**(`videoId`, `context`, `logger`): `Promise`<``null`` \| `string`\>
+▸ **getAutoplayVideoId**(`videoId`, `player`, `logger`): `Promise`<``null`` \| `string`\>
 
 Fetches the autoplay video for the specified video.
 
@@ -27,7 +27,7 @@ Fetches the autoplay video for the specified video.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `videoId` | `string` | The Id of the target video. |
-| `context` | [`AutoplayLoaderContext`](AutoplayLoaderContext.md) | Additional info that might be useful. |
+| `player` | [`Player`](../classes/Player.md) | The `Player` implementation associated with this request. |
 | `logger` | [`Logger`](Logger.md) | `Logger` implementation for logging messages. |
 
 #### Returns
@@ -38,4 +38,4 @@ Promise that resolves to the Id of the autoplay video, or `null` if none obtaine
 
 #### Defined in
 
-lib/app/AutoplayLoader.ts:28
+[lib/app/AutoplayLoader.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/AutoplayLoader.ts#L15)

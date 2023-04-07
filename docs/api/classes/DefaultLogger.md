@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / DefaultLogger
+[yt-cast-receiver](../README.md) / DefaultLogger
 
 # Class: DefaultLogger
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:19
+[lib/utils/DefaultLogger.ts:19](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L19)
 
 ## Properties
 
@@ -53,7 +53,7 @@ lib/utils/DefaultLogger.ts:19
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:17
+[lib/utils/DefaultLogger.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L17)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:16
+[lib/utils/DefaultLogger.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L16)
 
 ## Methods
 
@@ -83,7 +83,7 @@ lib/utils/DefaultLogger.ts:16
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:44
+[lib/utils/DefaultLogger.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L44)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:36
+[lib/utils/DefaultLogger.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L36)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:24
+[lib/utils/DefaultLogger.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L24)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:32
+[lib/utils/DefaultLogger.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L32)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:48
+[lib/utils/DefaultLogger.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L48)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:40
+[lib/utils/DefaultLogger.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L40)
 
 ___
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:87
+[lib/utils/DefaultLogger.ts:87](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L87)
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:54
+[lib/utils/DefaultLogger.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L54)
 
 ___
 
@@ -264,4 +264,4 @@ ___
 
 #### Defined in
 
-lib/utils/DefaultLogger.ts:28
+[lib/utils/DefaultLogger.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/DefaultLogger.ts#L28)

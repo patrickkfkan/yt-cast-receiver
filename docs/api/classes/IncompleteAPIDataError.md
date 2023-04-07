@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / IncompleteAPIDataError
+[yt-cast-receiver](../README.md) / IncompleteAPIDataError
 
 # Class: IncompleteAPIDataError
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-lib/utils/Errors.ts:57
+[lib/utils/Errors.ts:57](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L57)
 
 ## Properties
 
@@ -56,7 +56,7 @@ lib/utils/Errors.ts:57
 
 #### Defined in
 
-lib/utils/Errors.ts:3
+[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L3)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-lib/utils/Errors.ts:4
+[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L4)
 
 ## Methods
 
@@ -92,4 +92,4 @@ lib/utils/Errors.ts:4
 
 #### Defined in
 
-lib/utils/Errors.ts:17
+[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L17)

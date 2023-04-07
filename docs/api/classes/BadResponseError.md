@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / BadResponseError
+[yt-cast-receiver](../README.md) / BadResponseError
 
 # Class: BadResponseError
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-lib/utils/Errors.ts:43
+[lib/utils/Errors.ts:43](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L43)
 
 ## Properties
 
@@ -59,7 +59,7 @@ lib/utils/Errors.ts:43
 
 #### Defined in
 
-lib/utils/Errors.ts:3
+[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L3)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-lib/utils/Errors.ts:4
+[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L4)
 
 ## Methods
 
@@ -95,4 +95,4 @@ lib/utils/Errors.ts:4
 
 #### Defined in
 
-lib/utils/Errors.ts:17
+[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L17)

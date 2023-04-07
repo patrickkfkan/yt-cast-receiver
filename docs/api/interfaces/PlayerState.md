@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / PlayerState
+[yt-cast-receiver](../README.md) / PlayerState
 
 # Interface: PlayerState
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-lib/Player.ts:30
+[lib/Player.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L30)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:28
+[lib/Player.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L28)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:20
+[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L20)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:27
+[lib/Player.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L27)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:19
+[lib/Player.ts:19](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L19)
 
 ___
 
@@ -81,4 +81,4 @@ ___
 
 #### Defined in
 
-lib/Player.ts:29
+[lib/Player.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L29)

@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / Player
+[yt-cast-receiver](../README.md) / Player
 
 # Class: Player
 
@@ -19,7 +19,6 @@
 ### Accessors
 
 - [autoplayMode](Player.md#autoplaymode)
-- [context](Player.md#context)
 - [cpn](Player.md#cpn)
 - [logger](Player.md#logger)
 - [playlist](Player.md#playlist)
@@ -69,7 +68,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-lib/Player.ts:119
+[lib/Player.ts:112](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L112)
 
 ## Accessors
 
@@ -83,21 +82,7 @@ lib/Player.ts:119
 
 #### Defined in
 
-lib/Player.ts:339
-
-___
-
-### context
-
-• `get` **context**(): [`PlayerContext`](../interfaces/PlayerContext.md)
-
-#### Returns
-
-[`PlayerContext`](../interfaces/PlayerContext.md)
-
-#### Defined in
-
-lib/Player.ts:351
+[lib/Player.ts:332](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L332)
 
 ___
 
@@ -111,7 +96,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:343
+[lib/Player.ts:336](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L336)
 
 ___
 
@@ -125,7 +110,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:331
+[lib/Player.ts:324](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L324)
 
 ___
 
@@ -139,7 +124,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:347
+[lib/Player.ts:340](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L340)
 
 ___
 
@@ -153,13 +138,13 @@ ___
 
 #### Defined in
 
-lib/Player.ts:335
+[lib/Player.ts:328](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L328)
 
 ## Methods
 
 ### doGetDuration
 
-▸ `Abstract` **doGetDuration**(): `Promise`<`number`\>
+▸ `Protected` `Abstract` **doGetDuration**(): `Promise`<`number`\>
 
 Implementations shall return the duration of the current video.
 
@@ -171,13 +156,13 @@ Promise that resolves to the duration of the current video (in seconds).
 
 #### Defined in
 
-lib/Player.ts:117
+[lib/Player.ts:110](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L110)
 
 ___
 
 ### doGetPosition
 
-▸ `Abstract` **doGetPosition**(): `Promise`<`number`\>
+▸ `Protected` `Abstract` **doGetPosition**(): `Promise`<`number`\>
 
 Implementations shall return the current playback position.
 
@@ -189,13 +174,13 @@ Promise that resolves to the current playback position (in seconds).
 
 #### Defined in
 
-lib/Player.ts:111
+[lib/Player.ts:104](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L104)
 
 ___
 
 ### doGetVolume
 
-▸ `Abstract` **doGetVolume**(): `Promise`<`number`\>
+▸ `Protected` `Abstract` **doGetVolume**(): `Promise`<`number`\>
 
 Implementations shall return the current volume level.
 
@@ -207,13 +192,13 @@ Promise that resolves to the value of the current volume level (0 - 100).
 
 #### Defined in
 
-lib/Player.ts:105
+[lib/Player.ts:98](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L98)
 
 ___
 
 ### doPause
 
-▸ `Abstract` **doPause**(): `Promise`<`boolean`\>
+▸ `Protected` `Abstract` **doPause**(): `Promise`<`boolean`\>
 
 Implementations shall pause current playback.
 
@@ -225,13 +210,13 @@ Promise that resolves to `true` when playback was paused; `false` otherwise.
 
 #### Defined in
 
-lib/Player.ts:73
+[lib/Player.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L66)
 
 ___
 
 ### doPlay
 
-▸ `Abstract` **doPlay**(`videoId`, `context`, `position`): `Promise`<`boolean`\>
+▸ `Protected` `Abstract` **doPlay**(`videoId`, `position`): `Promise`<`boolean`\>
 
 Implementations shall play the target video from the specified position.
 
@@ -240,7 +225,6 @@ Implementations shall play the target video from the specified position.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `videoId` | `string` | Id of the target video. |
-| `context` | [`PlayerContext`](../interfaces/PlayerContext.md) | Additional info that might be useful. |
 | `position` | `number` | The position, in seconds, from which to start playback. |
 
 #### Returns
@@ -251,13 +235,13 @@ Promise that resolves to `true` on successful playback; `false` otherwise.
 
 #### Defined in
 
-lib/Player.ts:67
+[lib/Player.ts:60](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L60)
 
 ___
 
 ### doResume
 
-▸ `Abstract` **doResume**(): `Promise`<`boolean`\>
+▸ `Protected` `Abstract` **doResume**(): `Promise`<`boolean`\>
 
 Implementations shall resume paused playback.
 
@@ -269,13 +253,13 @@ Promise that resolves to `true` when playback was resumed; `false` otherwise.
 
 #### Defined in
 
-lib/Player.ts:79
+[lib/Player.ts:72](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L72)
 
 ___
 
 ### doSeek
 
-▸ `Abstract` **doSeek**(`position`): `Promise`<`boolean`\>
+▸ `Protected` `Abstract` **doSeek**(`position`): `Promise`<`boolean`\>
 
 Implementations shall seek to the specified position.
 
@@ -293,13 +277,13 @@ Promise that resolves to `true` if seek operation was successful; `false` otherw
 
 #### Defined in
 
-lib/Player.ts:92
+[lib/Player.ts:85](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L85)
 
 ___
 
 ### doSetVolume
 
-▸ `Abstract` **doSetVolume**(`volume`): `Promise`<`boolean`\>
+▸ `Protected` `Abstract` **doSetVolume**(`volume`): `Promise`<`boolean`\>
 
 Implementations shall set the volume to the specified level.
 
@@ -317,13 +301,13 @@ Promise that resolves to `true` when volume was set; `false` otherwise.
 
 #### Defined in
 
-lib/Player.ts:99
+[lib/Player.ts:92](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L92)
 
 ___
 
 ### doStop
 
-▸ `Abstract` **doStop**(): `Promise`<`boolean`\>
+▸ `Protected` `Abstract` **doStop**(): `Promise`<`boolean`\>
 
 Implementations shall stop current playback.
 
@@ -335,7 +319,7 @@ Promise that resolves to `true` when playback was stopped; `false` otherwise.
 
 #### Defined in
 
-lib/Player.ts:85
+[lib/Player.ts:78](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L78)
 
 ___
 
@@ -353,7 +337,7 @@ Promise returned by `doGetDuration()`.
 
 #### Defined in
 
-lib/Player.ts:327
+[lib/Player.ts:320](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L320)
 
 ___
 
@@ -367,7 +351,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:366
+[lib/Player.ts:351](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L351)
 
 ___
 
@@ -385,7 +369,7 @@ Promise returned by `doGetPosition()`.
 
 #### Defined in
 
-lib/Player.ts:319
+[lib/Player.ts:312](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L312)
 
 ___
 
@@ -399,7 +383,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:374
+[lib/Player.ts:359](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L359)
 
 ___
 
@@ -417,7 +401,7 @@ Promise that resolves to the resolved result of `doGetVolume()` (0-100).
 
 #### Defined in
 
-lib/Player.ts:310
+[lib/Player.ts:303](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L303)
 
 ___
 
@@ -442,7 +426,7 @@ Promise that resolves to `true` on playback of the next video; `false` otherwise
 
 #### Defined in
 
-lib/Player.ts:236
+[lib/Player.ts:229](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L229)
 
 ___
 
@@ -466,7 +450,7 @@ internal state and, if necessary, notifies senders of the new player state.
 
 #### Defined in
 
-lib/Player.ts:411
+[lib/Player.ts:396](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L396)
 
 ___
 
@@ -490,7 +474,7 @@ Promise that resolves to the resolved result of `doPause()`, or `false` if no pl
 
 #### Defined in
 
-lib/Player.ts:155
+[lib/Player.ts:148](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L148)
 
 ___
 
@@ -517,7 +501,7 @@ Promise that resolves to the resolved result of `doPlay()`.
 
 #### Defined in
 
-lib/Player.ts:140
+[lib/Player.ts:133](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L133)
 
 ___
 
@@ -541,7 +525,7 @@ Promise that resolves to `true` on playback of the previous video; `false` other
 
 #### Defined in
 
-lib/Player.ts:265
+[lib/Player.ts:258](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L258)
 
 ___
 
@@ -563,7 +547,7 @@ Resets the player to Idle state.
 
 #### Defined in
 
-lib/Player.ts:298
+[lib/Player.ts:291](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L291)
 
 ___
 
@@ -587,7 +571,7 @@ Promise that resolves to the resolved result of `doResume()`, or `false` if play
 
 #### Defined in
 
-lib/Player.ts:172
+[lib/Player.ts:165](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L165)
 
 ___
 
@@ -612,7 +596,7 @@ Promise that resolves to the resolved result of `doSeek()`.
 
 #### Defined in
 
-lib/Player.ts:215
+[lib/Player.ts:208](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L208)
 
 ___
 
@@ -632,7 +616,7 @@ ___
 
 #### Defined in
 
-lib/Player.ts:128
+[lib/Player.ts:121](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L121)
 
 ___
 
@@ -657,7 +641,7 @@ Promise that resolves to the resolved result of `doSetVolume()`.
 
 #### Defined in
 
-lib/Player.ts:283
+[lib/Player.ts:276](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L276)
 
 ___
 
@@ -681,7 +665,7 @@ A Promise that resolves to `true` when playback is stopped; `false` otherwise.
 
 #### Defined in
 
-lib/Player.ts:196
+[lib/Player.ts:189](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L189)
 
 ## Events
 
@@ -706,7 +690,7 @@ EventEmitter.on
 
 #### Defined in
 
-lib/Player.ts:416
+[lib/Player.ts:401](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L401)
 
 ▸ **on**(`event`, `listener`): [`Player`](Player.md)
 
@@ -729,4 +713,4 @@ EventEmitter.on
 
 #### Defined in
 
-lib/Player.ts:422
+[lib/Player.ts:407](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L407)

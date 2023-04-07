@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / PlayerNavInfo
+[yt-cast-receiver](../README.md) / PlayerNavInfo
 
 # Interface: PlayerNavInfo
 
@@ -18,7 +18,7 @@
 
 #### Defined in
 
-lib/Player.ts:40
+[lib/Player.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L40)
 
 ___
 
@@ -30,7 +30,7 @@ Boolean indicating whether there is next video in player queue
 
 #### Defined in
 
-lib/Player.ts:38
+[lib/Player.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L38)
 
 ___
 
@@ -42,4 +42,4 @@ Boolean indicating whether there is previous video in player queue
 
 #### Defined in
 
-lib/Player.ts:35
+[lib/Player.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L35)

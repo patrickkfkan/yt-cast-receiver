@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / DefaultAutoplayLoader
+[yt-cast-receiver](../README.md) / DefaultAutoplayLoader
 
 # Class: DefaultAutoplayLoader
 
@@ -47,13 +47,13 @@ Default [AutoplayLoader](../interfaces/AutoplayLoader.md) implementation that fe
 
 #### Defined in
 
-lib/app/DefaultAutoplayLoader.ts:104
+[lib/app/DefaultAutoplayLoader.ts:105](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L105)
 
 ___
 
 ### getAutoplayVideoId
 
-▸ **getAutoplayVideoId**(`videoId`, `context`, `logger`): `Promise`<``null`` \| `string`\>
+▸ **getAutoplayVideoId**(`videoId`, `player`, `logger`): `Promise`<``null`` \| `string`\>
 
 Fetches the autoplay video for the specified video.
 
@@ -62,7 +62,7 @@ Fetches the autoplay video for the specified video.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `videoId` | `string` | The Id of the target video. |
-| `context` | [`AutoplayLoaderContext`](../interfaces/AutoplayLoaderContext.md) | Additional info that might be useful. |
+| `player` | [`Player`](Player.md) | The `Player` implementation associated with this request. |
 | `logger` | [`Logger`](../interfaces/Logger.md) | `Logger` implementation for logging messages. |
 
 #### Returns
@@ -77,7 +77,7 @@ Promise that resolves to the Id of the autoplay video, or `null` if none obtaine
 
 #### Defined in
 
-lib/app/DefaultAutoplayLoader.ts:16
+[lib/app/DefaultAutoplayLoader.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L17)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-lib/app/DefaultAutoplayLoader.ts:27
+[lib/app/DefaultAutoplayLoader.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L28)
 
 ___
 
@@ -119,4 +119,4 @@ ___
 
 #### Defined in
 
-lib/app/DefaultAutoplayLoader.ts:115
+[lib/app/DefaultAutoplayLoader.ts:116](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L116)

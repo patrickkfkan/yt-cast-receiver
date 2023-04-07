@@ -1,4 +1,4 @@
-[yt-cast-receiver-next](../README.md) / Playlist
+[yt-cast-receiver](../README.md) / Playlist
 
 # Class: Playlist
 
@@ -39,7 +39,7 @@ Autoplay info.
 
 #### Defined in
 
-lib/app/Playlist.ts:211
+[lib/app/Playlist.ts:209](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L209)
 
 ___
 
@@ -55,7 +55,7 @@ Client credentials transfer token.
 
 #### Defined in
 
-lib/app/Playlist.ts:155
+[lib/app/Playlist.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L153)
 
 ___
 
@@ -71,7 +71,7 @@ The Id of the video at current index, or `null` if none.
 
 #### Defined in
 
-lib/app/Playlist.ts:162
+[lib/app/Playlist.ts:160](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L160)
 
 ___
 
@@ -87,7 +87,7 @@ Position of the currently selected video; -1 if none selected or playlist is emp
 
 #### Defined in
 
-lib/app/Playlist.ts:176
+[lib/app/Playlist.ts:174](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L174)
 
 ___
 
@@ -103,7 +103,7 @@ Whether there is video after current index.
 
 #### Defined in
 
-lib/app/Playlist.ts:197
+[lib/app/Playlist.ts:195](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L195)
 
 ___
 
@@ -119,7 +119,7 @@ Whether there is video before current index.
 
 #### Defined in
 
-lib/app/Playlist.ts:204
+[lib/app/Playlist.ts:202](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L202)
 
 ___
 
@@ -135,7 +135,7 @@ Id of the playlist.
 
 #### Defined in
 
-lib/app/Playlist.ts:148
+[lib/app/Playlist.ts:146](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L146)
 
 ___
 
@@ -151,7 +151,7 @@ Whether current index points to the last video in the playlist.
 
 #### Defined in
 
-lib/app/Playlist.ts:190
+[lib/app/Playlist.ts:188](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L188)
 
 ___
 
@@ -167,7 +167,7 @@ The number of videos in the playlist.
 
 #### Defined in
 
-lib/app/Playlist.ts:183
+[lib/app/Playlist.ts:181](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L181)
 
 ___
 
@@ -183,4 +183,4 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-lib/app/Playlist.ts:169
+[lib/app/Playlist.ts:167](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L167)
