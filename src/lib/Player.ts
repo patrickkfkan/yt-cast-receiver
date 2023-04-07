@@ -40,12 +40,6 @@ export interface PlayerNavInfo {
   autoplayMode: AutoplayMode;
 }
 
-export interface PlayerContext {
-  playlistId: string | null,
-  clientCredentialsTransferToken: string | null,
-  cpn: string
-}
-
 /**
  * `Player` abstract class that leaves playback functionality to implementors.
  */
@@ -60,11 +54,10 @@ export default abstract class Player extends EventEmitter {
   /**
    * Implementations shall play the target video from the specified position.
    * @param videoId - Id of the target video.
-   * @param context - Additional info that might be useful.
    * @param position - The position, in seconds, from which to start playback.
    * @returns Promise that resolves to `true` on successful playback; `false` otherwise.
    */
-  protected abstract doPlay(videoId: string, context: PlayerContext, position: number): Promise<boolean>;
+  protected abstract doPlay(videoId: string, position: number): Promise<boolean>;
 
   /**
    * Implementations shall pause current playback.
@@ -140,7 +133,7 @@ export default abstract class Player extends EventEmitter {
   async play(videoId: string, position?: number, AID?: number | null): Promise<boolean> {
     this.#logger.info(`[YouTubeCastReceiver] Player.play(): ${videoId} @ ${position}s`);
     await this.#setStatusAndEmit(PLAYER_STATUSES.LOADING, AID);
-    const result = await this.doPlay(videoId, this.context, position || 0);
+    const result = await this.doPlay(videoId, position || 0);
     if (result) {
       await this.#setStatusAndEmit(PLAYER_STATUSES.PLAYING, AID);
     }
@@ -346,14 +339,6 @@ export default abstract class Player extends EventEmitter {
 
   get playlist(): Playlist {
     return this.#playlist;
-  }
-
-  get context(): PlayerContext {
-    return {
-      playlistId: this.#playlist.id,
-      clientCredentialsTransferToken: this.#playlist.ctt,
-      cpn: this.cpn
-    };
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Timer } from 'timer-node';
 import ytdl from 'ytdl-core';
-import { Player, PlayerContext, PlayerState, PLAYER_STATUSES } from '../dist/mjs/index.js';
+import { Player, PlayerState, PLAYER_STATUSES } from '../dist/mjs/index.js';
 
 /**
  * Custom implementation of {@link Player} for use with {@link FakePlayerDemo}.
@@ -31,7 +31,7 @@ export default class FakePlayer extends Player {
     this.on('state', this.#emitFakeState.bind(this));
   }
 
-  doPlay(videoId: string, context: PlayerContext, position: number): Promise<boolean> {
+  doPlay(videoId: string, position: number): Promise<boolean> {
     this.logger.info(`[FakePlayer]: Play ${videoId} at position ${position}s`);
     return this.#fakePlay(videoId, position);
   }
