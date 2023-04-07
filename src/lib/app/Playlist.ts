@@ -1,5 +1,3 @@
-import { AutoplayLoaderContext } from './AutoplayLoader.js';
-
 export type AutoplayInfo = {
   /** The Id of the autoplay video. */
   videoId: string,
@@ -210,18 +208,5 @@ export default class Playlist {
    */
   get autoplay(): AutoplayInfo {
     return this.#autoplay;
-  }
-
-  /**
-   * @internal
-   *
-   * Data for {@link AutoplayLoader}.
-   */
-  get autoplayLoaderContext(): AutoplayLoaderContext {
-    return {
-      playlistId: this.id,
-      currentVideoIds: this.videoIds,
-      clientCredentialsTransferToken: this.ctt
-    };
   }
 }

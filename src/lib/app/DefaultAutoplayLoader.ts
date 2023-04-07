@@ -1,7 +1,8 @@
 import ytmpl, { MixPlaylist, MixPlaylistItem } from 'yt-mix-playlist';
 import ytdl from 'ytdl-core';
+import Player from '../Player.js';
 import Logger from '../utils/Logger.js';
-import AutoplayLoader, { AutoplayLoaderContext } from './AutoplayLoader.js';
+import AutoplayLoader from './AutoplayLoader.js';
 
 /**
  * Default {@link AutoplayLoader} implementation that fetches an autoplay video from:
@@ -13,13 +14,13 @@ export default class DefaultAutoplayLoader implements AutoplayLoader {
   #mixPlaylist: MixPlaylist | null;
   #logger: Logger;
 
-  async getAutoplayVideoId(videoId: string, context: AutoplayLoaderContext, logger: Logger): Promise<string | null> {
+  async getAutoplayVideoId(videoId: string, player: Player, logger: Logger): Promise<string | null> {
     this.#logger = logger;
     this.#logger.info(`[YouTubeCastReceiver] Obtaining autoplay video from Mix playlist for video Id: ${videoId}...`);
-    let upNextVideoId = await this.getFromMixPlaylist(videoId, context.currentVideoIds);
+    let upNextVideoId = await this.getFromMixPlaylist(videoId, player.playlist.videoIds);
     if (!upNextVideoId) {
       this.#logger.info(`[YouTubeCastReceiver] Obtaining autoplay video from Related Videos for video Id: ${videoId}...`);
-      upNextVideoId = await this.getFromRelatedVideos(videoId, context.currentVideoIds);
+      upNextVideoId = await this.getFromRelatedVideos(videoId, player.playlist.videoIds);
     }
     return upNextVideoId;
   }

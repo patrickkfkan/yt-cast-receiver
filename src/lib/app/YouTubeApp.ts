@@ -152,7 +152,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
     else if (playlist.autoplay?.forVideoId !== currentVideoId) {
       const autoplayVideoId = await this.#autoplayLoader.getAutoplayVideoId(
-        currentVideoId, playlist.autoplayLoaderContext, this.#logger);
+        currentVideoId, this.#player, this.#logger);
       if (autoplayVideoId) {
         autoplay = {
           videoId: autoplayVideoId,
