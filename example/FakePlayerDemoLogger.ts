@@ -1,4 +1,4 @@
-import { DefaultLogger } from '../dist/mjs/index.js';
+import { DefaultLogger, LogLevel } from '../dist/mjs/index.js';
 import LogBox from './ui/LogBox.js';
 
 /**
@@ -18,7 +18,7 @@ export default class FakePlayerDemoLogger extends DefaultLogger {
   }
 
   // Overrides
-  toOutput(msg: string[]): void {
+  toOutput(targetLevel: LogLevel, msg: string[]): void {
     // Instead of outputting to console, we output to `LogBox` UI component.
     this.#box.pushLine(msg);
   }

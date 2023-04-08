@@ -47,7 +47,7 @@ export default class DefaultLogger implements Logger {
 
   process(targetLevel: LogLevel, msg: any[]) {
     if (this.checkLevel(targetLevel)) {
-      this.toOutput(this.toStrings(msg));
+      this.toOutput(targetLevel, this.toStrings(msg));
     }
   }
 
@@ -84,7 +84,21 @@ export default class DefaultLogger implements Logger {
     }, []);
   }
 
-  toOutput(msg: string[]) {
-    console.log(...msg);
+  toOutput(targetLevel: LogLevel, msg: string[]) {
+    switch (targetLevel) {
+      case LOG_LEVELS.ERROR:
+        console.error(...msg);
+        break;
+      case LOG_LEVELS.WARN:
+        console.warn(...msg);
+        break;
+      case LOG_LEVELS.INFO:
+        console.info(...msg);
+        break;
+      case LOG_LEVELS.DEBUG:
+        console.debug(...msg);
+        break;
+      default:
+    }
   }
 }

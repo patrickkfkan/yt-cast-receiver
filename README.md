@@ -609,7 +609,7 @@ import { DefaultLogger } from 'yt-cast-receiver';
 class MyLogger extends DefaultLogger {
 
   // Override DefaultLogger's toOutput() method
-  toOutput(msg: string[]): void {
+  toOutput(targetLevel: LogLevel, msg: string[]): void {
     // Send `msg` to destination of choice.
     ...
   }
