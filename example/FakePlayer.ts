@@ -31,45 +31,45 @@ export default class FakePlayer extends Player {
     this.on('state', this.#emitFakeState.bind(this));
   }
 
-  doPlay(videoId: string, position: number): Promise<boolean> {
+  protected doPlay(videoId: string, position: number): Promise<boolean> {
     this.logger.info(`[FakePlayer]: Play ${videoId} at position ${position}s`);
     return this.#fakePlay(videoId, position);
   }
 
-  doPause(): Promise<boolean> {
+  protected doPause(): Promise<boolean> {
     this.logger.info('[FakePlayer]: Pause');
     return this.#fakePause();
   }
 
-  doResume(): Promise<boolean> {
+  protected doResume(): Promise<boolean> {
     this.logger.info('[FakePlayer]: Resume');
     return this.#fakeResume();
   }
 
-  doStop(): Promise<boolean> {
+  protected doStop(): Promise<boolean> {
     this.logger.info('[FakePlayer]: Stop');
     return this.#fakeStop();
   }
 
-  doSeek(position: number): Promise<boolean> {
+  protected doSeek(position: number): Promise<boolean> {
     this.logger.info(`[FakePlayer]: Seek to ${position}s`);
     return this.#fakeSeek(position);
   }
 
-  async doSetVolume(volume: number): Promise<boolean> {
+  protected async doSetVolume(volume: number): Promise<boolean> {
     this.volume = volume;
     return true;
   }
 
-  async doGetVolume(): Promise<number> {
+  protected async doGetVolume(): Promise<number> {
     return this.volume;
   }
 
-  async doGetPosition(): Promise<number> {
+  protected async doGetPosition(): Promise<number> {
     return this.seekOffset + Math.floor((this.timer.ms() / 1000));
   }
 
-  async doGetDuration(): Promise<number> {
+  protected async doGetDuration(): Promise<number> {
     return this.duration;
   }
 
