@@ -297,7 +297,7 @@ Calls `doStop()`; if returned Promise resolves to `true`, notifies connected sen
 - `AID`: internal use; do not specify.
 
 **Returns**
-Promise that resolves to the resolved result of `doStop()`, or `false` if player is already in stopped state.
+Promise that resolves to the resolved result of `doStop()`, or `true` if player already in stopped or idle state.
 </details>
 
 <details>
@@ -313,7 +313,7 @@ Calls `doSeek()`; if returned Promise resolves to `true`, notifies connected sen
 
 **Returns**
 
-Promise that resolves to the resolved result of `doSeek()`.
+Promise that resolves to the resolved result of `doSeek()`, or `false` if no playback is in progress or otherwise not in paused state.
 </details>
 
 <details>

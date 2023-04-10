@@ -131,6 +131,9 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to the resolved result of `doPlay()`.
    */
   async play(videoId: string, position?: number, AID?: number | null): Promise<boolean> {
+    if (this.status === PLAYER_STATUSES.PLAYING) {
+      await this.stop();
+    }
     this.#logger.info(`[YouTubeCastReceiver] Player.play(): ${videoId} @ ${position}s`);
     await this.#setStatusAndEmit(PLAYER_STATUSES.LOADING, AID);
     const result = await this.doPlay(videoId, position || 0);
@@ -184,28 +187,31 @@ export default abstract class Player extends EventEmitter {
   /**
    * Calls `doStop()`; if returned Promise resolves to `true`, notifies connected senders that playback has stopped.
    * @param AID - Internal use; do not specify.
-   * @returns A Promise that resolves to `true` when playback is stopped; `false` otherwise.
+   * @returns A Promise that resolves to the result of `doStop()`; `true` if player already in stopped or idle state.
    */
   async stop(AID?: number | null): Promise<boolean> {
-    this.#logger.info('[YouTubeCastReceiver] Player.stop()');
-    if (this.status !== PLAYER_STATUSES.STOPPED) {
-      const result = await this.doStop();
-      if (result) {
-        await this.#setStatusAndEmit(PLAYER_STATUSES.STOPPED, AID);
-      }
-      return result;
+    if (this.status === PLAYER_STATUSES.STOPPED || this.status === PLAYER_STATUSES.IDLE) {
+      return true;
     }
 
-    return false;
+    this.#logger.info('[YouTubeCastReceiver] Player.stop()');
+    const result = await this.doStop();
+    if (result) {
+      await this.#setStatusAndEmit(PLAYER_STATUSES.STOPPED, AID);
+    }
+    return result;
   }
 
   /**
    * Calls `doSeek()`; if returned Promise resolves to `true`, notifies connected senders of new seek position.
    * @param position - The position, in seconds, to seek to.
    * @param AID - Internal use; do not specify.
-   * @returns Promise that resolves to the resolved result of `doSeek()`.
+   * @returns Promise that resolves to the resolved result of `doSeek()`; `false` if no playback is in progress or otherwise not in paused state.
    */
   async seek(position: number, AID?: number | null): Promise<boolean> {
+    if (this.#status !== PLAYER_STATUSES.PLAYING && this.#status !== PLAYER_STATUSES.PAUSED) {
+      return false;
+    }
     this.#logger.info(`[YouTubeCastReceiver] Player.seek(): ${position}s`);
     const previousState = await this.getState();
     const result = await this.doSeek(position);
