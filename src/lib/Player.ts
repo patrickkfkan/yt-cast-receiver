@@ -72,8 +72,9 @@ export default abstract class Player extends EventEmitter {
   protected abstract doResume(): Promise<boolean>;
 
   /**
-   * Implementations shall stop current playback.
-   * @returns Promise that resolves to `true` when playback was stopped; `false` otherwise.
+   * Implementations shall stop current playback or cancel any pending playback (such as when
+   * a video is still being loaded).
+   * @returns Promise that resolves to `true` when playback was stopped or pending playback was cancelled; `false` otherwise.
    */
   protected abstract doStop(): Promise<boolean>;
 

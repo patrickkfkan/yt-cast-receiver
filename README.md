@@ -85,11 +85,11 @@ The methods you need to implement are:
 <details>
 <summary><code>doStop(): Promise&lt;boolean&gt;</code></summary>
 <br />
-<p>Implementations shall stop current playback.</p>
+<p>Implementations shall stop current playback or cancel any pending playback (such as when a video is still being loaded).</p>
 
 **Returns**
 <br />
-<p>Promise that resolves to `true` when playback was stopped; `false` otherwise.</p>
+<p>Promise that resolves to `true` when playback was stopped or pending playback was cancelled; `false` otherwise.</p>
 </details>
 
 <details>
