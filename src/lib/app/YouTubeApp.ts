@@ -295,13 +295,21 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       case 'setPlaylist':
+        const oldIndex = this.#player.playlist.currentIndex;
+        const oldCurrent = this.#player.playlist.current;
         this.#player.playlist.set(payload);
-        if (this.#player.status !== PLAYER_STATUSES.STOPPED) {
-          await this.#player.stop(AID);
+        if (oldIndex !== this.#player.playlist.currentIndex ||
+          oldCurrent !== this.#player.playlist.current) {
+          if (this.#player.status !== PLAYER_STATUSES.STOPPED) {
+            await this.#player.stop(AID);
+          }
+          const currentVideoId = this.#player.playlist.current;
+          if (currentVideoId) {
+            await this.#player.play(currentVideoId, parseInt(payload.currentTime, 10) || 0, AID);
+          }
         }
-        const currentVideoId = this.#player.playlist.current;
-        if (currentVideoId) {
-          await this.#player.play(currentVideoId, parseInt(payload.currentTime, 10) || 0, AID);
+        else {
+          sendMessages.push(new Message.NowPlaying(AID, await this.#player.getState()));
         }
         break;
 
