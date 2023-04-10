@@ -141,6 +141,10 @@ export default abstract class Player extends EventEmitter {
     if (result) {
       await this.#setStatusAndEmit(PLAYER_STATUSES.PLAYING, AID);
     }
+    else {
+      // Notify sender apps of stopped state so they don't display the loading spinner
+      await this.#setStatusAndEmit(PLAYER_STATUSES.STOPPED, AID);
+    }
     return result;
   }
 
