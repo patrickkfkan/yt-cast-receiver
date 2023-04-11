@@ -89,10 +89,10 @@ export default class Session extends EventEmitter {
   #ofs: number;
   #logger: Logger;
   #taskQueue: AsyncTaskQueue;
-  #deferredMessages: {[key: string]: {
+  #deferredMessages: Record<string, {
     task: SendMessageTask,
     timeout: NodeJS.Timeout
-  }};
+  }>;
   #loungeTokenRefreshTimer: NodeJS.Timeout | null;
   #pairingCodeRequestService: PairingCodeRequestService;
   #status: SessionStatus;

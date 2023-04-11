@@ -4,7 +4,7 @@ import { LogLevel, LOG_LEVELS } from '../../dist/mjs/index.js';
 
 import UIComponent from './UIComponent.js';
 
-const LOG_LEVEL_ENTRIES:{[k: string]: string} = {
+const LOG_LEVEL_ENTRIES = {
   [LOG_LEVELS.ERROR]: 'e      Error',
   [LOG_LEVELS.WARN]: 'w      Warn',
   [LOG_LEVELS.INFO]: 'i      Info',

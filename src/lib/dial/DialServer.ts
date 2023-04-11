@@ -29,7 +29,7 @@ export interface DialOptions {
  */
 type DialServerStatus = ValueOf<typeof STATUSES>;
 
-function createDelegate(apps: { [k: string]: dial.App }, logger: Logger): dial.Delegate {
+function createDelegate(apps: Record<string, dial.App>, logger: Logger): dial.Delegate {
   return {
     getApp: (appName: string): dial.App => {
       return apps[appName];
@@ -74,7 +74,7 @@ function createDelegate(apps: { [k: string]: dial.App }, logger: Logger): dial.D
  */
 export default class DialServer {
 
-  #dialOptions: { [k:string]: any } & dial.ServerOptions;
+  #dialOptions: Record<string, any> & dial.ServerOptions;
   #expressServer: http.Server;
   #dialServer: dial.Server;
   #logger: Logger;

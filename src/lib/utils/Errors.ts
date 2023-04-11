@@ -1,9 +1,9 @@
 export default class YouTubeCastReceiverError extends Error {
 
   cause?: any;
-  info?: {[k: string]: any};
+  info?: Record<string, any>;
 
-  constructor(message: string, cause?: any, info?: {[k: string]: any}) {
+  constructor(message: string, cause?: any, info?: Record<string, any>) {
     super(message);
     this.name = 'YouTubeCastReceiverError';
     if (cause) {

@@ -8,10 +8,10 @@ export default class Sender {
   name: string;
   app: string | null;
   capabilities: string[];
-  device: {[k: string]: any};
+  device: Record<string, any>;
 
   /** @internal */
-  constructor(data: {[k: string]: any}) {
+  constructor(data: Record<string, any>) {
     this.id = data.id;
     this.name = data.name || data.clientName;
     this.capabilities = data.capabilities?.split(',') || [];

@@ -407,7 +407,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
   }
 
-  #handlePlayerStateEvent(payload: { [k: string]: any }) {
+  #handlePlayerStateEvent(payload: Record<string, any>) {
     const {AID, current, previous} = payload;
 
     if (this.#connectedSenders.length === 0) {
