@@ -20,6 +20,7 @@ export interface PlayerState {
   playlist: {
     id: string | null;
     ctt: string | null;
+    params: string | null;
     videoIds: string[];
     current: string | null;
     currentIndex: number;
@@ -373,6 +374,7 @@ export default abstract class Player extends EventEmitter {
       playlist: {
         id: this.#playlist.id,
         ctt: this.#playlist.ctt,
+        params: this.#playlist.params,
         videoIds: this.#playlist.videoIds,
         current: this.#playlist.current,
         currentIndex: this.#playlist.currentIndex

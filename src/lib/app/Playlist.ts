@@ -19,6 +19,7 @@ export default class Playlist {
 
   #id: string | null; // PlaylistId
   #ctt: string | null; // ClientCredentialsTransferToken
+  #params: string | null;
   #videoIds: string[];
   #currentIndex: number;
   #autoplay: AutoplayInfo | null;
@@ -27,6 +28,7 @@ export default class Playlist {
   constructor() {
     this.#id = null;
     this.#ctt = null;
+    this.#params = null;
     this.#videoIds = [];
     this.#currentIndex = -1;
     this.#autoplay = null;
@@ -42,6 +44,7 @@ export default class Playlist {
     const currentVideoId = this.current;
     this.#id = data?.listId || null;
     this.#ctt = data?.ctt || null;
+    this.#params = data?.params || null;
     this.#videoIds = data?.['videoIds']?.split(',') || [];
     if (data.currentIndex) {
       this.#currentIndex = parseInt(data.currentIndex, 10);
@@ -61,6 +64,12 @@ export default class Playlist {
     const currentVideoId = this.current;
     if (data.listId) {
       this.#id = data.listId;
+    }
+    if (data.ctt) {
+      this.#ctt = data.ctt;
+    }
+    if (data.params) {
+      this.#params = data.params;
     }
     const videoIds = data.videoIds;
     if (!videoIds) {
@@ -152,6 +161,13 @@ export default class Playlist {
    */
   get ctt(): string | null {
     return this.#ctt;
+  }
+
+  /**
+   * Playlist params (for YouTube API)
+   */
+  get params(): string | null {
+    return this.#params;
   }
 
   /**
