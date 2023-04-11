@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[lib/utils/Errors.ts:64](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L64)
+[lib/utils/Errors.ts:64](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L64)
 
 ## Properties
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L3)
+[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L3)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L4)
+[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L4)
 
 ## Methods
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Errors.ts#L17)
+[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L17)

@@ -47,7 +47,7 @@ Default [AutoplayLoader](../interfaces/AutoplayLoader.md) implementation that fe
 
 #### Defined in
 
-[lib/app/DefaultAutoplayLoader.ts:105](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L105)
+[lib/app/DefaultAutoplayLoader.ts:105](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/DefaultAutoplayLoader.ts#L105)
 
 ___
 
@@ -77,7 +77,7 @@ Promise that resolves to the Id of the autoplay video, or `null` if none obtaine
 
 #### Defined in
 
-[lib/app/DefaultAutoplayLoader.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L17)
+[lib/app/DefaultAutoplayLoader.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/DefaultAutoplayLoader.ts#L17)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[lib/app/DefaultAutoplayLoader.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L28)
+[lib/app/DefaultAutoplayLoader.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/DefaultAutoplayLoader.ts#L28)
 
 ___
 
@@ -119,4 +119,4 @@ ___
 
 #### Defined in
 
-[lib/app/DefaultAutoplayLoader.ts:116](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/DefaultAutoplayLoader.ts#L116)
+[lib/app/DefaultAutoplayLoader.ts:116](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/DefaultAutoplayLoader.ts#L116)

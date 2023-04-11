@@ -26,20 +26,20 @@ yt-cast-receiver
 
 ### Interfaces
 
+- [AppOptions](interfaces/AppOptions.md)
+- [AutoplayInfo](interfaces/AutoplayInfo.md)
 - [AutoplayLoader](interfaces/AutoplayLoader.md)
+- [DialOptions](interfaces/DialOptions.md)
 - [Logger](interfaces/Logger.md)
 - [PlayerNavInfo](interfaces/PlayerNavInfo.md)
 - [PlayerState](interfaces/PlayerState.md)
+- [YouTubeCastReceiverOptions](interfaces/YouTubeCastReceiverOptions.md)
 
 ### Type Aliases
 
-- [AppOptions](README.md#appoptions)
-- [AutoplayInfo](README.md#autoplayinfo)
 - [AutoplayMode](README.md#autoplaymode)
-- [DialOptions](README.md#dialoptions)
 - [LogLevel](README.md#loglevel)
 - [PlayerStatus](README.md#playerstatus)
-- [YouTubeCastReceiverOptions](README.md#youtubecastreceiveroptions)
 - [YouTubeCastReceiverStatus](README.md#youtubecastreceiverstatus)
 
 ### Variables
@@ -52,38 +52,6 @@ yt-cast-receiver
 
 ## Type Aliases
 
-### AppOptions
-
-Ƭ **AppOptions**: `Object`
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `autoplayLoader?` | [`AutoplayLoader`](interfaces/AutoplayLoader.md) \| ``null`` | **`Default`** `DefaultAutoplayLoader` instance |
-| `brand?` | `string` | **`Default`** CONF_DEFAULTS.BRAND |
-| `enableAutoplayOnConnect?` | `boolean` | **`Default`** true |
-| `logger` | [`Logger`](interfaces/Logger.md) | - |
-| `model?` | `string` | **`Default`** CONF_DEFAULTS.MODEL |
-| `screenApp?` | `string` | **`Default`** CONF_DEFAULTS.SCREEN_APP |
-| `screenName?` | `string` | **`Default`** CONF_DEFAULTS.SCREEN_NAME |
-
-#### Defined in
-
-[lib/app/YouTubeApp.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/YouTubeApp.ts#L18)
-
-___
-
-### AutoplayInfo
-
-Ƭ **AutoplayInfo**: { `forVideoId`: `string` ; `videoId`: `string`  } \| ``null``
-
-#### Defined in
-
-[lib/app/Playlist.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/Playlist.ts#L1)
-
-___
-
 ### AutoplayMode
 
 Ƭ **AutoplayMode**: `ValueOf`<typeof [`AUTOPLAY_MODES`](README.md#autoplay_modes)\>
@@ -92,30 +60,7 @@ One of the values in [AUTOPLAY_MODES](README.md#autoplay_modes).
 
 #### Defined in
 
-[lib/Player.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L11)
-
-___
-
-### DialOptions
-
-Ƭ **DialOptions**: `Object`
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `bindToAddresses?` | `string`[] | - |
-| `bindToInterfaces?` | `string`[] | - |
-| `corsAllowOrigins?` | `boolean` | - |
-| `logger` | [`Logger`](interfaces/Logger.md) | - |
-| `manufacturer?` | `string` | **`Default`** CONF_DEFAULTS.BRAND |
-| `modelName?` | `string` | **`Default`** CONF_DEFAULTS.MODEL |
-| `port?` | `number` | - |
-| `prefix?` | `string` | - |
-
-#### Defined in
-
-[lib/dial/DialServer.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/dial/DialServer.ts#L10)
+[lib/Player.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L11)
 
 ___
 
@@ -127,7 +72,7 @@ One of the values in [LOG_LEVELS](README.md#log_levels).
 
 #### Defined in
 
-[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/utils/Logger.ts#L7)
+[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Logger.ts#L7)
 
 ___
 
@@ -139,30 +84,7 @@ One of the values in [PLAYER_STATUSES](README.md#player_statuses).
 
 #### Defined in
 
-[lib/Player.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Player.ts#L16)
-
-___
-
-### YouTubeCastReceiverOptions
-
-Ƭ **YouTubeCastReceiverOptions**: `Object`
-
-Options consumed by constructor of `YouTubeCastReceiver` class.
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `app?` | `Omit`<[`AppOptions`](README.md#appoptions), ``"logger"`` \| ``"brand"`` \| ``"model"``\> | YouTube app options. |
-| `brand?` | `string` | - |
-| `dial?` | `Omit`<[`DialOptions`](README.md#dialoptions), ``"logger"`` \| ``"manufacturer"`` \| ``"modelName"``\> | DIAL server options. |
-| `logLevel?` | [`LogLevel`](README.md#loglevel) | - |
-| `logger?` | [`Logger`](interfaces/Logger.md) | - |
-| `model?` | `string` | - |
-
-#### Defined in
-
-[lib/YouTubeCastReceiver.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/YouTubeCastReceiver.ts#L16)
+[lib/Player.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L16)
 
 ___
 
@@ -174,7 +96,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/YouTubeCastReceiver.ts#L32)
+[lib/YouTubeCastReceiver.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L32)
 
 ## Variables
 
@@ -192,7 +114,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/Constants.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L22)
+[lib/Constants.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L22)
 
 ___
 
@@ -211,7 +133,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L15)
+[lib/Constants.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L15)
 
 ___
 
@@ -231,7 +153,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L36)
+[lib/Constants.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L36)
 
 ___
 
@@ -251,7 +173,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L28)
+[lib/Constants.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L28)
 
 ___
 
@@ -270,4 +192,4 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/Constants.ts#L44)
+[lib/Constants.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L44)

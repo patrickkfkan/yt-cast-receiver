@@ -38,4 +38,4 @@ Promise that resolves to the Id of the autoplay video, or `null` if none obtaine
 
 #### Defined in
 
-[lib/app/AutoplayLoader.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/a8d5090/src/lib/app/AutoplayLoader.ts#L15)
+[lib/app/AutoplayLoader.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/AutoplayLoader.ts#L15)
