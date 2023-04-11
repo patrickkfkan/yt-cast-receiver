@@ -295,6 +295,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       case 'setPlaylist':
+        this.#logger.debug('[YouTubeCastReceiver] \'setPlaylist\' message payload:', payload);
         const oldIndex = this.#player.playlist.currentIndex;
         const oldCurrent = this.#player.playlist.current;
         this.#player.playlist.set(payload);
@@ -314,6 +315,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       case 'updatePlaylist':
+        this.#logger.debug('[YouTubeCastReceiver] \'updatePlaylist\' message payload:', payload);
         this.#player.playlist.update(payload);
         if (!this.#player.playlist.current) {
           await this.#player.stop();
