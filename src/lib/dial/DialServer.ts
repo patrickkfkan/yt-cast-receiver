@@ -7,7 +7,7 @@ import { DialServerError } from '../utils/Errors.js';
 import { CONF_DEFAULTS, STATUSES } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 
-export type DialOptions = {
+export interface DialOptions {
   port?: number,
   corsAllowOrigins?: boolean,
   prefix?: string,
@@ -27,7 +27,7 @@ export type DialOptions = {
 /**
  * One of the values in {@link STATUSES}.
  */
-export type DialServerStatus = ValueOf<typeof STATUSES>;
+type DialServerStatus = ValueOf<typeof STATUSES>;
 
 function createDelegate(apps: { [k: string]: dial.App }, logger: Logger): dial.Delegate {
   return {

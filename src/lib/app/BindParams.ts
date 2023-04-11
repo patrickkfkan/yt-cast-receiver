@@ -5,7 +5,7 @@ import Message from './Message.js';
 import { IncompleteAPIDataError } from '../utils/Errors.js';
 
 /** @internal */
-export type DeviceInfo = {
+export interface DeviceInfo {
   brand: string;
   model: string,
   year: number,
@@ -15,16 +15,16 @@ export type DeviceInfo = {
   clientName: string,
   dialAdditionalDataSupportLevel: string,
   mdxDialServerType: string,
-};
+}
 
 /** @internal */
-export type BindParamsInitOptions = {
+export interface BindParamsInitOptions {
   deviceId: string,
   screenName: string,
   screenApp: string,
   brand: string,
   model: string
-};
+}
 
 /** @internal */
 const DEFAULT_DEVICE_INFO: Omit<DeviceInfo, 'brand' | 'model'> = {

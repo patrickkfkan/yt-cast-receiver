@@ -1,10 +1,10 @@
-export type AutoplayInfo = {
+export interface AutoplayInfo {
   /** The Id of the autoplay video. */
   videoId: string,
 
   /** The Id of the video for which autoplay video was obtained. */
   forVideoId: string
-} | null;
+}
 
 /**
  * Representation of the player queue, which appears on sender apps that support
@@ -21,7 +21,7 @@ export default class Playlist {
   #ctt: string | null; // ClientCredentialsTransferToken
   #videoIds: string[];
   #currentIndex: number;
-  #autoplay: AutoplayInfo;
+  #autoplay: AutoplayInfo | null;
 
   /** @internal */
   constructor() {
@@ -83,7 +83,7 @@ export default class Playlist {
    * Sets the autoplay video.
    * @param data - {@link AutoplayInfo}.
    */
-  setAutoplay(data: AutoplayInfo) {
+  setAutoplay(data: AutoplayInfo | null) {
     this.#autoplay = data;
   }
 
@@ -206,7 +206,7 @@ export default class Playlist {
   /**
    * Autoplay info.
    */
-  get autoplay(): AutoplayInfo {
+  get autoplay(): AutoplayInfo | null {
     return this.#autoplay;
   }
 }

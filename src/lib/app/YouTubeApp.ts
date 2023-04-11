@@ -15,7 +15,7 @@ import Logger from '../utils/Logger.js';
 import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 
-export type AppOptions = {
+export interface AppOptions {
   /**
    * @default CONF_DEFAULTS.SCREEN_NAME
    */
@@ -41,7 +41,7 @@ export type AppOptions = {
    */
   autoplayLoader?: AutoplayLoader | null,
   logger: Logger
-};
+}
 
 type AppStatus = ValueOf<typeof STATUSES>;
 
@@ -142,7 +142,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
   }
 
-  async #refreshAutoplay(AID?: number | null): Promise<AutoplayInfo> {
+  async #refreshAutoplay(AID?: number | null): Promise<AutoplayInfo | null> {
     const playlist = this.#player.playlist;
     const currentVideoId = playlist.current;
     let autoplay;

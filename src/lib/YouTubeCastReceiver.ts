@@ -13,7 +13,7 @@ import { ValueOf } from './utils/Type.js';
 /**
  * Options consumed by constructor of `YouTubeCastReceiver` class.
  */
-export type YouTubeCastReceiverOptions = {
+export interface YouTubeCastReceiverOptions {
   /** DIAL server options. */
   dial?: Omit<DialOptions, 'logger' | 'manufacturer' | 'modelName'>,
 
@@ -24,7 +24,7 @@ export type YouTubeCastReceiverOptions = {
   model?: string,
   logLevel?: LogLevel,
   logger?: Logger
-};
+}
 
 /**
  * One of the values in {@link STATUSES}.

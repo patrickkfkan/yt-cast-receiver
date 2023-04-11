@@ -41,7 +41,7 @@ export interface Screen {
 }
 
 /** @internal */
-export type SessionOptions = {
+export interface SessionOptions {
   screenName: string,
   screenApp: string,
   brand: string,
