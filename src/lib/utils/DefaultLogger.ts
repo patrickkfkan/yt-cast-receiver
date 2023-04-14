@@ -13,8 +13,8 @@ const LOG_LEVEL_ORDER = [
 
 export default class DefaultLogger implements Logger {
 
-  level: LogLevel;
-  color: boolean;
+  protected level: LogLevel;
+  protected color: boolean;
 
   constructor(color = true) {
     this.level = LOG_LEVELS.INFO;
@@ -41,17 +41,17 @@ export default class DefaultLogger implements Logger {
     this.level = value;
   }
 
-  checkLevel(targetLevel: LogLevel) {
+  protected checkLevel(targetLevel: LogLevel) {
     return LOG_LEVEL_ORDER.indexOf(targetLevel) <= LOG_LEVEL_ORDER.indexOf(this.level);
   }
 
-  process(targetLevel: LogLevel, msg: any[]) {
+  protected process(targetLevel: LogLevel, msg: any[]) {
     if (this.checkLevel(targetLevel)) {
       this.toOutput(targetLevel, this.toStrings(msg));
     }
   }
 
-  toStrings(msg: any[]): string[] {
+  protected toStrings(msg: any[]): string[] {
     return msg.reduce((result, m) => {
       if (m instanceof YouTubeCastReceiverError) {
         [ m, ...m.getCauses() ].forEach((e, i) => {
@@ -84,7 +84,7 @@ export default class DefaultLogger implements Logger {
     }, []);
   }
 
-  toOutput(targetLevel: LogLevel, msg: string[]) {
+  protected toOutput(targetLevel: LogLevel, msg: string[]) {
     switch (targetLevel) {
       case LOG_LEVELS.ERROR:
         console.error(...msg);
