@@ -149,7 +149,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
 
     return result;
   }
-  
+
   // Overrides
   reset(): void {
     this.#innertube = null;

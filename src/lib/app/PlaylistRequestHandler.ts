@@ -16,7 +16,7 @@ abstract class PlaylistRequestHandler {
   /**
    * Given `target` video that resides in `playlist`, implementations shall fetch
    * the previous and next videos in the list.
-   * 
+   *
    * If `target` is already the last video in the list, then fetch the autoplay video
    * in lieu of next video. You may optionally check first whether autoplay is enabled
    * with `playlist.autoplayMode`, and return `null` for next video if it is not.
