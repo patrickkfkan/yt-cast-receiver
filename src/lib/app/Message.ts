@@ -90,17 +90,29 @@ export namespace Message {
   export class NowPlaying extends Message {
     constructor(AID: number | null, playerState: PlayerState) {
       const payload = {} as any;
-      if (playerState.playlist.id && playerState.playlist.current) {
+      if (playerState.playlist.current) {
         payload.currentTime = playerState.position;
-        payload.listId = playerState.playlist.id;
         payload.duration = playerState.duration;
         payload.cpn = playerState.cpn;
         payload.loadedTime = 0;
-        payload.videoId = playerState.playlist.current;
+        payload.videoId = playerState.playlist.current.id;
         payload.state = playerState.status;
-        payload.currentIndex = playerState.playlist.currentIndex;
         payload.seekableStartTime = 0;
         payload.seekableEndTime = playerState.duration;
+
+        const context = playerState.playlist.current.context;
+        if (context?.playlistId) {
+          payload.listId = context.playlistId;
+        }
+        if (context?.index !== undefined) {
+          payload.currentIndex = context.index;
+        }
+        if (context?.ctt) {
+          payload.ctt = context.ctt;
+        }
+        if (context?.params) {
+          payload.params = context.params;
+        }
       }
       if (playerState.status === PLAYER_STATUSES.PLAYING ||
         playerState.status === PLAYER_STATUSES.PAUSED) {

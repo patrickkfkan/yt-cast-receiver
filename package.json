@@ -39,7 +39,7 @@
     "dist": "./dist"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16.16.0"
   },
   "devDependencies": {
     "@types/blessed": "^0.1.21",
@@ -71,7 +71,6 @@
     "query-string": "^7.0.0",
     "timer-node": "^5.0.7",
     "uuid": "^9.0.0",
-    "yt-mix-playlist": "^1.0.1",
-    "ytdl-core": "^4.11.3"
+    "youtubei.js": "^4.3.0"
   }
 }

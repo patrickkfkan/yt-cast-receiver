@@ -1,152 +1,137 @@
-export interface AutoplayInfo {
-  /** The Id of the autoplay video. */
-  videoId: string,
+import { AUTOPLAY_MODES } from '../Constants.js';
+import { AutoplayMode } from '../Player.js';
+import Message from './Message.js';
+import PlaylistRequestHandler from './PlaylistRequestHandler.js';
+import Video from './Video.js';
 
-  /** The Id of the video for which autoplay video was obtained. */
-  forVideoId: string
+export interface PlaylistState {
+  id: string | null;
+  videoIds: string[];
+  current: Video | null;
+  autoplay: Video | null;
 }
 
 /**
- * Representation of the player queue, which appears on sender apps that support
- * the `queue` capability (basically the YouTube mobile app).
- *
- * The naming choice of 'Playlist' is for consistency with YouTube's API.
- * You may think of the queue as a form of playlist.
- *
- * Treat all playlist properties as read-only.
+ * Representation of the player queue.
  */
 export default class Playlist {
 
-  #id: string | null; // PlaylistId
-  #ctt: string | null; // ClientCredentialsTransferToken
-  #params: string | null;
+  #id: string | null;
   #videoIds: string[];
-  #currentIndex: number;
-  #autoplay: AutoplayInfo | null;
+  #current: Video | null;
+  #previous: Video | null;
+  #next: Video | null;
+  #autoplayMode: AutoplayMode;
+  #requestHandler: PlaylistRequestHandler;
 
   /** @internal */
   constructor() {
     this.#id = null;
-    this.#ctt = null;
-    this.#params = null;
     this.#videoIds = [];
-    this.#currentIndex = -1;
-    this.#autoplay = null;
+    this.#current = null;
+    this.#previous = null;
+    this.#autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
+  }
+
+  /** @internal */
+  setRequestHandler(value: PlaylistRequestHandler) {
+    this.#requestHandler = value;
+  }
+
+  /** @internal */
+  async setAutoplayMode(value: AutoplayMode) {
+    const oldMode = this.#autoplayMode;
+    this.#autoplayMode = value;
+    if (oldMode !== value) {
+      await this.#refreshPreviousNext();
+    }
   }
 
   /**
    * @internal
    *
-   * Sets the playlist data.
-   * @param data - Payload of incoming `setPlaylist` message.
+   * Updates the playlist with payload of 'setPlaylist' or 'updatePlaylist' message.
+   * @param data - 'setPlaylist' or 'updatePlaylist' `Message` object.
    */
-  set(data: any) {
-    const currentVideoId = this.current;
-    this.#id = data?.listId || null;
-    this.#ctt = data?.ctt || null;
-    this.#params = data?.params || null;
-    this.#videoIds = data?.['videoIds']?.split(',') || [];
-    if (data.currentIndex) {
-      this.#currentIndex = parseInt(data.currentIndex, 10);
-    }
-    else {
-      this.#currentIndex = currentVideoId ? this.#videoIds.indexOf(currentVideoId) : -1;
-    }
-  }
-
-  /**
-   * @internal
-   *
-   * Updates the playlist data.
-   * @param data - Payload of incoming `updatePlaylist` message.
-   */
-  update(data: any) {
-    const currentVideoId = this.current;
-    if (data.listId) {
-      this.#id = data.listId;
-    }
-    if (data.ctt) {
-      this.#ctt = data.ctt;
-    }
-    if (data.params) {
-      this.#params = data.params;
-    }
-    const videoIds = data.videoIds;
-    if (!videoIds) {
-      this.#videoIds = [];
-      this.#currentIndex = -1;
+  async updateByMessage(message: Message) {
+    if (message.name !== 'setPlaylist' && message.name !== 'updatePlaylist') {
       return;
     }
-    this.#videoIds = videoIds.split(',');
-    if (data.currentIndex) {
-      this.#currentIndex = parseInt(data.currentIndex, 10);
+
+    const data = message.payload;
+
+    if (!data.listId) {
+      this.#id = null;
+      this.#current = null;
+      this.#next = null;
+      this.#previous = null;
+      this.#videoIds = [];
+
+      return;
     }
-    else {
-      this.#currentIndex = currentVideoId ? this.#videoIds.indexOf(currentVideoId) : -1;
+
+    this.#id = data.listId;
+    this.#videoIds = data.videoIds ? data.videoIds.split(',') : [];
+
+    if (message.name === 'setPlaylist') {
+      if (data.currentIndex && data.videoId) {
+        const context: any = {
+          playlistId: data.listId,
+          index: parseInt(data.currentIndex, 10)
+        };
+        if (data.ctt) {
+          context.ctt = data.ctt;
+        }
+        if (data.params) {
+          context.params = data.params;
+        }
+        this.#current = {
+          id: data.videoId,
+          context
+        };
+      }
+      else {
+        this.#current = null;
+      }
+    }
+    else if (this.#current) { // 'updatePlaylist'
+      const index = this.#videoIds.findIndex((v) => v === this.#current?.id);
+      if (index >= 0) {
+        if (!this.#current.context) {
+          this.#current.context = {};
+        }
+        this.#current.context.playlistId = data.listId;
+        this.#current.context.index = index;
+      }
+      else {
+        this.#current = null;
+      }
+    }
+
+    await this.#refreshPreviousNext();
+  }
+
+  async #refreshPreviousNext() {
+    this.#previous = null;
+    this.#next = null;
+    const currentIndex = this.#current?.context?.index !== undefined ? this.#current.context.index : -1;
+    if (currentIndex >= 0) {
+      const nav = this.#current ? await this.#requestHandler.getPreviousNextVideos(this.#current, this) : null;
+      this.#previous = nav?.previous || null;
+      if (!this.isLast || this.#autoplayMode === AUTOPLAY_MODES.ENABLED) {
+        this.#next = nav?.next || null;
+      }
     }
   }
 
-  /**
-   * @internal
-   *
-   * Sets the autoplay video.
-   * @param data - {@link AutoplayInfo}.
-   */
-  setAutoplay(data: AutoplayInfo | null) {
-    this.#autoplay = data;
-  }
-
-  #setCurrentIndex(index: number) {
-    this.#currentIndex = this.#videoIds[index] ? index : -1;
-  }
-
-  /**
-   * @internal
-   *
-   * Moves the autoplay video to the end of the playlist.
-   * @returns The Id of the autoplay video, or `false` if there is none.
-   */
-  setAutoplayAsCurrent(): string | false {
-    const autoplayVideoId = this.autoplay?.videoId;
-    if (autoplayVideoId) {
-      this.push(autoplayVideoId);
-      this.#setCurrentIndex(this.length - 1);
-      this.#autoplay = null;
-      return autoplayVideoId;
-    }
-    return false;
-  }
-
-  /**
-   * @internal
-   *
-   * Adds a video to the end of the playlist.
-   * @param videoId The Id of the video to add to end of the playlist.
-   */
-  push(videoId: string) {
-    this.#videoIds.push(videoId);
-  }
-
-  /**
-   * @internal
-   *
-   * Moves current index to the next position and returns video at new index.
-   * @returns Id of next video, or `null` if none.
-   */
-  next(): string | null {
-    this.#setCurrentIndex(this.currentIndex + 1);
-    return this.current;
-  }
-
-  /**
-   * @internal
-   *
-   * Moves current index to the previous position and returns video at new index.
-   * @returns Id of previous video, or `null` if none.
-   */
-  previous(): string | null {
-    this.#setCurrentIndex(this.currentIndex - 1);
-    return this.current;
+  /** @internal */
+  reset() {
+    this.#id = null;
+    this.#videoIds = [];
+    this.#current = null;
+    this.#previous = null;
+    this.#autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
+    this.#requestHandler.reset();
   }
 
   /**
@@ -157,38 +142,10 @@ export default class Playlist {
   }
 
   /**
-   * Client credentials transfer token.
-   */
-  get ctt(): string | null {
-    return this.#ctt;
-  }
-
-  /**
-   * Playlist params (for YouTube API)
-   */
-  get params(): string | null {
-    return this.#params;
-  }
-
-  /**
-   * The Id of the video at current index, or `null` if none.
-   */
-  get current(): string | null {
-    return this.#videoIds[this.currentIndex] || null;
-  }
-
-  /**
    * The Ids of the videos in the playlist.
    */
   get videoIds(): string[] {
     return this.#videoIds;
-  }
-
-  /**
-   * Position of the currently selected video; -1 if none selected or playlist is empty.
-   */
-  get currentIndex(): number {
-    return this.#currentIndex;
   }
 
   /**
@@ -198,31 +155,81 @@ export default class Playlist {
     return this.#videoIds.length;
   }
 
-  /**
-   * Whether current index points to the last video in the playlist.
-   */
+  /** @internal */
+  async previous(): Promise<Video | null> {
+    if (!this.#previous) {
+      return null;
+    }
+    this.#current = this.#previous;
+    await this.#refreshPreviousNext();
+    return this.#current;
+  }
+
+  /** @internal */
+  async next(): Promise<Video | null> {
+    if (!this.hasNext) {
+      return null;
+    }
+    this.#current = this.#next;
+    await this.#refreshPreviousNext();
+    return this.#current;
+  }
+
+  getState(): PlaylistState {
+    return {
+      id: this.id,
+      videoIds: this.videoIds,
+      current: this.current,
+      autoplay: this.autoplay
+    };
+  }
+
+  /** @internal */
+  setAsCurrent(video: Video) {
+    if (this.#current?.id === video.id) {
+      return;
+    }
+    if (this.autoplay?.id === video.id) {
+      this.#next = null;
+    }
+    this.#current = video;
+  }
+
+  get autoplay(): Video | null {
+    if (this.isLast) {
+      return this.#next;
+    }
+    return null;
+  }
+
+  get current(): Video | null {
+    return this.#current;
+  }
+
+  get autoplayMode(): AutoplayMode {
+    return this.#autoplayMode;
+  }
+
   get isLast(): boolean {
-    return this.currentIndex === this.length - 1;
+    const currentIndex = this.#current?.context?.index !== undefined ? this.#current.context.index : -1;
+    return currentIndex < 0 || currentIndex === this.length - 1;
   }
 
-  /**
-   * Whether there is video after current index.
-   */
-  get hasNext(): boolean {
-    return this.currentIndex < this.length - 1;
-  }
-
-  /**
-   * Whether there is video before current index.
-   */
   get hasPrevious(): boolean {
-    return this.currentIndex > 0;
+    return !!this.#previous;
+  }
+
+  get hasNext(): boolean {
+    if (!this.#next || this.isLast) {
+      return false;
+    }
+    return true;
   }
 
   /**
-   * Autoplay info.
+   * @internal
    */
-  get autoplay(): AutoplayInfo | null {
-    return this.#autoplay;
+  get requestHandler(): PlaylistRequestHandler {
+    return this.#requestHandler;
   }
 }

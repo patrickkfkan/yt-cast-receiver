@@ -1,9 +1,10 @@
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
 import { AUTOPLAY_MODES, PLAYER_STATUSES } from './Constants.js';
-import Playlist from './app/Playlist.js';
+import Playlist, { PlaylistState } from './app/Playlist.js';
 import Logger from './utils/Logger.js';
 import { ValueOf } from './utils/Type.js';
+import Video from './app/Video.js';
 
 /**
  * One of the values in {@link AUTOPLAY_MODES}.
@@ -17,14 +18,7 @@ export type PlayerStatus = ValueOf<typeof PLAYER_STATUSES>;
 
 export interface PlayerState {
   status: PlayerStatus;
-  playlist: {
-    id: string | null;
-    ctt: string | null;
-    params: string | null;
-    videoIds: string[];
-    current: string | null;
-    currentIndex: number;
-  },
+  playlist: PlaylistState,
   position: number,
   duration: number
   volume: number,
@@ -47,18 +41,17 @@ export interface PlayerNavInfo {
 export default abstract class Player extends EventEmitter {
   #status: PlayerStatus;
   #playlist: Playlist;
-  #autoplayMode: AutoplayMode;
   #cpn: string;
   #logger: Logger;
   #previousState: PlayerState | null;
 
   /**
    * Implementations shall play the target video from the specified position.
-   * @param videoId - Id of the target video.
+   * @param video - The target video to play.
    * @param position - The position, in seconds, from which to start playback.
    * @returns Promise that resolves to `true` on successful playback; `false` otherwise.
    */
-  protected abstract doPlay(videoId: string, position: number): Promise<boolean>;
+  protected abstract doPlay(video: Video, position: number): Promise<boolean>;
 
   /**
    * Implementations shall pause current playback.
@@ -115,11 +108,13 @@ export default abstract class Player extends EventEmitter {
     super();
     this.#status = PLAYER_STATUSES.IDLE;
     this.#playlist = new Playlist();
-    this.#autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
     this.#cpn = uuidv4().replace(/-/g, '').substring(0, 16);
     this.#previousState = null;
   }
 
+  /**
+   * @internal
+   */
   setLogger(logger: Logger) {
     this.#logger = logger;
   }
@@ -127,18 +122,19 @@ export default abstract class Player extends EventEmitter {
   /**
    * Notifies senders that player is in 'loading' state, then calls `doPlay()`;
    * if returned Promise resolves to `true`, notifies senders that playback has started.
-   * @param videoId - Id of the target video.
+   * @param video - The target video to play.
    * @param position - The position (in seconds) from which to start playback.
    * @param AID - Internal use; do not specify.
    * @returns Promise that resolves to the resolved result of `doPlay()`.
    */
-  async play(videoId: string, position?: number, AID?: number | null): Promise<boolean> {
+  async play(video: Video, position?: number, AID?: number | null): Promise<boolean> {
     if (this.status === PLAYER_STATUSES.PLAYING) {
       await this.stop();
     }
-    this.#logger.info(`[YouTubeCastReceiver] Player.play(): ${videoId} @ ${position}s`);
+    this.#logger.info(`[YouTubeCastReceiver] Player.play(): ${video.id} @ ${position || 0}s`);
+    this.playlist.setAsCurrent(video);
     await this.#setStatusAndEmit(PLAYER_STATUSES.LOADING, AID);
-    const result = await this.doPlay(videoId, position || 0);
+    const result = await this.doPlay(video, position || 0);
     if (result) {
       await this.#setStatusAndEmit(PLAYER_STATUSES.PLAYING, AID);
     }
@@ -240,15 +236,14 @@ export default abstract class Player extends EventEmitter {
    */
   async next(AID?: number | null): Promise<boolean> {
     this.#logger.info('[YouTubeCastReceiver] Player.next()');
-    const nextVideoId = this.#playlist.next();
-    if (!nextVideoId) {
+    const nextVideo = await this.#playlist.next();
+    if (!nextVideo) {
       this.#logger.info('[YouTubeCastReceiver] No next video in playlist.');
-      if (this.#autoplayMode === AUTOPLAY_MODES.ENABLED) {
-        const autoplayVideoId = this.#playlist.setAutoplayAsCurrent();
-        if (autoplayVideoId) {
-          this.#logger.debug('[YouTubeCastReceiver] Moved autoplay video to playlist.');
-          this.#logger.info(`[YouTubeCastReceiver] Play autoplay video: ${autoplayVideoId}.`);
-          return this.play(autoplayVideoId, 0, AID);
+      if (this.autoplayMode === AUTOPLAY_MODES.ENABLED) {
+        const autoplayVideo = this.#playlist.autoplay;
+        if (autoplayVideo) {
+          this.#logger.info(`[YouTubeCastReceiver] Play autoplay video: ${autoplayVideo.id}.`);
+          return this.play(autoplayVideo, 0, AID);
         }
         this.#logger.info('[YouTubeCastReceiver] No autoplay video available.');
       }
@@ -259,7 +254,7 @@ export default abstract class Player extends EventEmitter {
       return false;
     }
 
-    return this.play(nextVideoId);
+    return this.play(nextVideo);
   }
 
   /**
@@ -269,14 +264,14 @@ export default abstract class Player extends EventEmitter {
    */
   async previous(AID?: number | null): Promise<boolean> {
     this.#logger.info('[YouTubeCastReceiver] Player.previous()');
-    const previousVideoId = this.#playlist.previous();
-    if (!previousVideoId) {
+    const previousVideo = await this.#playlist.previous();
+    if (!previousVideo) {
       this.#logger.info('[YouTubeCastReceiver] No previous video in playlist.');
       await this.stop(AID);
       return false;
     }
 
-    return await this.play(previousVideoId, 0, AID);
+    return await this.play(previousVideo, 0, AID);
   }
 
   /**
@@ -302,7 +297,7 @@ export default abstract class Player extends EventEmitter {
    */
   async reset(AID?: number | null) {
     this.#logger.info('[YouTubeCastReceiver] Player.reset()');
-    this.#playlist = new Playlist();
+    this.#playlist.reset();
     await this.stop(AID);
     this.#previousState = null;
     this.#setStatusAndEmit(PLAYER_STATUSES.IDLE, AID);
@@ -342,7 +337,7 @@ export default abstract class Player extends EventEmitter {
   }
 
   get autoplayMode(): AutoplayMode {
-    return this.#autoplayMode;
+    return this.playlist.autoplayMode;
   }
 
   get cpn(): string {
@@ -353,32 +348,18 @@ export default abstract class Player extends EventEmitter {
     return this.#playlist;
   }
 
-  /**
-   * @internal
-   */
-  setAutoplayMode(value: AutoplayMode) {
-    this.#autoplayMode = value;
-  }
-
   getNavInfo(): PlayerNavInfo {
     return {
       hasPrevious: this.#playlist.hasPrevious,
       hasNext: this.#playlist.hasNext,
-      autoplayMode: this.#autoplayMode
+      autoplayMode: this.autoplayMode
     };
   }
 
   async getState(): Promise<PlayerState> {
     return {
       status: this.status,
-      playlist: {
-        id: this.#playlist.id,
-        ctt: this.#playlist.ctt,
-        params: this.#playlist.params,
-        videoIds: this.#playlist.videoIds,
-        current: this.#playlist.current,
-        currentIndex: this.#playlist.currentIndex
-      },
+      playlist: this.#playlist.getState(),
       position: await this.getPosition(),
       duration: await this.getDuration(),
       volume: await this.getVolume(),

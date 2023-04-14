@@ -4,16 +4,15 @@ import queryString from 'query-string';
 import { v4 as uuidv4 } from 'uuid';
 import Player, { AutoplayMode } from '../Player.js';
 import Message from './Message.js';
-import { AutoplayInfo } from './Playlist.js';
 import Session from './Session.js';
-import AutoplayLoader from './AutoplayLoader.js';
-import DefaultAutoplayLoader from './DefaultAutoplayLoader.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
 import Sender from './Sender.js';
 import { AppError, SenderConnectionError, IncompleteAPIDataError } from '../utils/Errors.js';
 import Logger from '../utils/Logger.js';
 import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
+import PlaylistRequestHandler from './PlaylistRequestHandler.js';
+import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
 
 export interface AppOptions {
   /**
@@ -37,9 +36,9 @@ export interface AppOptions {
    */
   enableAutoplayOnConnect?: boolean,
   /**
-   * @default `DefaultAutoplayLoader` instance
+   * @default `DefaultPlaylistRequestHandler` instance
    */
-  autoplayLoader?: AutoplayLoader | null,
+  playlistRequestHandler?: PlaylistRequestHandler,
   logger: Logger
 }
 
@@ -63,7 +62,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   #player: Player;
   #autoplayModeOnConnect: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED;
   #autoplayModeBeforeUnsupportedOverride: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED | null;
-  #autoplayLoader: AutoplayLoader | null;
   #playerStateListener: any;
 
   constructor(player: Player, options: AppOptions) {
@@ -87,9 +85,9 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
     this.#player = player;
     this.#player.setLogger(options.logger);
+    this.#player.playlist.setRequestHandler(options.playlistRequestHandler || new DefaultPlaylistRequestHandler());
+    this.#player.playlist.requestHandler.setLogger(options.logger);
     this.#playerStateListener = this.#handlePlayerStateEvent.bind(this);
-
-    this.setAutoplayLoader(options.autoplayLoader !== undefined ? options.autoplayLoader : new DefaultAutoplayLoader());
     this.enableAutoplayOnConnect(options.enableAutoplayOnConnect !== undefined ? options.enableAutoplayOnConnect : true);
     this.#autoplayModeBeforeUnsupportedOverride = null;
   }
@@ -133,43 +131,17 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   }
 
   async #setAutoplayMode(AID: number | null, value: AutoplayMode) {
-    const oldMode = this.#player.autoplayMode;
-    this.#player.setAutoplayMode(value);
-    this.#session.sendMessage(new Message.OnAutoplayModeChanged(AID, value));
+    const stateBefore = this.#player.playlist.getState();
+    await this.#player.playlist.setAutoplayMode(value);
+    const stateAfter = this.#player.playlist.getState();
+    const sendMessages = [
+      new Message.OnAutoplayModeChanged(AID, value)
+    ];
 
-    if (oldMode !== value) {
-      await this.#refreshAutoplay(AID);
+    if (stateBefore.autoplay?.id !== stateAfter.autoplay?.id) {
+      sendMessages.push(new Message.AutoplayUpNext(AID, stateAfter.autoplay?.id || null));
     }
-  }
-
-  async #refreshAutoplay(AID?: number | null): Promise<AutoplayInfo | null> {
-    const playlist = this.#player.playlist;
-    const currentVideoId = playlist.current;
-    let autoplay;
-    if (!this.#autoplayLoader || this.#player.autoplayMode !== AUTOPLAY_MODES.ENABLED ||
-      !currentVideoId || playlist.length === 0 || !playlist.isLast) {
-      autoplay = null;
-    }
-    else if (playlist.autoplay?.forVideoId !== currentVideoId) {
-      const autoplayVideoId = await this.#autoplayLoader.getAutoplayVideoId(
-        currentVideoId, this.#player, this.#logger);
-      if (autoplayVideoId) {
-        autoplay = {
-          videoId: autoplayVideoId,
-          forVideoId: currentVideoId
-        };
-      }
-      else {
-        autoplay = null;
-      }
-    }
-    else {
-      return playlist.autoplay;
-    }
-
-    playlist.setAutoplay(autoplay);
-    this.#session.sendMessage(new Message.AutoplayUpNext(AID || null, autoplay?.videoId || null));
-    return autoplay;
+    this.#session.sendMessage(sendMessages);
   }
 
   enableAutoplayOnConnect(value = false) {
@@ -215,7 +187,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
               autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
             }
             else {
-              this.#logger.info(`[YouTubeCastReceiver] Sender has autoplay capability. Setting autoplay support to autoplayModeOnConnect: ${this.#autoplayModeOnConnect}`);
+              this.#logger.info(`[YouTubeCastReceiver] Sender has autoplay capability. Setting autoplay support to value of \`autoplayModeOnConnect\`: ${this.#autoplayModeOnConnect}`);
               autoplayMode = this.#autoplayModeOnConnect;
             }
             this.#autoplayModeBeforeUnsupportedOverride = null;
@@ -295,32 +267,35 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       case 'setPlaylist':
-        this.#logger.debug('[YouTubeCastReceiver] \'setPlaylist\' message payload:', payload);
-        const oldIndex = this.#player.playlist.currentIndex;
-        const oldCurrent = this.#player.playlist.current;
-        this.#player.playlist.set(payload);
-        if (oldIndex !== this.#player.playlist.currentIndex ||
-          oldCurrent !== this.#player.playlist.current) {
+      case 'updatePlaylist':
+        this.#logger.debug(`[YouTubeCastReceiver] '${message.name}' message payload:`, payload);
+        const stateBeforeSet = this.#player.playlist.getState();
+        const navBeforeSet = this.#player.getNavInfo();
+        await this.#player.playlist.updateByMessage(message);
+        const stateAfterSet = this.#player.playlist.getState();
+        const navAfterSet = this.#player.getNavInfo();
+        if (stateBeforeSet.autoplay?.id !== stateAfterSet.autoplay?.id) {
+          sendMessages.push(new Message.AutoplayUpNext(AID, stateAfterSet.autoplay?.id || null));
+        }
+        if (message.name === 'setPlaylist' && (stateBeforeSet.current?.id !== stateAfterSet.current?.id ||
+          stateBeforeSet.current?.context?.index !== stateAfterSet.current?.context?.index)) {
           if (this.#player.status !== PLAYER_STATUSES.STOPPED) {
             await this.#player.stop(AID);
           }
-          const currentVideoId = this.#player.playlist.current;
-          if (currentVideoId) {
-            await this.#player.play(currentVideoId, parseInt(payload.currentTime, 10) || 0, AID);
+          const currentVideo = stateAfterSet.current;
+          if (currentVideo) {
+            await this.#player.play(currentVideo, parseInt(payload.currentTime, 10) || 0, AID);
           }
+        }
+        else if (message.name === 'updatePlaylist' && !stateAfterSet.current) {
+          await this.#player.stop(AID);
         }
         else {
           sendMessages.push(new Message.NowPlaying(AID, await this.#player.getState()));
+          if (navBeforeSet.hasNext !== navAfterSet.hasNext || navBeforeSet.hasPrevious !== navAfterSet.hasPrevious) {
+            sendMessages.push(new Message.OnHasPreviousNextChanged(AID, navAfterSet));
+          }
         }
-        break;
-
-      case 'updatePlaylist':
-        this.#logger.debug('[YouTubeCastReceiver] \'updatePlaylist\' message payload:', payload);
-        this.#player.playlist.update(payload);
-        if (!this.#player.playlist.current) {
-          await this.#player.stop();
-        }
-        await this.#refreshAutoplay(AID);
         break;
 
       case 'next':
@@ -418,7 +393,9 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.#logger.debug('[YouTubeCastReceiver] Player state changed from:', previous);
     this.#logger.debug('To:', current);
 
-    let statusChanged = true, positionChanged = true, volumeChanged = true, nowPlayingChanged = true;
+    let statusChanged = true, positionChanged = true,
+      volumeChanged = true, nowPlayingChanged = true,
+      autoplayChanged = true;
     if (previous) {
       statusChanged = previous.status !== current.status;
       positionChanged = previous.position !== current.position;
@@ -426,6 +403,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       nowPlayingChanged = previous.playlist.current !== current.playlist.current ||
         previous.playlist.id !== current.playlist.id ||
         previous.playlist.currentIndex !== current.playlist.currentIndex;
+      autoplayChanged = previous.playlist.autoplay?.id !== current.playlist.autoplay?.id;
     }
 
     const messages = [];
@@ -441,6 +419,9 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     if (volumeChanged) {
       messages.push(new Message.OnVolumeChanged(AID, current.volume, false));
     }
+    if (autoplayChanged) {
+      messages.push(new Message.AutoplayUpNext(AID, current.playlist.autoplay?.id || null));
+    }
 
     if (messages.length > 0) {
       if (messages.every((c) => c instanceof Message.OnVolumeChanged && c.AID !== null)) {
@@ -453,14 +434,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         this.#session.sendMessage(messages);
       }
     }
-
-    if (current.status === PLAYER_STATUSES.PLAYING) {
-      this.#refreshAutoplay(AID);
-    }
-  }
-
-  setAutoplayLoader(loader: AutoplayLoader | null) {
-    this.#autoplayLoader = loader;
   }
 
   getPairingCodeRequestService(): PairingCodeRequestService {

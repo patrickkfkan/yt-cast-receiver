@@ -4,7 +4,6 @@ import YouTubeApp, { AppOptions } from './app/YouTubeApp.js';
 import DialServer, { DialOptions } from './dial/DialServer.js';
 import Logger, { LogLevel } from './utils/Logger.js';
 import DefaultLogger from './utils/DefaultLogger.js';
-import AutoplayLoader from './app/AutoplayLoader.js';
 import { STATUSES } from './Constants.js';
 import PairingCodeRequestService from './app/PairingCodeRequestService.js';
 import Sender from './app/Sender.js';
@@ -145,10 +144,6 @@ export default class YouTubeCastReceiver extends EventEmitter {
 
   enableAutoplayOnConnect(value: boolean) {
     this.#app.enableAutoplayOnConnect(value);
-  }
-
-  setAutoplayLoader(loader: AutoplayLoader | null) {
-    this.#app.setAutoplayLoader(loader);
   }
 
   setLogLevel(value: LogLevel) {

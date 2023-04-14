@@ -1,13 +1,16 @@
 import { Timer } from 'timer-node';
-import ytdl from 'ytdl-core';
 import { Player, PlayerState, PLAYER_STATUSES } from '../dist/mjs/index.js';
+import Video from '../dist/mjs/lib/app/Video.js';
+import VideoLoader from './VideoLoader.js';
 
 /**
  * Custom implementation of {@link Player} for use with {@link FakePlayerDemo}.
- * Uses a timer to simulate playback and [ytdl-core](https://github.com/fent/node-ytdl-core) for fetching video info.
+ * Uses a timer to simulate playback and [YouTube.js](https://github.com/LuanRT/YouTube.js)
+ * for fetching video info (see {@link VideoLoader}).
  */
 export default class FakePlayer extends Player {
-
+  
+  videoLoader: VideoLoader;
   currentVideoId: string | null;
   currentVideoTitle: string | null;
   timer: Timer;
@@ -18,6 +21,7 @@ export default class FakePlayer extends Player {
 
   constructor() {
     super();
+    this.videoLoader = new VideoLoader();
     this.currentVideoId = null;
     this.currentVideoTitle = null;
     this.timer = new Timer();
@@ -31,9 +35,9 @@ export default class FakePlayer extends Player {
     this.on('state', this.#emitFakeState.bind(this));
   }
 
-  protected doPlay(videoId: string, position: number): Promise<boolean> {
-    this.logger.info(`[FakePlayer]: Play ${videoId} at position ${position}s`);
-    return this.#fakePlay(videoId, position);
+  protected doPlay(video: Video, position: number): Promise<boolean> {
+    this.logger.info(`[FakePlayer]: Play ${video.id} at position ${position}s`);
+    return this.#fakePlay(video, position);
   }
 
   protected doPause(): Promise<boolean> {
@@ -84,14 +88,14 @@ export default class FakePlayer extends Player {
     return true;
   }
 
-  async #fakePlay(videoId: string, position: number) {
+  async #fakePlay(video: Video, position: number) {
     this.seekOffset = position;
     this.timer.stop();
     this.#resetTimeout();
-    const info = await ytdl.getBasicInfo(videoId);
-    const duration = parseInt(info.player_response.videoDetails.lengthSeconds, 10);
-    this.currentVideoId = videoId;
-    this.currentVideoTitle = info.player_response.videoDetails.title;
+    const info = await this.videoLoader.getInfo(video);
+    const duration = info.duration;
+    this.currentVideoId = video.id;
+    this.currentVideoTitle = info.title;
     this.timer.start();
     this.#startTimeout(duration - this.seekOffset);
     this.duration = Number(duration);
