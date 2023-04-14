@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[lib/utils/Errors.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L29)
+[lib/utils/Errors.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/utils/Errors.ts#L29)
 
 ## Properties
 
@@ -57,17 +57,13 @@
 
 #### Defined in
 
-[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L3)
+[lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/utils/Errors.ts#L3)
 
 ___
 
 ### info
 
-• `Optional` **info**: `Object`
-
-#### Index signature
-
-▪ [k: `string`]: `any`
+• `Optional` **info**: `Record`<`string`, `any`\>
 
 #### Inherited from
 
@@ -75,7 +71,7 @@ ___
 
 #### Defined in
 
-[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L4)
+[lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/utils/Errors.ts#L4)
 
 ## Methods
 
@@ -93,4 +89,4 @@ ___
 
 #### Defined in
 
-[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Errors.ts#L17)
+[lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/utils/Errors.ts#L17)

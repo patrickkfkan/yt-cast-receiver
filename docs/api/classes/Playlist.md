@@ -2,22 +2,15 @@
 
 # Class: Playlist
 
-Representation of the player queue, which appears on sender apps that support
-the `queue` capability (basically the YouTube mobile app).
-
-The naming choice of 'Playlist' is for consistency with YouTube's API.
-You may think of the queue as a form of playlist.
-
-Treat all playlist properties as read-only.
+Representation of the player queue.
 
 ## Table of contents
 
 ### Accessors
 
 - [autoplay](Playlist.md#autoplay)
-- [ctt](Playlist.md#ctt)
+- [autoplayMode](Playlist.md#autoplaymode)
 - [current](Playlist.md#current)
-- [currentIndex](Playlist.md#currentindex)
 - [hasNext](Playlist.md#hasnext)
 - [hasPrevious](Playlist.md#hasprevious)
 - [id](Playlist.md#id)
@@ -25,69 +18,51 @@ Treat all playlist properties as read-only.
 - [length](Playlist.md#length)
 - [videoIds](Playlist.md#videoids)
 
+### Methods
+
+- [getState](Playlist.md#getstate)
+
 ## Accessors
 
 ### autoplay
 
-• `get` **autoplay**(): ``null`` \| [`AutoplayInfo`](../interfaces/AutoplayInfo.md)
-
-Autoplay info.
+• `get` **autoplay**(): ``null`` \| [`Video`](../interfaces/Video.md)
 
 #### Returns
 
-``null`` \| [`AutoplayInfo`](../interfaces/AutoplayInfo.md)
+``null`` \| [`Video`](../interfaces/Video.md)
 
 #### Defined in
 
-[lib/app/Playlist.ts:209](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L209)
+[lib/app/Playlist.ts:198](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L198)
 
 ___
 
-### ctt
+### autoplayMode
 
-• `get` **ctt**(): ``null`` \| `string`
-
-Client credentials transfer token.
+• `get` **autoplayMode**(): [`AutoplayMode`](../README.md#autoplaymode)
 
 #### Returns
 
-``null`` \| `string`
+[`AutoplayMode`](../README.md#autoplaymode)
 
 #### Defined in
 
-[lib/app/Playlist.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L153)
+[lib/app/Playlist.ts:209](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L209)
 
 ___
 
 ### current
 
-• `get` **current**(): ``null`` \| `string`
-
-The Id of the video at current index, or `null` if none.
+• `get` **current**(): ``null`` \| [`Video`](../interfaces/Video.md)
 
 #### Returns
 
-``null`` \| `string`
+``null`` \| [`Video`](../interfaces/Video.md)
 
 #### Defined in
 
-[lib/app/Playlist.ts:160](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L160)
-
-___
-
-### currentIndex
-
-• `get` **currentIndex**(): `number`
-
-Position of the currently selected video; -1 if none selected or playlist is empty.
-
-#### Returns
-
-`number`
-
-#### Defined in
-
-[lib/app/Playlist.ts:174](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L174)
+[lib/app/Playlist.ts:205](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L205)
 
 ___
 
@@ -95,15 +70,13 @@ ___
 
 • `get` **hasNext**(): `boolean`
 
-Whether there is video after current index.
-
 #### Returns
 
 `boolean`
 
 #### Defined in
 
-[lib/app/Playlist.ts:195](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L195)
+[lib/app/Playlist.ts:222](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L222)
 
 ___
 
@@ -111,15 +84,13 @@ ___
 
 • `get` **hasPrevious**(): `boolean`
 
-Whether there is video before current index.
-
 #### Returns
 
 `boolean`
 
 #### Defined in
 
-[lib/app/Playlist.ts:202](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L202)
+[lib/app/Playlist.ts:218](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L218)
 
 ___
 
@@ -135,7 +106,7 @@ Id of the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:146](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L146)
+[lib/app/Playlist.ts:140](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L140)
 
 ___
 
@@ -143,15 +114,13 @@ ___
 
 • `get` **isLast**(): `boolean`
 
-Whether current index points to the last video in the playlist.
-
 #### Returns
 
 `boolean`
 
 #### Defined in
 
-[lib/app/Playlist.ts:188](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L188)
+[lib/app/Playlist.ts:213](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L213)
 
 ___
 
@@ -167,7 +136,7 @@ The number of videos in the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:181](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L181)
+[lib/app/Playlist.ts:154](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L154)
 
 ___
 
@@ -183,4 +152,18 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:167](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/Playlist.ts#L167)
+[lib/app/Playlist.ts:147](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L147)
+
+## Methods
+
+### getState
+
+▸ **getState**(): [`PlaylistState`](../interfaces/PlaylistState.md)
+
+#### Returns
+
+[`PlaylistState`](../interfaces/PlaylistState.md)
+
+#### Defined in
+
+[lib/app/Playlist.ts:178](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/Playlist.ts#L178)

@@ -6,29 +6,15 @@
 
 ### Properties
 
-- [autoplayLoader](AppOptions.md#autoplayloader)
 - [brand](AppOptions.md#brand)
 - [enableAutoplayOnConnect](AppOptions.md#enableautoplayonconnect)
 - [logger](AppOptions.md#logger)
 - [model](AppOptions.md#model)
+- [playlistRequestHandler](AppOptions.md#playlistrequesthandler)
 - [screenApp](AppOptions.md#screenapp)
 - [screenName](AppOptions.md#screenname)
 
 ## Properties
-
-### autoplayLoader
-
-• `Optional` **autoplayLoader**: ``null`` \| [`AutoplayLoader`](AutoplayLoader.md)
-
-**`Default`**
-
-`DefaultAutoplayLoader` instance
-
-#### Defined in
-
-[lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L42)
-
-___
 
 ### brand
 
@@ -40,7 +26,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L30)
+[lib/app/YouTubeApp.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L29)
 
 ___
 
@@ -54,7 +40,7 @@ true
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L38)
+[lib/app/YouTubeApp.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L37)
 
 ___
 
@@ -64,7 +50,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:43](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L43)
+[lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L42)
 
 ___
 
@@ -78,7 +64,21 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L34)
+[lib/app/YouTubeApp.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L33)
+
+___
+
+### playlistRequestHandler
+
+• `Optional` **playlistRequestHandler**: [`PlaylistRequestHandler`](../classes/PlaylistRequestHandler.md)
+
+**`Default`**
+
+`DefaultPlaylistRequestHandler` instance
+
+#### Defined in
+
+[lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L41)
 
 ___
 
@@ -92,7 +92,7 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L26)
+[lib/app/YouTubeApp.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L25)
 
 ___
 
@@ -106,4 +106,4 @@ CONF_DEFAULTS.SCREEN_NAME
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/YouTubeApp.ts#L22)
+[lib/app/YouTubeApp.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/YouTubeApp.ts#L21)

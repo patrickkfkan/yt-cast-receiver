@@ -11,13 +11,14 @@ yt-cast-receiver
 - [BadResponseError](classes/BadResponseError.md)
 - [ConnectionError](classes/ConnectionError.md)
 - [DataError](classes/DataError.md)
-- [DefaultAutoplayLoader](classes/DefaultAutoplayLoader.md)
 - [DefaultLogger](classes/DefaultLogger.md)
+- [DefaultPlaylistRequestHandler](classes/DefaultPlaylistRequestHandler.md)
 - [DialServerError](classes/DialServerError.md)
 - [IncompleteAPIDataError](classes/IncompleteAPIDataError.md)
 - [PairingCodeRequestService](classes/PairingCodeRequestService.md)
 - [Player](classes/Player.md)
 - [Playlist](classes/Playlist.md)
+- [PlaylistRequestHandler](classes/PlaylistRequestHandler.md)
 - [Sender](classes/Sender.md)
 - [SenderConnectionError](classes/SenderConnectionError.md)
 - [SessionError](classes/SessionError.md)
@@ -27,12 +28,12 @@ yt-cast-receiver
 ### Interfaces
 
 - [AppOptions](interfaces/AppOptions.md)
-- [AutoplayInfo](interfaces/AutoplayInfo.md)
-- [AutoplayLoader](interfaces/AutoplayLoader.md)
 - [DialOptions](interfaces/DialOptions.md)
 - [Logger](interfaces/Logger.md)
 - [PlayerNavInfo](interfaces/PlayerNavInfo.md)
 - [PlayerState](interfaces/PlayerState.md)
+- [PlaylistState](interfaces/PlaylistState.md)
+- [Video](interfaces/Video.md)
 - [YouTubeCastReceiverOptions](interfaces/YouTubeCastReceiverOptions.md)
 
 ### Type Aliases
@@ -60,7 +61,7 @@ One of the values in [AUTOPLAY_MODES](README.md#autoplay_modes).
 
 #### Defined in
 
-[lib/Player.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L11)
+[lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L12)
 
 ___
 
@@ -72,7 +73,7 @@ One of the values in [LOG_LEVELS](README.md#log_levels).
 
 #### Defined in
 
-[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/utils/Logger.ts#L7)
+[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/utils/Logger.ts#L7)
 
 ___
 
@@ -84,7 +85,7 @@ One of the values in [PLAYER_STATUSES](README.md#player_statuses).
 
 #### Defined in
 
-[lib/Player.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L16)
+[lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L17)
 
 ___
 
@@ -96,7 +97,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L32)
+[lib/YouTubeCastReceiver.ts:31](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L31)
 
 ## Variables
 
@@ -114,7 +115,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/Constants.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L22)
+[lib/Constants.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Constants.ts#L22)
 
 ___
 
@@ -133,7 +134,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L15)
+[lib/Constants.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Constants.ts#L15)
 
 ___
 
@@ -153,7 +154,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L36)
+[lib/Constants.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Constants.ts#L36)
 
 ___
 
@@ -173,7 +174,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L28)
+[lib/Constants.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Constants.ts#L28)
 
 ___
 
@@ -192,4 +193,4 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Constants.ts#L44)
+[lib/Constants.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Constants.ts#L44)

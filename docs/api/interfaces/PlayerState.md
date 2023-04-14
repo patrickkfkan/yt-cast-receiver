@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[lib/Player.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L30)
+[lib/Player.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L25)
 
 ___
 
@@ -31,27 +31,17 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L28)
+[lib/Player.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L23)
 
 ___
 
 ### playlist
 
-• **playlist**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `ctt` | ``null`` \| `string` |
-| `current` | ``null`` \| `string` |
-| `currentIndex` | `number` |
-| `id` | ``null`` \| `string` |
-| `videoIds` | `string`[] |
+• **playlist**: [`PlaylistState`](PlaylistState.md)
 
 #### Defined in
 
-[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L20)
+[lib/Player.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L21)
 
 ___
 
@@ -61,7 +51,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L27)
+[lib/Player.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L22)
 
 ___
 
@@ -71,7 +61,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:19](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L19)
+[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L20)
 
 ___
 
@@ -81,4 +71,4 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/Player.ts#L29)
+[lib/Player.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L24)

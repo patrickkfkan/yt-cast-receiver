@@ -58,7 +58,7 @@ Service status
 
 #### Defined in
 
-[lib/app/PairingCodeRequestService.ts:160](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/PairingCodeRequestService.ts#L160)
+[lib/app/PairingCodeRequestService.ts:160](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/PairingCodeRequestService.ts#L160)
 
 ## Events
 
@@ -85,7 +85,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/app/PairingCodeRequestService.ts:141](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/PairingCodeRequestService.ts#L141)
+[lib/app/PairingCodeRequestService.ts:141](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/PairingCodeRequestService.ts#L141)
 
 ▸ **on**(`event`, `listener`): [`PairingCodeRequestService`](PairingCodeRequestService.md)
 
@@ -108,7 +108,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/app/PairingCodeRequestService.ts:147](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/PairingCodeRequestService.ts#L147)
+[lib/app/PairingCodeRequestService.ts:147](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/PairingCodeRequestService.ts#L147)
 
 ▸ **on**(`event`, `listener`): [`PairingCodeRequestService`](PairingCodeRequestService.md)
 
@@ -131,7 +131,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/app/PairingCodeRequestService.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/PairingCodeRequestService.ts#L153)
+[lib/app/PairingCodeRequestService.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/PairingCodeRequestService.ts#L153)
 
 ## Methods
 
@@ -147,7 +147,7 @@ Starts the service.
 
 #### Defined in
 
-[lib/app/PairingCodeRequestService.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/PairingCodeRequestService.ts#L54)
+[lib/app/PairingCodeRequestService.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/PairingCodeRequestService.ts#L54)
 
 ___
 
@@ -163,4 +163,4 @@ Stops the service.
 
 #### Defined in
 
-[lib/app/PairingCodeRequestService.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/app/PairingCodeRequestService.ts#L66)
+[lib/app/PairingCodeRequestService.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/app/PairingCodeRequestService.ts#L66)

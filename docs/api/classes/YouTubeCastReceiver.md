@@ -29,7 +29,6 @@ To create a `YouTubeCastReceiver` instance, you need to provide at least a
 - [enableAutoplayOnConnect](YouTubeCastReceiver.md#enableautoplayonconnect)
 - [getConnectedSenders](YouTubeCastReceiver.md#getconnectedsenders)
 - [getPairingCodeRequestService](YouTubeCastReceiver.md#getpairingcoderequestservice)
-- [setAutoplayLoader](YouTubeCastReceiver.md#setautoplayloader)
 - [setLogLevel](YouTubeCastReceiver.md#setloglevel)
 - [start](YouTubeCastReceiver.md#start)
 - [stop](YouTubeCastReceiver.md#stop)
@@ -57,7 +56,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:47](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L47)
+[lib/YouTubeCastReceiver.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L46)
 
 ## Accessors
 
@@ -71,7 +70,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:170](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L170)
+[lib/YouTubeCastReceiver.ts:165](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L165)
 
 ___
 
@@ -85,7 +84,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:166](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L166)
+[lib/YouTubeCastReceiver.ts:161](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L161)
 
 ## Methods
 
@@ -105,7 +104,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:146](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L146)
+[lib/YouTubeCastReceiver.ts:145](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L145)
 
 ___
 
@@ -119,7 +118,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:162](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L162)
+[lib/YouTubeCastReceiver.ts:157](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L157)
 
 ___
 
@@ -133,27 +132,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:158](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L158)
-
-___
-
-### setAutoplayLoader
-
-▸ **setAutoplayLoader**(`loader`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `loader` | ``null`` \| [`AutoplayLoader`](../interfaces/AutoplayLoader.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[lib/YouTubeCastReceiver.ts:150](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L150)
+[lib/YouTubeCastReceiver.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L153)
 
 ___
 
@@ -173,7 +152,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:154](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L154)
+[lib/YouTubeCastReceiver.ts:149](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L149)
 
 ___
 
@@ -187,7 +166,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:96](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L96)
+[lib/YouTubeCastReceiver.ts:95](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L95)
 
 ___
 
@@ -201,7 +180,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:127](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L127)
+[lib/YouTubeCastReceiver.ts:126](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L126)
 
 ## Events
 
@@ -228,7 +207,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:179](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L179)
+[lib/YouTubeCastReceiver.ts:174](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L174)
 
 ▸ **on**(`event`, `listener`): [`YouTubeCastReceiver`](YouTubeCastReceiver.md)
 
@@ -251,7 +230,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:185](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L185)
+[lib/YouTubeCastReceiver.ts:180](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L180)
 
 ▸ **on**(`event`, `listener`): [`YouTubeCastReceiver`](YouTubeCastReceiver.md)
 
@@ -274,7 +253,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:191](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L191)
+[lib/YouTubeCastReceiver.ts:186](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L186)
 
 ▸ **on**(`event`, `listener`): [`YouTubeCastReceiver`](YouTubeCastReceiver.md)
 
@@ -297,4 +276,4 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:197](https://github.com/patrickkfkan/yt-cast-receiver/blob/d291079/src/lib/YouTubeCastReceiver.ts#L197)
+[lib/YouTubeCastReceiver.ts:192](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L192)

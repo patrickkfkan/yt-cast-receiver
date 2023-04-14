@@ -49,12 +49,12 @@ class MyPlayer extends Player {
 The methods you need to implement are:
 
 <details>
-<summary><code>doPlay(videoId, position): Promise&lt;boolean&gt;</code></summary>
+<summary><code>doPlay(video, position): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>Implementations shall play the target video from the specified position.</p>
 
 **Params**
-- `videoId`: (string) Id of the target video.
+- `video`: (object) Target video to play; see [Video](#videoIf).
 - `position`: (number) the position, in seconds, from which to start playback.
 
 **Returns**
@@ -174,7 +174,7 @@ You can configure the `YouTubeCastReceiver` instance by passing options to its c
 - `logger`: `Logger` implementation (default: `DefaultLogger` instance) - see [Logging](#logging).
 - `logLevel`: one of [Constants.LOG_LEVELS](#constants) (default: INFO).
 - `app`: (object) receiver app options
-  - `autoplayLoader`: `AutoplayLoader` implementation, or `null` to disable autoplay (default: `DefaultAutoplayLoader` instance) - see [Autoplay](#autoplay).
+  - `playlistRequestHandler`: `PlaylistRequestHandler` implementation (default: `DefaultPlaylistRequestHandler` instance) - see [Autoplay](#autoplay).
   - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects.
   - `screenApp`: (string) defaults to 'YouTube Cast Receiver'.
   - `screenName`: (string) defaults to 'ytcr'.
@@ -240,14 +240,14 @@ When a user interacts with a control, the sender app sends the corresponding com
 
 <a name="control-methods"></a>
 <details>
-<summary><code>play(videoId, position, AID): Promise&lt;boolean&gt;</code></summary>
+<summary><code>play(video, position, AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
 Notifies senders that player is in 'loading' state, then calls `doPlay()`; if returned Promise resolves to `true`, notifies senders that playback has started.
 </p>
 
 **Params**
-- `videoId`: (string) Id of the target video.
+- `video`: (object) Target video to play; see [Video](#videoIf).
 - `position`: (number) the position, in seconds, from which to start playback.
 - `AID`: internal use; do not specify.
 
@@ -320,7 +320,7 @@ Promise that resolves to the resolved result of `doSeek()`, or `false` if no pla
 <summary><code>next(AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Plays the next video in the player queue. If already reached end of queue, play autoplay video if available. Notifies senders on successful playback.
+Plays the next video in the player queue. If already reached end of queue and autoplay is enabled, play autoplay video if available. Notifies senders on successful playback.
 </p>
 
 **Params**
@@ -370,6 +370,20 @@ If your application also provides controls for the user to manage playback on th
 // Example: user clicks 'pause' button in your application's UI
 await player.pause();
 ```
+
+<a name="videoIf"></a>
+## Videos
+
+A video is represented by an object that satisfies the `Video` interface constraint:
+
+- `id`: (string) video Id.
+- `context`: (object)
+  - `playlistId`: (string) Id of the playlist containing the video.
+  - `params`: (string) Exact purpose remains to be ascertained, but appears to relate to the sorting of items in a playlist, and possibly also the criteria for determining autoplay videos.
+  - `ctt`: (string) Client credentials transfer token, which is an authorization token for accessing private videos.
+
+All properties of `context`, as well as `context` itself, are present only if available.
+
 
 ## Handling changes in player state
 
@@ -469,7 +483,7 @@ By default, autoplay videos are obtained through a `DefaultAutoplayLoader` insta
 <p>
 The <code>AutoplayLoader</code> interface defines the one method you have to implement in your own autoplay loader:
 
-<code>getAutoplayVideoId(videoId, player, logger): Promise<string | null></code>
+<code>getAutoplayVideo(videoId, player, logger): Promise<string | null></code>
 
 Fetches the autoplay video for the specified video.
 
@@ -492,14 +506,14 @@ Example:
 import { AutoplayLoader, Logger, Player } from "yt-cast-receiver";
 
 class MyAutoplayLoader implements AutoplayLoader {
-  getAutoplayVideoId(videoId: string, player: Player, logger: Logger): Promise<string | null> {
+  getAutoplayVideo(videoId: string, player: Player, logger: Logger): Promise<string | null> {
     // Do your stuff here
   }
 }
 
 // CJS; no Typescript
 class MyAutoplayLoader {
-  getAutoplayVideoId(videoId, player, logger) {
+  getAutoplayVideo(videoId, player, logger) {
     // Do your stuff here
   }
 }
