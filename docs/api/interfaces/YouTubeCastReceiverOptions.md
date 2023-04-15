@@ -25,7 +25,7 @@ YouTube app options.
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L20)
+[lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/YouTubeCastReceiver.ts#L20)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L22)
+[lib/YouTubeCastReceiver.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/YouTubeCastReceiver.ts#L22)
 
 ___
 
@@ -47,7 +47,7 @@ DIAL server options.
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L17)
+[lib/YouTubeCastReceiver.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/YouTubeCastReceiver.ts#L17)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L24)
+[lib/YouTubeCastReceiver.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/YouTubeCastReceiver.ts#L24)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L25)
+[lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/YouTubeCastReceiver.ts#L25)
 
 ___
 
@@ -77,4 +77,4 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/YouTubeCastReceiver.ts#L23)
+[lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/YouTubeCastReceiver.ts#L23)

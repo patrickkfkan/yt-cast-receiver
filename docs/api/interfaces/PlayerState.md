@@ -8,8 +8,8 @@
 
 - [cpn](PlayerState.md#cpn)
 - [duration](PlayerState.md#duration)
-- [playlist](PlayerState.md#playlist)
 - [position](PlayerState.md#position)
+- [queue](PlayerState.md#queue)
 - [status](PlayerState.md#status)
 - [volume](PlayerState.md#volume)
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[lib/Player.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L25)
+[lib/Player.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/Player.ts#L25)
 
 ___
 
@@ -31,17 +31,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L23)
-
-___
-
-### playlist
-
-• **playlist**: [`PlaylistState`](PlaylistState.md)
-
-#### Defined in
-
-[lib/Player.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L21)
+[lib/Player.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/Player.ts#L23)
 
 ___
 
@@ -51,7 +41,17 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L22)
+[lib/Player.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/Player.ts#L22)
+
+___
+
+### queue
+
+• **queue**: [`PlaylistState`](PlaylistState.md)
+
+#### Defined in
+
+[lib/Player.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/Player.ts#L21)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L20)
+[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/Player.ts#L20)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/89ae18a/src/lib/Player.ts#L24)
+[lib/Player.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/Player.ts#L24)

@@ -43,7 +43,6 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
       this.#configureInnertubeContext(target);
       const nextResponse = await this.#innertube.actions.execute('/next', endpoint.payload) as any;
 
-
       const autoplaySet = nextResponse.data?.contents?.singleColumnWatchNextResults?.autoplay?.autoplay
         ?.sets?.[0];
       const previousRendererEndpoint = autoplaySet?.previousVideoRenderer?.autoplayEndpointRenderer?.endpoint;

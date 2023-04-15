@@ -54,7 +54,7 @@ The methods you need to implement are:
 <p>Implementations shall play the target video from the specified position.</p>
 
 **Params**
-- `video`: (object) Target video to play; see [Video](#videoIf).
+- `video`: (object) target video to play; [object properties](#videos).
 - `position`: (number) the position, in seconds, from which to start playback.
 
 **Returns**
@@ -174,7 +174,7 @@ You can configure the `YouTubeCastReceiver` instance by passing options to its c
 - `logger`: `Logger` implementation (default: `DefaultLogger` instance) - see [Logging](#logging).
 - `logLevel`: one of [Constants.LOG_LEVELS](#constants) (default: INFO).
 - `app`: (object) receiver app options
-  - `playlistRequestHandler`: `PlaylistRequestHandler` implementation (default: `DefaultPlaylistRequestHandler` instance) - see [Autoplay](#autoplay).
+  - `playlistRequestHandler`: `PlaylistRequestHandler` implementation (default: `DefaultPlaylistRequestHandler` instance) - see [Player Queue](#player-queue).
   - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects.
   - `screenApp`: (string) defaults to 'YouTube Cast Receiver'.
   - `screenName`: (string) defaults to 'ytcr'.
@@ -247,7 +247,7 @@ Notifies senders that player is in 'loading' state, then calls `doPlay()`; if re
 </p>
 
 **Params**
-- `video`: (object) Target video to play; see [Video](#videoIf).
+- `video`: (object) target video to play; [object properties](#videos).
 - `position`: (number) the position, in seconds, from which to start playback.
 - `AID`: internal use; do not specify.
 
@@ -371,18 +371,23 @@ If your application also provides controls for the user to manage playback on th
 await player.pause();
 ```
 
-<a name="videoIf"></a>
 ## Videos
 
-A video is represented by an object that satisfies the `Video` interface constraint:
+A video is represented by an object that satisfies the [Video](./src/lib/app/Video.ts) interface constraint:
 
 - `id`: (string) video Id.
 - `context`: (object)
   - `playlistId`: (string) Id of the playlist containing the video.
-  - `params`: (string) Exact purpose remains to be ascertained, but appears to relate to the sorting of items in a playlist, and possibly also the criteria for determining autoplay videos.
+  - `params`: (string) Exact purpose remains to be ascertained, but appears to affect playlist content and autoplay video.
   - `ctt`: (string) Client credentials transfer token, which is an authorization token for accessing private videos.
 
-All properties of `context`, as well as `context` itself, are present only if available.
+All properties of `context`, as well as `context` itself, are present only if available. Where provided, you may use them to fetch video info in your player implementation or, where applicable, your own `PlaylistRequestHandler` implementation (see [Player Queue](#player-queue)).
+
+For example of fetching video info for purpose of playback, see [VideoLoader](./example/VideoLoader.ts) used by the [FakePlayer](./example/FakePlayer.ts) demo.
+
+For example of fetching the next and previous videos in the [player queue](#player-queue), including autoplay video, see [DefaultPlaylistRequestHandler](./src/lib/app/DefaultPlaylistRequestHandler.ts).
+
+> It is up to you to decide which properties to utilize in your implementation. For example, in your player implementation, you may just use `video.id` when fetching video streams for playback. On the other hand, if your player needs to be able to play private videos, then you must also utilize `video.context.ctt`.
 
 
 ## Handling changes in player state
@@ -450,9 +455,65 @@ service.stop();
 ```
 In your application, you would inform the user of the pairing code inside the `response` event.
 
-## Autoplay
+<a name="player-queue"></a>
+## Player Queue
 
-If autoplay is enabled, the receiver will fetch the autoplay (aka 'Up Next') video when playback reaches the end of the player queue.
+The player queue is represented by a `Playlist` instance, accessible by `player.queue`. Internally, for the current selected video, the playlist keeps a reference to the previous and next videos. When the current video changes, the playlist refreshes the previous and next videos by calling the following method of a `PlaylistRequestHandler` implementation:
+
+<details>
+<summary><code>getPreviousNextVideos(target, playlist)</code></summary>
+<br />
+<p>Given <code>target</code> video that resides in <code>playlist</code>, implementations shall fetch the previous and next videos in the list.</p>
+
+**Params**
+- `video`: (object) target video for which to fetch the previous and next videos; [object properties](#videos).
+- `playlist`: (object) the `Playlist` instance making the request.
+
+**Returns**
+<br />
+<p>
+Promise that resolves to the following value:
+
+(Object)
+- `previous`: (object) the previous video in the list, or `null` if none.
+- `next`: (object) the next video in the list. If there is none, then set it to the autoplay video, or `null` if none or autoplay is not enabled (you may check with `playlist.autoplayMode`).
+
+Instead of `null`, you may just omit `previous` or `next` (as appropriate) from the returned result. If provided, they must satisfy the `Video` interface constraint (see [Videos](#videos)).
+</p>
+</details>
+
+By default, previous / next videos are obtained through a `DefaultPlaylistRequestHandler` instance, which makes YouTube API calls with the [YouTube.js](https://github.com/LuanRT/YouTube.js) library and returns the result after parsing the response.
+
+You may have observed that the player queue can be obtained through the `Player` instance's `queue` property, and that the queue provides a `videoIds` property:
+
+```
+const videoIds = player.queue.videoIds; // Array of video Ids in the queue
+```
+
+So why does `DefaultPlaylistRequestHandler` go through the trouble of making YouTube API calls when the Id of the previous and next videos are readily available? This is because the `videoIds` property does not include context data such as `params` and `ctt`, nor does it include information about autoplay. The aim of `DefaultPlaylistRequestHandler` is to facilitate autoplay as well as provide sufficient data that would allow you to properly formulate requests when fetching video info for playback in your player implementation.
+
+If the default `PlaylistRequestHandler` does not suit your purpose, you can implement your own:
+```
+import { Playlist, PlaylistRequestHandler, Video } from "yt-cast-receiver";
+
+class MyPlaylistRequestHandler extends PlaylistRequestHandler {
+  getPreviousNextVideos(target: Video, playlist: Playlist): Promise<{ previous?: Video | null; next?: Video | null; }> {
+    // Do you stuff here
+  }
+}
+```
+
+To use your `PlaylistRequestHandler` implementation:
+```
+const receiver = new YouTubeCastReceiver(player, {
+  app: {
+    playlistRequestHandler: new MyPlaylistRequestHandler()
+    ...
+  }
+});
+```
+
+## Autoplay on Connect
 
 By default, autoplay is enabled automatically on the sender app when a Cast session begins. You can disable this behaviour:
 
@@ -470,70 +531,6 @@ receiver.enableAutoplayOnConnect(false);
 ```
 
 > `enableAutoplayOnConnect: true` may be overridden depending on the autoplay capability of all connected senders. If any one sender doesn't support autoplay (e.g. YouTube website), then autoplay will be disabled for all senders.
-
-### Autoplay loader
-
-By default, autoplay videos are obtained through a `DefaultAutoplayLoader` instance, which fetches from the following sources:
-- Mixes; or
-- Related videos, if mixes are not found for the target video.
-
-<details>
-<summary>Implementing your own autoplay loader</summary>
-<br />
-<p>
-The <code>AutoplayLoader</code> interface defines the one method you have to implement in your own autoplay loader:
-
-<code>getAutoplayVideo(videoId, player, logger): Promise<string | null></code>
-
-Fetches the autoplay video for the specified video.
-
-**Params**
-- `videoId`: (string) the Id of the target video.
-- `player`: the `Player` implementation associated with this request.
-- `logger`: `Logger` implementation for logging messages.
-</p>
-
-**Returns**
-<br />
-<p>
-Promise that resolves to the Id of the autoplay video, or <code>null</code> if none obtained.
-</p>
-
-Example:
-
-```
-// ESM + Typescript:
-import { AutoplayLoader, Logger, Player } from "yt-cast-receiver";
-
-class MyAutoplayLoader implements AutoplayLoader {
-  getAutoplayVideo(videoId: string, player: Player, logger: Logger): Promise<string | null> {
-    // Do your stuff here
-  }
-}
-
-// CJS; no Typescript
-class MyAutoplayLoader {
-  getAutoplayVideo(videoId, player, logger) {
-    // Do your stuff here
-  }
-}
-```
-
-To use your autoplay loader implementation:
-```
-// At construction time
-const receiver = new YouTubeCastReceiver(player, {
-  app: {
-    autoplayLoader: new MyAutoplayLoader()
-    ...
-  }
-});
-
-// At runtime:
-receiver.setAutoplayLoader(new MyAutoplayLoader());
-
-```
-</details>
 
 ## Logging
 
