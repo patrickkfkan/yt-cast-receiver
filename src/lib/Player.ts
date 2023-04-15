@@ -18,7 +18,7 @@ export type PlayerStatus = ValueOf<typeof PLAYER_STATUSES>;
 
 export interface PlayerState {
   status: PlayerStatus;
-  playlist: PlaylistState,
+  queue: PlaylistState,
   position: number,
   duration: number
   volume: number,
@@ -40,7 +40,7 @@ export interface PlayerNavInfo {
  */
 export default abstract class Player extends EventEmitter {
   #status: PlayerStatus;
-  #playlist: Playlist;
+  #queue: Playlist;
   #cpn: string;
   #logger: Logger;
   #previousState: PlayerState | null;
@@ -107,7 +107,7 @@ export default abstract class Player extends EventEmitter {
   constructor() {
     super();
     this.#status = PLAYER_STATUSES.IDLE;
-    this.#playlist = new Playlist();
+    this.#queue = new Playlist();
     this.#cpn = uuidv4().replace(/-/g, '').substring(0, 16);
     this.#previousState = null;
   }
@@ -132,7 +132,7 @@ export default abstract class Player extends EventEmitter {
       await this.stop();
     }
     this.#logger.info(`[YouTubeCastReceiver] Player.play(): ${video.id} @ ${position || 0}s`);
-    this.playlist.setAsCurrent(video);
+    this.queue.setAsCurrent(video);
     await this.#setStatusAndEmit(PLAYER_STATUSES.LOADING, AID);
     const result = await this.doPlay(video, position || 0);
     if (result) {
@@ -179,8 +179,8 @@ export default abstract class Player extends EventEmitter {
       }
       return result;
     }
-    else if (this.#playlist.current) {
-      return this.play(this.#playlist.current);
+    else if (this.#queue.current) {
+      return this.play(this.#queue.current);
     }
 
     return false;
@@ -236,11 +236,11 @@ export default abstract class Player extends EventEmitter {
    */
   async next(AID?: number | null): Promise<boolean> {
     this.#logger.info('[YouTubeCastReceiver] Player.next()');
-    const nextVideo = await this.#playlist.next();
+    const nextVideo = await this.#queue.next();
     if (!nextVideo) {
-      this.#logger.info('[YouTubeCastReceiver] No next video in playlist.');
+      this.#logger.info('[YouTubeCastReceiver] No next video in queue.');
       if (this.autoplayMode === AUTOPLAY_MODES.ENABLED) {
-        const autoplayVideo = this.#playlist.autoplay;
+        const autoplayVideo = this.#queue.autoplay;
         if (autoplayVideo) {
           this.#logger.info(`[YouTubeCastReceiver] Play autoplay video: ${autoplayVideo.id}.`);
           return this.play(autoplayVideo, 0, AID);
@@ -264,9 +264,9 @@ export default abstract class Player extends EventEmitter {
    */
   async previous(AID?: number | null): Promise<boolean> {
     this.#logger.info('[YouTubeCastReceiver] Player.previous()');
-    const previousVideo = await this.#playlist.previous();
+    const previousVideo = await this.#queue.previous();
     if (!previousVideo) {
-      this.#logger.info('[YouTubeCastReceiver] No previous video in playlist.');
+      this.#logger.info('[YouTubeCastReceiver] No previous video in queue.');
       await this.stop(AID);
       return false;
     }
@@ -297,7 +297,7 @@ export default abstract class Player extends EventEmitter {
    */
   async reset(AID?: number | null) {
     this.#logger.info('[YouTubeCastReceiver] Player.reset()');
-    this.#playlist.reset();
+    this.#queue.reset();
     await this.stop(AID);
     this.#previousState = null;
     this.#setStatusAndEmit(PLAYER_STATUSES.IDLE, AID);
@@ -337,21 +337,21 @@ export default abstract class Player extends EventEmitter {
   }
 
   get autoplayMode(): AutoplayMode {
-    return this.playlist.autoplayMode;
+    return this.queue.autoplayMode;
   }
 
   get cpn(): string {
     return this.#cpn;
   }
 
-  get playlist(): Playlist {
-    return this.#playlist;
+  get queue(): Playlist {
+    return this.#queue;
   }
 
   getNavInfo(): PlayerNavInfo {
     return {
-      hasPrevious: this.#playlist.hasPrevious,
-      hasNext: this.#playlist.hasNext,
+      hasPrevious: this.#queue.hasPrevious,
+      hasNext: this.#queue.hasNext,
       autoplayMode: this.autoplayMode
     };
   }
@@ -359,7 +359,7 @@ export default abstract class Player extends EventEmitter {
   async getState(): Promise<PlayerState> {
     return {
       status: this.status,
-      playlist: this.#playlist.getState(),
+      queue: this.#queue.getState(),
       position: await this.getPosition(),
       duration: await this.getDuration(),
       volume: await this.getVolume(),

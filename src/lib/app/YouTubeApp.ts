@@ -85,8 +85,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
     this.#player = player;
     this.#player.setLogger(options.logger);
-    this.#player.playlist.setRequestHandler(options.playlistRequestHandler || new DefaultPlaylistRequestHandler());
-    this.#player.playlist.requestHandler.setLogger(options.logger);
+    this.#player.queue.setRequestHandler(options.playlistRequestHandler || new DefaultPlaylistRequestHandler());
+    this.#player.queue.requestHandler.setLogger(options.logger);
     this.#playerStateListener = this.#handlePlayerStateEvent.bind(this);
     this.enableAutoplayOnConnect(options.enableAutoplayOnConnect !== undefined ? options.enableAutoplayOnConnect : true);
     this.#autoplayModeBeforeUnsupportedOverride = null;
@@ -131,9 +131,9 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   }
 
   async #setAutoplayMode(AID: number | null, value: AutoplayMode) {
-    const stateBefore = this.#player.playlist.getState();
-    await this.#player.playlist.setAutoplayMode(value);
-    const stateAfter = this.#player.playlist.getState();
+    const stateBefore = this.#player.queue.getState();
+    await this.#player.queue.setAutoplayMode(value);
+    const stateAfter = this.#player.queue.getState();
     const sendMessages = [
       new Message.OnAutoplayModeChanged(AID, value)
     ];
@@ -269,10 +269,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       case 'setPlaylist':
       case 'updatePlaylist':
         this.#logger.debug(`[YouTubeCastReceiver] '${message.name}' message payload:`, payload);
-        const stateBeforeSet = this.#player.playlist.getState();
+        const stateBeforeSet = this.#player.queue.getState();
         const navBeforeSet = this.#player.getNavInfo();
-        await this.#player.playlist.updateByMessage(message);
-        const stateAfterSet = this.#player.playlist.getState();
+        await this.#player.queue.updateByMessage(message);
+        const stateAfterSet = this.#player.queue.getState();
         const navAfterSet = this.#player.getNavInfo();
         if (stateBeforeSet.autoplay?.id !== stateAfterSet.autoplay?.id) {
           sendMessages.push(new Message.AutoplayUpNext(AID, stateAfterSet.autoplay?.id || null));
