@@ -26,7 +26,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/Sender.ts#L9)
+[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L9)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/Sender.ts#L10)
+[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L10)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/Sender.ts#L11)
+[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L11)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/Sender.ts#L7)
+[lib/app/Sender.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L7)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:8](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/Sender.ts#L8)
+[lib/app/Sender.ts:8](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L8)
 
 ## Methods
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/Sender.ts#L42)
+[lib/app/Sender.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L42)

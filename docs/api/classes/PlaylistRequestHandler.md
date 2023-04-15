@@ -44,7 +44,7 @@ Handles requests made by a `Playlist` instance.
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/PlaylistRequestHandler.ts#L42)
+[lib/app/PlaylistRequestHandler.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/PlaylistRequestHandler.ts#L42)
 
 ## Methods
 
@@ -79,7 +79,7 @@ must satisfy the [Video](../interfaces/Video.md) interface constraint.
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/PlaylistRequestHandler.ts#L32)
+[lib/app/PlaylistRequestHandler.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/PlaylistRequestHandler.ts#L32)
 
 ___
 
@@ -96,7 +96,7 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/PlaylistRequestHandler.ts#L38)
+[lib/app/PlaylistRequestHandler.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/PlaylistRequestHandler.ts#L38)
 
 ___
 
@@ -116,4 +116,4 @@ ___
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/6b07310/src/lib/app/PlaylistRequestHandler.ts#L12)
+[lib/app/PlaylistRequestHandler.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/PlaylistRequestHandler.ts#L12)
