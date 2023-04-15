@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import * as dial from '@patrickkfkan/peer-dial';
 import queryString from 'query-string';
 import { v4 as uuidv4 } from 'uuid';
-import Player, { AutoplayMode } from '../Player.js';
+import Player, { AutoplayMode, PlayerState } from '../Player.js';
 import Message from './Message.js';
 import Session from './Session.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
@@ -382,7 +382,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
   }
 
-  #handlePlayerStateEvent(payload: Record<string, any>) {
+  #handlePlayerStateEvent(payload: {AID: number, current: PlayerState, previous: PlayerState}) {
     const {AID, current, previous} = payload;
 
     if (this.#connectedSenders.length === 0) {
@@ -400,10 +400,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       statusChanged = previous.status !== current.status;
       positionChanged = previous.position !== current.position;
       volumeChanged = previous.volume !== current.volume;
-      nowPlayingChanged = previous.playlist.current !== current.playlist.current ||
-        previous.playlist.id !== current.playlist.id ||
-        previous.playlist.currentIndex !== current.playlist.currentIndex;
-      autoplayChanged = previous.playlist.autoplay?.id !== current.playlist.autoplay?.id;
+      nowPlayingChanged = previous.queue.current?.id !== current.queue.current?.id ||
+        previous.queue.id !== current.queue.id ||
+        previous.queue.current?.context?.index !== current.queue.current?.context?.index;
+      autoplayChanged = previous.queue.autoplay?.id !== current.queue.autoplay?.id;
     }
 
     const messages = [];
@@ -420,7 +420,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       messages.push(new Message.OnVolumeChanged(AID, current.volume, false));
     }
     if (autoplayChanged) {
-      messages.push(new Message.AutoplayUpNext(AID, current.playlist.autoplay?.id || null));
+      messages.push(new Message.AutoplayUpNext(AID, current.queue.autoplay?.id || null));
     }
 
     if (messages.length > 0) {
