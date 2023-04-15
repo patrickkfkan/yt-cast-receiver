@@ -170,12 +170,12 @@ class FakePlayerDemo {
         }
       }
       else if (key.ch === '<') {
-        if (this.#player.playlist.hasPrevious) {
+        if (this.#player.queue.hasPrevious) {
           await this.#player.previous();
         }
       }
       else if (key.ch === '>') {
-        if (this.#player.playlist.hasNext) {
+        if (this.#player.queue.hasNext) {
           await this.#player.next();
         }
       }
