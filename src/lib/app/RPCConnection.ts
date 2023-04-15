@@ -46,7 +46,7 @@ export default class RPCConnection extends EventEmitter {
   async #doConnect(isReconnect = false, retry = 0): Promise<void> {
     this.#status = isReconnect ? 'reconnecting' : 'connecting';
     const url = `${URLS.BIND}?${this.#bindParams.toQueryString('rpc')}`;
-    this.#logger.debug(`[YouTubeCastReceiver] Connecting to RPC URL: ${url}`);
+    this.#logger.debug(`[yt-cast-receiver] Connecting to RPC URL: ${url}`);
 
     this.#abortController = new AbortController();
     let response;
@@ -55,20 +55,20 @@ export default class RPCConnection extends EventEmitter {
     }
     catch (error: any) {
       if (error.name === 'AbortError') {
-        this.#logger.debug('[YouTubeCastReceiver] RPC connection request aborted.');
+        this.#logger.debug('[yt-cast-receiver] RPC connection request aborted.');
         this.#status = 'disconnected';
         throw new AbortError('RPC connection request aborted', url);
       }
 
-      this.#logger.error('[YouTubeCastReceiver] RPC connection error:', error);
+      this.#logger.error('[yt-cast-receiver] RPC connection error:', error);
       retry++;
       if (retry <= MAX_RETRIES) {
-        this.#logger.error(`[YouTubeCastReceiver] Retrying ${retry} / ${MAX_RETRIES}`);
+        this.#logger.error(`[yt-cast-receiver] Retrying ${retry} / ${MAX_RETRIES}`);
         return this.#doConnect(isReconnect, retry);
       }
 
       this.#status = 'disconnected';
-      this.#logger.error('[YouTubeCastReceiver] Max retries reached. Giving up...');
+      this.#logger.error('[yt-cast-receiver] Max retries reached. Giving up...');
       throw new ConnectionError('RPC connection error', url, error);
     }
     finally {
@@ -76,7 +76,7 @@ export default class RPCConnection extends EventEmitter {
     }
 
     if (response.ok) {
-      this.#logger.debug('[YouTubeCastReceiver] RPC connection established.');
+      this.#logger.debug('[yt-cast-receiver] RPC connection established.');
       this.#status = 'connected';
 
       const readable = new Readable().wrap(response.body);
@@ -95,7 +95,7 @@ export default class RPCConnection extends EventEmitter {
       });
 
       this.#reader.on('error', (error) => {
-        this.#logger.error('[YouTubeCastReceiver] RPC connection reader error:', error);
+        this.#logger.error('[yt-cast-receiver] RPC connection reader error:', error);
         // Force disconnect
         readable.destroy();
       });
@@ -126,7 +126,7 @@ export default class RPCConnection extends EventEmitter {
 
     if (prevStatus === 'connected') {
       // Disconnected by remote end or reader error - reconnect.
-      this.#logger.debug('[YouTubeCastReceiver] RPC connection disconnected. Reconnecting...');
+      this.#logger.debug('[yt-cast-receiver] RPC connection disconnected. Reconnecting...');
       try {
         await this.#doConnect(true);
       }
@@ -135,13 +135,13 @@ export default class RPCConnection extends EventEmitter {
       }
     }
     else {
-      this.#logger.debug('[YouTubeCastReceiver] RPC connection closed.');
+      this.#logger.debug('[yt-cast-receiver] RPC connection closed.');
     }
   }
 
   close() {
     if (this.#status === 'connected' || this.#status === 'connecting' || this.#status === 'reconnecting') {
-      this.#logger.debug('[YouTubeCastReceiver] Closing RPC connection...');
+      this.#logger.debug('[yt-cast-receiver] Closing RPC connection...');
       this.#status = 'disconnecting';
       if (this.#abortController) {
         this.#abortController.abort();

@@ -85,7 +85,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
       catch (error) {
         // Do nothing - we're quitting anyway
       }
-      this.#logger.error('[YouTubeCastReceiver] Receiver terminated due to error:', error);
+      this.#logger.error('[yt-cast-receiver] Receiver terminated due to error:', error);
       this.emit('terminate', error);
     });
 
@@ -94,7 +94,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
 
   async start() {
     if (this.status !== STATUSES.STOPPED) {
-      this.#logger.warn('[YouTubeCastReceiver] start() called but receiver not in STOPPED state.');
+      this.#logger.warn('[yt-cast-receiver] start() called but receiver not in STOPPED state.');
       return;
     }
 
@@ -104,7 +104,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
       await this.#server.start();
     }
     catch (error) {
-      this.#logger.error('[YouTubeCastReceiver] Failed to start receiver:', error);
+      this.#logger.error('[yt-cast-receiver] Failed to start receiver:', error);
       try {
         if (this.#app.state === STATUSES.RUNNING) {
           await this.#app.stop();
@@ -125,7 +125,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
 
   async stop() {
     if (this.status !== STATUSES.RUNNING) {
-      this.#logger.warn('[YouTubeCastReceiver] stop() called but receiver not in RUNNING state.');
+      this.#logger.warn('[yt-cast-receiver] stop() called but receiver not in RUNNING state.');
       return;
     }
 
@@ -136,7 +136,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
     }
     catch (error) {
       this.#status = STATUSES.RUNNING;
-      this.#logger.error('[YouTubeCastReceiver] Failed to stop receiver:', error);
+      this.#logger.error('[yt-cast-receiver] Failed to stop receiver:', error);
       throw error;
     }
     this.#status = STATUSES.STOPPED;

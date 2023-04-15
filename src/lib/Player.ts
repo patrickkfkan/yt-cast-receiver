@@ -131,7 +131,7 @@ export default abstract class Player extends EventEmitter {
     if (this.status === PLAYER_STATUSES.PLAYING) {
       await this.stop();
     }
-    this.#logger.info(`[YouTubeCastReceiver] Player.play(): ${video.id} @ ${position || 0}s`);
+    this.#logger.info(`[yt-cast-receiver] Player.play(): ${video.id} @ ${position || 0}s`);
     this.queue.setAsCurrent(video);
     await this.#setStatusAndEmit(PLAYER_STATUSES.LOADING, AID);
     const result = await this.doPlay(video, position || 0);
@@ -151,7 +151,7 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to the resolved result of `doPause()`, or `false` if no playback is in progress.
    */
   async pause(AID?: number | null): Promise<boolean> {
-    this.#logger.info('[YouTubeCastReceiver] Player.pause()');
+    this.#logger.info('[yt-cast-receiver] Player.pause()');
     if (this.status === PLAYER_STATUSES.PLAYING) {
       const result = await this.doPause();
       if (result) {
@@ -168,7 +168,7 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to the resolved result of `doResume()`, or `false` if player is not in paused state.
    */
   async resume(AID?: number | null): Promise<boolean> {
-    this.#logger.info('[YouTubeCastReceiver] Player.resume()');
+    this.#logger.info('[yt-cast-receiver] Player.resume()');
     if (this.status === PLAYER_STATUSES.PLAYING) {
       return false;
     }
@@ -196,7 +196,7 @@ export default abstract class Player extends EventEmitter {
       return true;
     }
 
-    this.#logger.info('[YouTubeCastReceiver] Player.stop()');
+    this.#logger.info('[yt-cast-receiver] Player.stop()');
     const result = await this.doStop();
     if (result) {
       await this.#setStatusAndEmit(PLAYER_STATUSES.STOPPED, AID);
@@ -214,7 +214,7 @@ export default abstract class Player extends EventEmitter {
     if (this.#status !== PLAYER_STATUSES.PLAYING && this.#status !== PLAYER_STATUSES.PAUSED) {
       return false;
     }
-    this.#logger.info(`[YouTubeCastReceiver] Player.seek(): ${position}s`);
+    this.#logger.info(`[yt-cast-receiver] Player.seek(): ${position}s`);
     const previousState = await this.getState();
     const result = await this.doSeek(position);
     if (result) {
@@ -235,20 +235,20 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to `true` on playback of the next video; `false` otherwise.
    */
   async next(AID?: number | null): Promise<boolean> {
-    this.#logger.info('[YouTubeCastReceiver] Player.next()');
+    this.#logger.info('[yt-cast-receiver] Player.next()');
     const nextVideo = await this.#queue.next();
     if (!nextVideo) {
-      this.#logger.info('[YouTubeCastReceiver] No next video in queue.');
+      this.#logger.info('[yt-cast-receiver] No next video in queue.');
       if (this.autoplayMode === AUTOPLAY_MODES.ENABLED) {
         const autoplayVideo = this.#queue.autoplay;
         if (autoplayVideo) {
-          this.#logger.info(`[YouTubeCastReceiver] Play autoplay video: ${autoplayVideo.id}.`);
+          this.#logger.info(`[yt-cast-receiver] Play autoplay video: ${autoplayVideo.id}.`);
           return this.play(autoplayVideo, 0, AID);
         }
-        this.#logger.info('[YouTubeCastReceiver] No autoplay video available.');
+        this.#logger.info('[yt-cast-receiver] No autoplay video available.');
       }
       else {
-        this.#logger.info('[YouTubeCastReceiver] No autoplay video - autoplay is disabled.');
+        this.#logger.info('[yt-cast-receiver] No autoplay video - autoplay is disabled.');
       }
       await this.stop(AID);
       return false;
@@ -263,10 +263,10 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to `true` on playback of the previous video; `false` otherwise.
    */
   async previous(AID?: number | null): Promise<boolean> {
-    this.#logger.info('[YouTubeCastReceiver] Player.previous()');
+    this.#logger.info('[yt-cast-receiver] Player.previous()');
     const previousVideo = await this.#queue.previous();
     if (!previousVideo) {
-      this.#logger.info('[YouTubeCastReceiver] No previous video in queue.');
+      this.#logger.info('[yt-cast-receiver] No previous video in queue.');
       await this.stop(AID);
       return false;
     }
@@ -281,7 +281,7 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to the resolved result of `doSetVolume()`.
    */
   async setVolume(volume: number, AID?: number | null): Promise<boolean> {
-    this.#logger.info(`[YouTubeCastReceiver] Player.setVolume(): ${volume}`);
+    this.#logger.info(`[yt-cast-receiver] Player.setVolume(): ${volume}`);
     const previousState = await this.getState();
     const result = await this.doSetVolume(volume);
     if (result) {
@@ -296,7 +296,7 @@ export default abstract class Player extends EventEmitter {
    * @param AID - Internal use; do not specify.
    */
   async reset(AID?: number | null) {
-    this.#logger.info('[YouTubeCastReceiver] Player.reset()');
+    this.#logger.info('[yt-cast-receiver] Player.reset()');
     this.#queue.reset();
     await this.stop(AID);
     this.#previousState = null;

@@ -185,13 +185,13 @@ export default class Session extends EventEmitter {
 
       this.#rpcConnection.on('messages', this.#handleMessage.bind(this));
       this.#rpcConnection.on('terminate', (error) => {
-        this.#logger.error('[YouTubeCastReceiver] RPC connection terminated due to error:', error);
+        this.#logger.error('[yt-cast-receiver] RPC connection terminated due to error:', error);
         this.#refreshLoungeToken();
       });
 
       try {
         await this.#rpcConnection.connect();
-        this.#logger.debug('[YouTubeCastReceiver] Session established.');
+        this.#logger.debug('[yt-cast-receiver] Session established.');
 
         if (!isRefreshing) {
           this.#status = STATUSES.RUNNING;
@@ -262,7 +262,7 @@ export default class Session extends EventEmitter {
 
   async #refreshLoungeToken() {
     this.#status = 'refreshing';
-    this.#logger.debug('[YouTubeCastReceiver] Refreshing lounge token...');
+    this.#logger.debug('[yt-cast-receiver] Refreshing lounge token...');
 
     this.#clearLoungeTokenRefreshTimer();
 
@@ -283,7 +283,7 @@ export default class Session extends EventEmitter {
       throw new SessionError('Error while refreshing lounge token', error);
     }
     finally {
-      this.#logger.debug('[YouTubeCastReceiver] Closing old RPC connection...');
+      this.#logger.debug('[yt-cast-receiver] Closing old RPC connection...');
       oldRPC.removeAllListeners();
       oldRPC.close();
     }
@@ -324,7 +324,7 @@ export default class Session extends EventEmitter {
   }
 
   async restart() {
-    this.#logger.debug('[YouTubeCastReceiver] Restarting session...');
+    this.#logger.debug('[yt-cast-receiver] Restarting session...');
     const pairingCodeRequestServiceStatus = this.#pairingCodeRequestService.status;
     try {
       await this.end();
@@ -350,7 +350,7 @@ export default class Session extends EventEmitter {
     }
     try {
       const screenId = await response.text();
-      this.#logger.debug(`[YouTubeCastReceiver] Obtained screen ID: ${screenId}`);
+      this.#logger.debug(`[yt-cast-receiver] Obtained screen ID: ${screenId}`);
       return screenId;
     }
     catch (error) {
@@ -379,7 +379,7 @@ export default class Session extends EventEmitter {
     }
     try {
       const token = (await response.json())?.screens?.[0] as LoungeToken;
-      this.#logger.debug('[YouTubeCastReceiver] Obtained lounge token:', token);
+      this.#logger.debug('[yt-cast-receiver] Obtained lounge token:', token);
       return token;
     }
     catch (error) {
@@ -402,7 +402,7 @@ export default class Session extends EventEmitter {
     try {
       const body = await response.text();
       const messages = Message.parseIncoming(body);
-      this.#logger.debug('[YouTubeCastReceiver] Received messages for establishing session:', messages);
+      this.#logger.debug('[yt-cast-receiver] Received messages for establishing session:', messages);
       return messages;
     }
     catch (error) {
@@ -411,7 +411,7 @@ export default class Session extends EventEmitter {
   }
 
   async registerPairingCode(code: string) {
-    this.#logger.debug(`[YouTubeCastReceiver] Registering pairing code: ${code}`);
+    this.#logger.debug(`[yt-cast-receiver] Registering pairing code: ${code}`);
 
     if (!this.#screen.id) {
       throw new IncompleteAPIDataError('Missing data required to register pairing code', [ 'screenId' ]);
@@ -439,7 +439,7 @@ export default class Session extends EventEmitter {
     }
 
     if (response.ok) {
-      this.#logger.debug('[YouTubeCastReceiver] Pairing code registered.');
+      this.#logger.debug('[yt-cast-receiver] Pairing code registered.');
       return;
     }
 
@@ -507,14 +507,14 @@ export default class Session extends EventEmitter {
     const postData = this.#getSendMessagePayload(sc);
     const debugMsgNameStr = Array.isArray(sc) ? `messages '${sc.map((c) => c.name).join(' + ')}'` : `message '${sc.name}'`;
 
-    this.#logger.debug(`[YouTubeCastReceiver] ${AID ? `(AID: ${AID}) ` : ''}Sending ${debugMsgNameStr} with payload:`, postData);
+    this.#logger.debug(`[yt-cast-receiver] ${AID ? `(AID: ${AID}) ` : ''}Sending ${debugMsgNameStr} with payload:`, postData);
     let response;
     try {
       response = await fetch(url, {
         method: 'POST',
         body: new URLSearchParams(postData)
       });
-      this.#logger.debug(`[YouTubeCastReceiver] ${AID ? `(AID: ${AID}) ` : ''}Response received for sent ${debugMsgNameStr}. Status: ${response.status}`);
+      this.#logger.debug(`[yt-cast-receiver] ${AID ? `(AID: ${AID}) ` : ''}Response received for sent ${debugMsgNameStr}. Status: ${response.status}`);
     }
     catch (error) {
       reject(new ConnectionError(`Connection error in sending ${debugMsgNameStr}${AID ? ` (AID: ${AID})` : ''}`, url, error));

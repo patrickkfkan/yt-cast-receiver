@@ -36,7 +36,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
     if (!this.#innertube) {
       throw Error('DefaultPlaylistRequestHandler not initialized');
     }
-    this.logger.debug(`[YouTubeCastReceiver] DefaultPlaylistRequestHandler.getPreviousNextVideos: ${target.id}`);
+    this.logger.debug(`[yt-cast-receiver] DefaultPlaylistRequestHandler.getPreviousNextVideos: ${target.id}`);
 
     try {
       const endpoint = this.#createInnertubeEndpoint(target);
@@ -57,14 +57,14 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
         parsedEndpoints.next = new InnertubeLib.YTNodes.NavigationEndpoint(autoplayRendererEndpoint);
       }
 
-      this.logger.debug(`[YouTubeCastReceiver] Previous / Next endpoints for video Id: ${target.id}`, parsedEndpoints);
+      this.logger.debug(`[yt-cast-receiver] Previous / Next endpoints for video Id: ${target.id}`, parsedEndpoints);
 
       const result = {
         previous: parsedEndpoints.previous ? this.#videoFromInnertubeEndpoint(parsedEndpoints.previous) : null,
         next: parsedEndpoints.next ? this.#videoFromInnertubeEndpoint(parsedEndpoints.next) : null
       };
 
-      this.logger.debug(`[YouTubeCastReceiver] Previous / Next videos for video Id: ${target.id}`, result);
+      this.logger.debug(`[yt-cast-receiver] Previous / Next videos for video Id: ${target.id}`, result);
 
       return result;
     }

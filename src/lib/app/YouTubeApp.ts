@@ -96,7 +96,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     if (this.state !== STATUSES.STOPPED) {
       return;
     }
-    this.#logger.debug('[YouTubeCastReceiver] Starting YouTubeApp...');
+    this.#logger.debug('[yt-cast-receiver] Starting YouTubeApp...');
     this.state = STATUSES.STARTING;
     this.#player.on('state', this.#playerStateListener);
     this.#session.on('messages', this.#handleIncomingMessage.bind(this));
@@ -121,7 +121,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     const parsedCode = queryString.parse(launchData).pairingCode;
     const code = Array.isArray(parsedCode) ? parsedCode[0] : parsedCode;
     if (code) {
-      this.#logger.info('[YouTubeCastReceiver] Connecting sender through DIAL...');
+      this.#logger.info('[yt-cast-receiver] Connecting sender through DIAL...');
       await this.#session.registerPairingCode(Array.isArray(code) ? code[0] : code);
       return this.pid;
     }
@@ -159,7 +159,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     const { AID, name, payload } = message as Message;
 
     this.#logger.debug('-----------------------------------');
-    this.#logger.debug(`[YouTubeCastReceiver] (AID: ${AID}) Incoming message: '${name}'`);
+    this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) Incoming message: '${name}'`);
 
     const sendMessages = [];
 
@@ -171,23 +171,23 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         }
         catch (err) {
           const error = new SenderConnectionError('Failed to register connected sender', err, 'connect');
-          this.#logger.error('[YouTubeCastReceiver] Failed to handle \'remoteConnected\' message:', error);
+          this.#logger.error('[yt-cast-receiver] Failed to handle \'remoteConnected\' message:', error);
           this.emit('error', error);
           break;
         }
         if (!this.#connectedSenders.find((c) => c.id === newSender.id)) {
-          this.#logger.info(`[YouTubeCastReceiver] Sender connected: ${newSender.name}`);
-          this.#logger.debug('[YouTubeCastReceiver] Connected sender info:', newSender);
+          this.#logger.info(`[yt-cast-receiver] Sender connected: ${newSender.name}`);
+          this.#logger.debug('[yt-cast-receiver] Connected sender info:', newSender);
 
           // Determine autoplay mode
           let autoplayMode: AutoplayMode;
           if (this.#connectedSenders.length === 0) {
             if (!newSender.supportsAutoplay()) {
-              this.#logger.info('[YouTubeCastReceiver] Sender does not have autoplay capability. Autoplay support disabled.');
+              this.#logger.info('[yt-cast-receiver] Sender does not have autoplay capability. Autoplay support disabled.');
               autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
             }
             else {
-              this.#logger.info(`[YouTubeCastReceiver] Sender has autoplay capability. Setting autoplay support to value of \`autoplayModeOnConnect\`: ${this.#autoplayModeOnConnect}`);
+              this.#logger.info(`[yt-cast-receiver] Sender has autoplay capability. Setting autoplay support to value of \`autoplayModeOnConnect\`: ${this.#autoplayModeOnConnect}`);
               autoplayMode = this.#autoplayModeOnConnect;
             }
             this.#autoplayModeBeforeUnsupportedOverride = null;
@@ -195,7 +195,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           else if (!newSender.supportsAutoplay() || this.#connectedSenders.find((c) => !c.supportsAutoplay())) {
             // If any connected sender (including newSender) does not support
             // Autoplay, set autoplay mode to 'unsupported'.
-            this.#logger.info('[YouTubeCastReceiver] One or more senders do not support autoplay. Autoplay support disabled.');
+            this.#logger.info('[yt-cast-receiver] One or more senders do not support autoplay. Autoplay support disabled.');
             if (this.#player.autoplayMode !== AUTOPLAY_MODES.UNSUPPORTED) {
               this.#autoplayModeBeforeUnsupportedOverride = this.#player.autoplayMode;
             }
@@ -216,7 +216,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           this.emit('senderConnect', newSender);
         }
         else {
-          this.#logger.debug('[YouTubeCastReceiver] Sender already connected.');
+          this.#logger.debug('[yt-cast-receiver] Sender already connected.');
         }
         break;
 
@@ -227,13 +227,13 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         }
         catch (err) {
           const error = new SenderConnectionError('Failed to unregister disconnected sender', err, 'disconnect');
-          this.#logger.error('[YouTubeCastReceiver] Failed to handle \'remoteDisconnected\' message:', error);
+          this.#logger.error('[yt-cast-receiver] Failed to handle \'remoteDisconnected\' message:', error);
           this.emit('error', error);
           break;
         }
         const disconnectedSenderIndex = this.#connectedSenders.findIndex((c) => c.id === disconnectedSender.id);
         if (disconnectedSenderIndex < 0) {
-          this.#logger.warn('[YouTubeCastReceiver] Anomaly detected while unregistering disconnected sender: unable to find target among connected senders. Target:',
+          this.#logger.warn('[yt-cast-receiver] Anomaly detected while unregistering disconnected sender: unable to find target among connected senders. Target:',
             disconnectedSender, ' Connected senders:', this.#connectedSenders);
           break;
         }
@@ -249,8 +249,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           }
         }
 
-        this.#logger.info(`[YouTubeCastReceiver] Sender disconnected: ${disconnectedSender.name}`);
-        this.#logger.debug('[YouTubeCastReceiver] Disconnected sender info:', disconnectedSender);
+        this.#logger.info(`[yt-cast-receiver] Sender disconnected: ${disconnectedSender.name}`);
+        this.#logger.debug('[yt-cast-receiver] Disconnected sender info:', disconnectedSender);
         this.emit('senderDisconnect', disconnectedSender);
         break;
 
@@ -268,7 +268,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
       case 'setPlaylist':
       case 'updatePlaylist':
-        this.#logger.debug(`[YouTubeCastReceiver] '${message.name}' message payload:`, payload);
+        this.#logger.debug(`[yt-cast-receiver] '${message.name}' message payload:`, payload);
         const stateBeforeSet = this.#player.queue.getState();
         const navBeforeSet = this.#player.getNavInfo();
         await this.#player.queue.updateByMessage(message);
@@ -340,7 +340,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       default:
-        this.#logger.debug(`[YouTubeCastReceiver] (AID: ${AID}) Not handled: '${name}'`);
+        this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) Not handled: '${name}'`);
     }
 
     if (sendMessages.length > 0) {
@@ -353,7 +353,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       return;
     }
 
-    this.#logger.debug('[YouTubeCastReceiver] Stopping YouTubeApp...');
+    this.#logger.debug('[yt-cast-receiver] Stopping YouTubeApp...');
 
     this.state = STATUSES.STOPPING;
 
@@ -368,7 +368,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       await this.#session.end();
     }
     catch (err) {
-      this.#logger.warn('[YouTubeCastReceiver] Ignoring error while stopping YouTubeApp:', error);
+      this.#logger.warn('[yt-cast-receiver] Ignoring error while stopping YouTubeApp:', error);
     }
 
     this.state = STATUSES.STOPPED;
@@ -386,11 +386,11 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     const {AID, current, previous} = payload;
 
     if (this.#connectedSenders.length === 0) {
-      this.#logger.debug('[YouTubeCastReceiver] Ignoring player state event because there is no connected sender.');
+      this.#logger.debug('[yt-cast-receiver] Ignoring player state event because there is no connected sender.');
       return;
     }
 
-    this.#logger.debug('[YouTubeCastReceiver] Player state changed from:', previous);
+    this.#logger.debug('[yt-cast-receiver] Player state changed from:', previous);
     this.#logger.debug('To:', current);
 
     let statusChanged = true, positionChanged = true,

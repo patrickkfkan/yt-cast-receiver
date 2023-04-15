@@ -48,7 +48,7 @@ function createDelegate(apps: Record<string, dial.App>, logger: Logger): dial.De
           callback(pid);
         })
           .catch((error) => {
-            logger.error('[YouTubeCastReceiver] DIAL server failed to launch app:', error);
+            logger.error('[yt-cast-receiver] DIAL server failed to launch app:', error);
             callback('');
           });
       }
@@ -102,17 +102,17 @@ export default class DialServer {
 
   start(): Promise<void> {
     if (this.#status !== STATUSES.STOPPED) {
-      this.#logger.warn('[YouTubeCastReceiver] start() called but DIAL server not in STOPPED state.');
+      this.#logger.warn('[yt-cast-receiver] start() called but DIAL server not in STOPPED state.');
       return Promise.resolve();
     }
     this.#status = STATUSES.STARTING;
-    this.#logger.debug('[YouTubeCastReceiver] Starting DIAL server...');
+    this.#logger.debug('[yt-cast-receiver] Starting DIAL server...');
     return new Promise((resolve, reject) => {
       try {
         this.#expressServer.listen(this.#dialOptions.port, () => {
           this.#dialServer.start();
           this.#status = STATUSES.RUNNING;
-          this.#logger.info(`[YouTubeCastReceiver] DIAL server listening on port ${this.#dialOptions.port}`);
+          this.#logger.info(`[yt-cast-receiver] DIAL server listening on port ${this.#dialOptions.port}`);
           resolve();
         }).on('error', (error) => {
           this.#status = STATUSES.STOPPED;
@@ -128,11 +128,11 @@ export default class DialServer {
 
   stop(): Promise<void> {
     if (this.#status !== STATUSES.RUNNING) {
-      this.#logger.warn('[YouTubeCastReceiver] stop() called but DIAL server not in RUNNING state.');
+      this.#logger.warn('[yt-cast-receiver] stop() called but DIAL server not in RUNNING state.');
       return Promise.resolve();
     }
     this.#status = STATUSES.STOPPING;
-    this.#logger.debug('[YouTubeCastReceiver] Stopping DIAL server...');
+    this.#logger.debug('[yt-cast-receiver] Stopping DIAL server...');
     return new Promise((resolve, reject) => {
       try {
         this.#dialServer.stop();
