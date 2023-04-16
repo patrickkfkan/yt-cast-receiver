@@ -1,4 +1,6 @@
+import { CLIENTS } from '../Constants.js';
 import { DataError } from '../utils/Errors.js';
+import Client from './Client.js';
 
 /**
  * A `Sender` object holds information about a sender.
@@ -7,15 +9,17 @@ export default class Sender {
   id: string;
   name: string;
   app: string | null;
+  client: Client | null;
   capabilities: string[];
   device: Record<string, any>;
 
   /** @internal */
-  constructor(data: Record<string, any>) {
+  constructor(data: any) {
     this.id = data.id;
     this.name = data.name || data.clientName;
     this.capabilities = data.capabilities?.split(',') || [];
     this.app = data.app || null;
+    this.client = Object.values(CLIENTS).find((client) => client.theme === data.theme) || null;
     try {
       this.device = data.device ? JSON.parse(data.device) : {};
     }
@@ -32,7 +36,8 @@ export default class Sender {
    * @throws {@link DataError} if `data` is invalid.
    */
   static parse(data: any): Sender {
-    if (!data?.id || (!data?.name && !data?.clientName)) {
+    const themes = Object.values(CLIENTS).map((client) => client.theme);
+    if (!data?.id || (!data?.name && !data?.clientName) || !themes.includes(data?.theme)) {
       throw new DataError('Invalid data', undefined, data);
     }
 

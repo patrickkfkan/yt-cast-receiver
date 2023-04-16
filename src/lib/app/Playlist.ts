@@ -1,5 +1,6 @@
 import { AUTOPLAY_MODES } from '../Constants.js';
 import { AutoplayMode } from '../Player.js';
+import Client from './Client.js';
 import Message from './Message.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import Video from './Video.js';
@@ -53,7 +54,7 @@ export default class Playlist {
    * Updates the playlist with payload of 'setPlaylist' or 'updatePlaylist' message.
    * @param data - 'setPlaylist' or 'updatePlaylist' `Message` object.
    */
-  async updateByMessage(message: Message) {
+  async updateByMessage(message: Message, client: Client) {
     if (message.name !== 'setPlaylist' && message.name !== 'updatePlaylist') {
       return;
     }
@@ -87,6 +88,7 @@ export default class Playlist {
         }
         this.#current = {
           id: data.videoId,
+          client,
           context
         };
       }

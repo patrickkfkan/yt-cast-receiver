@@ -40,7 +40,7 @@ class FakePlayerDemo {
 
     // Listen to `YouTubeCastReceiver` events.
     receiver.on('senderConnect', (sender) => {
-      const log = `Connected to ${sender.name}. Total connected senders: ${receiver.getConnectedSenders().length}`;
+      const log = `Connected to ${sender.name} (${sender.client?.name}). Total connected senders: ${receiver.getConnectedSenders().length}`;
       if (screen) {
         screen.statusBar.setContent(log);
       }
@@ -49,7 +49,7 @@ class FakePlayerDemo {
       }
     });
     receiver.on('senderDisconnect', (sender) => {
-      const log = `Disconnected from ${sender.name}. Remaining connected senders: ${receiver.getConnectedSenders().length}`;
+      const log = `Disconnected from ${sender.name} (${sender.client?.name}). Remaining connected senders: ${receiver.getConnectedSenders().length}`;
       if (screen) {
         screen.statusBar.setContent(log);
       }

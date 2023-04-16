@@ -7,23 +7,24 @@ import { IncompleteAPIDataError } from '../utils/Errors.js';
 /** @internal */
 export interface DeviceInfo {
   brand: string;
-  model: string,
-  year: number,
-  os: string,
-  osVersion: string,
-  chipset: string,
-  clientName: string,
-  dialAdditionalDataSupportLevel: string,
-  mdxDialServerType: string,
+  model: string;
+  year: number;
+  os: string;
+  osVersion: string;
+  chipset: string;
+  clientName: string;
+  dialAdditionalDataSupportLevel: string;
+  mdxDialServerType: string;
 }
 
 /** @internal */
 export interface BindParamsInitOptions {
-  deviceId: string,
-  screenName: string,
-  screenApp: string,
-  brand: string,
-  model: string
+  theme: string;
+  deviceId: string;
+  screenName: string;
+  screenApp: string;
+  brand: string;
+  model: string;
 }
 
 /** @internal */
@@ -86,7 +87,7 @@ export default class BindParams {
     this.obfuscatedGaiaId = '';
     this.name = options.screenName;
     this.app = options.screenApp;
-    this.theme = 'cl';
+    this.theme = options.theme;
     this.capabilities = 'dsp,mic,dpa,ntb';
     this.cst = 'm';
     this.mdxVersion = 2;

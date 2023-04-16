@@ -8,8 +8,9 @@ import RPCConnection from './RPCConnection.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
 import { BadResponseError, ConnectionError, DataError, IncompleteAPIDataError, SessionError } from '../utils/Errors.js';
 import Logger from '../utils/Logger.js';
-import { STATUSES, URLS } from '../Constants.js';
+import { CLIENTS, STATUSES, URLS } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
+import Client from './Client.js';
 
 /**
  * @internal
@@ -42,6 +43,7 @@ export interface Screen {
 
 /** @internal */
 export interface SessionOptions {
+  client: Client;
   screenName: string,
   screenApp: string,
   brand: string,
@@ -83,6 +85,7 @@ type SessionStatus = ValueOf<typeof STATUSES> | 'refreshing';
  */
 export default class Session extends EventEmitter {
 
+  #client: Client;
   #screen: Screen;
   #bindParams: BindParams;
   #rpcConnection: RPCConnection;
@@ -99,11 +102,13 @@ export default class Session extends EventEmitter {
 
   constructor(options: SessionOptions) {
     super();
+    this.#client = options.client || CLIENTS.YT;
     this.#screen = {
       name: options.screenName,
       app: options.screenApp
     };
     this.#bindParams = new BindParams({
+      theme: this.#client.theme,
       deviceId: uuidv4(),
       screenName: this.#screen.name,
       screenApp: this.#screen.app,
@@ -167,13 +172,13 @@ export default class Session extends EventEmitter {
       }
       catch (error) {
         if (error instanceof IncompleteAPIDataError) {
-          throw new IncompleteAPIDataError('Query string test failed', (error as IncompleteAPIDataError).info?.missing as string[]);
+          throw new IncompleteAPIDataError(`(${this.#client.name}) Query string test failed`, (error as IncompleteAPIDataError).info?.missing as string[]);
         }
         throw error;
       }
     }
     catch (err) {
-      error = new SessionError('Failed to establish session', err);
+      error = new SessionError(`(${this.#client.name}) Failed to establish session`, err);
     }
 
     if (!error) {
@@ -185,20 +190,20 @@ export default class Session extends EventEmitter {
 
       this.#rpcConnection.on('messages', this.#handleMessage.bind(this));
       this.#rpcConnection.on('terminate', (error) => {
-        this.#logger.error('[yt-cast-receiver] RPC connection terminated due to error:', error);
+        this.#logger.error(`[yt-cast-receiver] (${this.#client.name}) RPC connection terminated due to error:`, error);
         this.#refreshLoungeToken();
       });
 
       try {
         await this.#rpcConnection.connect();
-        this.#logger.debug('[yt-cast-receiver] Session established.');
+        this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Session established.`);
 
         if (!isRefreshing) {
           this.#status = STATUSES.RUNNING;
         }
       }
       catch (err) {
-        error = new SessionError('Failed to establish session', err);
+        error = new SessionError(`(${this.#client.name}) Failed to establish session`, err);
       }
     }
 
@@ -248,7 +253,7 @@ export default class Session extends EventEmitter {
     }
     catch (err) {
       if (!error) {
-        throw new SessionError('Error while ending session', err);
+        throw new SessionError(`(${this.#client.name}) Error while ending session`, err);
       }
     }
     finally {
@@ -262,7 +267,7 @@ export default class Session extends EventEmitter {
 
   async #refreshLoungeToken() {
     this.#status = 'refreshing';
-    this.#logger.debug('[yt-cast-receiver] Refreshing lounge token...');
+    this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Refreshing lounge token...`);
 
     this.#clearLoungeTokenRefreshTimer();
 
@@ -280,10 +285,10 @@ export default class Session extends EventEmitter {
       await this.begin();
     }
     catch (error) {
-      throw new SessionError('Error while refreshing lounge token', error);
+      throw new SessionError(`(${this.#client.name}) Error while refreshing lounge token`, error);
     }
     finally {
-      this.#logger.debug('[yt-cast-receiver] Closing old RPC connection...');
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Closing old RPC connection...`);
       oldRPC.removeAllListeners();
       oldRPC.close();
     }
@@ -324,7 +329,7 @@ export default class Session extends EventEmitter {
   }
 
   async restart() {
-    this.#logger.debug('[yt-cast-receiver] Restarting session...');
+    this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Restarting session...`);
     const pairingCodeRequestServiceStatus = this.#pairingCodeRequestService.status;
     try {
       await this.end();
@@ -334,7 +339,7 @@ export default class Session extends EventEmitter {
       }
     }
     catch (error) {
-      throw new SessionError('Error while restarting session', error);
+      throw new SessionError(`(${this.#client.name}) Error while restarting session`, error);
     }
   }
 
@@ -346,21 +351,21 @@ export default class Session extends EventEmitter {
       response = await fetch(url);
     }
     catch (error) {
-      throw new ConnectionError('Connection error in generating screen Id', url, error);
+      throw new ConnectionError(`(${this.#client.name}) Connection error in generating screen Id`, url, error);
     }
     try {
       const screenId = await response.text();
-      this.#logger.debug(`[yt-cast-receiver] Obtained screen ID: ${screenId}`);
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Obtained screen ID: ${screenId}`);
       return screenId;
     }
     catch (error) {
-      throw new DataError('Screen Id data error', error);
+      throw new DataError(`(${this.#client.name}) Screen Id data error`, error);
     }
   }
 
   async #getLoungeToken(): Promise<LoungeToken> {
     if (!this.#screen.id) {
-      throw new IncompleteAPIDataError('Missing data required to get lounge token', [ 'screenId' ]);
+      throw new IncompleteAPIDataError(`(${this.#client.name}) Missing data required to get lounge token`, [ 'screenId' ]);
     }
 
     const url = URLS.GET_LOUNGE_TOKEN_BATCH;
@@ -375,15 +380,15 @@ export default class Session extends EventEmitter {
       });
     }
     catch (error) {
-      throw new ConnectionError('Connection error in getting lounge token', url, error);
+      throw new ConnectionError(`(${this.#client.name}) Connection error in getting lounge token`, url, error);
     }
     try {
       const token = (await response.json())?.screens?.[0] as LoungeToken;
-      this.#logger.debug('[yt-cast-receiver] Obtained lounge token:', token);
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Obtained lounge token:`, token);
       return token;
     }
     catch (error) {
-      throw new DataError('Lounge token data error', error);
+      throw new DataError(`(${this.#client.name}) Lounge token data error`, error);
     }
   }
 
@@ -397,24 +402,24 @@ export default class Session extends EventEmitter {
       });
     }
     catch (error) {
-      throw new ConnectionError('Connection error in fetching session data', url, error);
+      throw new ConnectionError(`(${this.#client.name}) Connection error in fetching session data`, url, error);
     }
     try {
       const body = await response.text();
       const messages = Message.parseIncoming(body);
-      this.#logger.debug('[yt-cast-receiver] Received messages for establishing session:', messages);
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Received messages for establishing session:`, messages);
       return messages;
     }
     catch (error) {
-      throw new DataError('Session data error', error);
+      throw new DataError(`(${this.#client.name}) Session data error`, error);
     }
   }
 
   async registerPairingCode(code: string) {
-    this.#logger.debug(`[yt-cast-receiver] Registering pairing code: ${code}`);
+    this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Registering pairing code: ${code}`);
 
     if (!this.#screen.id) {
-      throw new IncompleteAPIDataError('Missing data required to register pairing code', [ 'screenId' ]);
+      throw new IncompleteAPIDataError(`(${this.#client.name}) Missing data required to register pairing code`, [ 'screenId' ]);
     }
 
     const params = new URLSearchParams({
@@ -435,15 +440,15 @@ export default class Session extends EventEmitter {
       });
     }
     catch (error) {
-      throw new ConnectionError('Connection error in registering pairing code', url, error);
+      throw new ConnectionError(`(${this.#client.name}) Connection error in registering pairing code`, url, error);
     }
 
     if (response.ok) {
-      this.#logger.debug('[yt-cast-receiver] Pairing code registered.');
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Pairing code registered.`);
       return;
     }
 
-    throw new BadResponseError('Failed to register pairing code', url, response);
+    throw new BadResponseError(`(${this.#client.name}) Failed to register pairing code`, url, response);
   }
 
   /**
@@ -507,17 +512,17 @@ export default class Session extends EventEmitter {
     const postData = this.#getSendMessagePayload(sc);
     const debugMsgNameStr = Array.isArray(sc) ? `messages '${sc.map((c) => c.name).join(' + ')}'` : `message '${sc.name}'`;
 
-    this.#logger.debug(`[yt-cast-receiver] ${AID ? `(AID: ${AID}) ` : ''}Sending ${debugMsgNameStr} with payload:`, postData);
+    this.#logger.debug(`[yt-cast-receiver] ${AID ? `(AID: ${AID}) ` : ''}(${this.#client.name}) Sending ${debugMsgNameStr} with payload:`, postData);
     let response;
     try {
       response = await fetch(url, {
         method: 'POST',
         body: new URLSearchParams(postData)
       });
-      this.#logger.debug(`[yt-cast-receiver] ${AID ? `(AID: ${AID}) ` : ''}Response received for sent ${debugMsgNameStr}. Status: ${response.status}`);
+      this.#logger.debug(`[yt-cast-receiver] ${AID ? `(AID: ${AID}) ` : ''}(${this.#client.name}) Response received for sent ${debugMsgNameStr}. Status: ${response.status}`);
     }
     catch (error) {
-      reject(new ConnectionError(`Connection error in sending ${debugMsgNameStr}${AID ? ` (AID: ${AID})` : ''}`, url, error));
+      reject(new ConnectionError(`(${this.#client.name}) Connection error in sending ${debugMsgNameStr}${AID ? ` (AID: ${AID})` : ''}`, url, error));
       return;
     }
 
@@ -525,7 +530,7 @@ export default class Session extends EventEmitter {
       resolve(true);
     }
 
-    reject(new BadResponseError(`Bad response received for ${debugMsgNameStr}${AID ? ` (AID: ${AID})` : ''}`, url, response));
+    reject(new BadResponseError(`(${this.#client.name}) Bad response received for ${debugMsgNameStr}${AID ? ` (AID: ${AID})` : ''}`, url, response));
   }
 
   #getSendMessagePayload(sc: Message | Message[]): any {
@@ -551,11 +556,15 @@ export default class Session extends EventEmitter {
 
   #handleMessage(messages: Message[]) {
     this.#bindParams.updateWithMessage(messages);
-    this.emit('messages', messages);
+    this.emit('messages', messages, this.#client);
   }
 
   get pairingCodeRequestService(): PairingCodeRequestService {
     return this.#pairingCodeRequestService;
+  }
+
+  get client(): Client {
+    return this.#client;
   }
 
   /**
@@ -563,7 +572,7 @@ export default class Session extends EventEmitter {
    * Emitted when incoming messages arrive.
    * @param listener.messages - An array of `Message` objects.
    */
-  on(event: 'messages', listener: (messages: Message[]) => void): this;
+  on(event: 'messages', listener: (messages: Message[], client: Client) => void): this;
   /**
    * @event
    * Emitted when session terminated due to irrecoverable error.

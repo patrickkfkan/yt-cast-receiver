@@ -103,7 +103,7 @@ export default class PlayerWindow extends UIComponent {
   }
 
   #updateStatusTitle(data: { status: number, videoTitle: string }) {
-    let statusTitle;
+    let statusTitle: string;
     switch (data.status) {
       case PLAYER_STATUSES.PLAYING:
         statusTitle = `{green-fg}(Playing){/} ${data.videoTitle}`;

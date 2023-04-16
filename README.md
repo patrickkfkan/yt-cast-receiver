@@ -1,14 +1,14 @@
 # yt-cast-receiver
 
-A YouTube Cast Receiver for Node. Originally inspired by [TubeCast](https://github.com/enen92/script.tubecast).
+A YouTube Cast Receiver for Node that also supports casting from YouTube Music. Originally inspired by [TubeCast](https://github.com/enen92/script.tubecast).
 
 ### Terminology
 
 **Sender**
 
-An app that initiates a Cast session and acts as a remote controller for playback of content on the *receiver*. In the context of YouTube casting, a sender can be the YouTube mobile app or the YouTube website.
+An app that initiates a Cast session and acts as a remote controller for playback of content on the *receiver*. In the context of YouTube casting, a sender can be the YouTube mobile app or the YouTube website. Likewise, for YouTube Music, the sender can be the YouTube Music app or website.
 
-> Not all browsers support casting from the YouTube website. This module has been tested to work with the Chrome and Edge desktop browsers.
+> Not all browsers support casting from the YouTube (Music) website. This module has been tested to work with the Chrome and Edge desktop browsers.
 
 **Receiver**
 
@@ -20,7 +20,7 @@ An app that receives and responds to commands from a sender, plays content throu
 
 The module includes a *DIAL server* for broadcasting the receiver device on the network. Users may then initiate a Cast session with the receiver through the sender app's Cast button.
 
-*`yt-cast-receiver` is (always) work-in-progress and may not be reliable enough for production use.*
+*This project is (always) work-in-progress and may not be reliable enough for production use.*
 
 # Installation
 
@@ -376,6 +376,7 @@ await player.pause();
 A video is represented by an object that satisfies the [Video](./src/lib/app/Video.ts) interface constraint:
 
 - `id`: (string) video Id.
+- `client`: (object) the client that is requesting playback; one of [Constants.CLIENTS](#constants).
 - `context`: (object)
   - `playlistId`: (string) Id of the playlist containing the video.
   - `params`: (string) Exact purpose remains to be ascertained, but appears to affect playlist content and autoplay video.
@@ -434,6 +435,8 @@ player.notifyExternalStateChange();
 ## Manual Pairing
 
 Manual pairing, aka 'Link with TV Code', allows a sender to connect to the receiver even when they are not on the same network. For this, you need to obtain a pairing code for the user to enter into the sender app.
+
+> YouTube Music does not support this feature.
 
 A pairing code refreshes every five minutes. Thus, the receiver provides a `PairingCodeRequestService` for obtaining the pairing code and automatically refreshing it at five-minute intervals:
 
@@ -719,6 +722,38 @@ if (receiver.status === Constants.STATUSES.RUNNING) {
 - STOPPING
 - STARTING
 - RUNNING
+
+</details>
+
+<details>
+<summary>Constants.CLIENTS</summary>
+<br />
+<p>
+Predefined info corresponding to 'YouTube' or 'YouTube Music' client.
+
+To check whether a sender is coming from YouTube Music:
+```
+if (sender.client === Constants.CLIENTS.YTMUSIC) {
+  ...
+}
+```
+
+To check whether a video is cast from YouTube:
+```
+// In your player implementation
+doPlay(video: Video...) {
+  if (video.client === Constants.CLIENTS.YT) {
+    ...
+  }
+}
+```
+</p>
+
+**Properties**
+
+&lt;key: <code>YT</code> | <code>YTMUSIC</code>&gt;: (object)
+  - theme: (string) for internal use
+  - name: (string) 'YouTube' or 'YouTube Music'
 
 </details>
 

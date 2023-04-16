@@ -1,5 +1,8 @@
+import Client from './Client';
+
 interface Video {
   id: string;
+  client: Client;
 
   context?: {
     playlistId?: string,

@@ -1,3 +1,5 @@
+import Client, { ClientKey } from './app/Client';
+
 const YOUTUBE_BASE_URL = 'https://www.youtube.com';
 
 /**
@@ -48,6 +50,17 @@ export const STATUSES = {
   RUNNING: 'running'
 } as const;
 
+export const CLIENTS = {
+  YT: {
+    theme: 'cl',
+    name: 'YouTube'
+  },
+  YTMUSIC: {
+    theme: 'm',
+    name: 'YouTube Music'
+  }
+} as Record<ClientKey, Client>;
+
 /**
  * @hidden
  */
@@ -57,5 +70,6 @@ export default {
   AUTOPLAY_MODES,
   PLAYER_STATUSES,
   LOG_LEVELS,
-  STATUSES
+  STATUSES,
+  CLIENTS
 };

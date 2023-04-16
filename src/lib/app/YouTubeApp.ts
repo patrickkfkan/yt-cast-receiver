@@ -7,12 +7,13 @@ import Message from './Message.js';
 import Session from './Session.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
 import Sender from './Sender.js';
-import { AppError, SenderConnectionError, IncompleteAPIDataError } from '../utils/Errors.js';
+import { AppError, SenderConnectionError, IncompleteAPIDataError, DataError } from '../utils/Errors.js';
 import Logger from '../utils/Logger.js';
-import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES } from '../Constants.js';
+import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
+import Client, { ClientKey } from './Client.js';
 
 export interface AppOptions {
   /**
@@ -56,7 +57,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   allowStop: boolean;
   pid: string;
 
-  #session: Session;
+  #sessions: Record<ClientKey, Session>;
+  #activeSession: Session | null;
   #connectedSenders: Sender[];
   #logger: Logger;
   #player: Player;
@@ -72,13 +74,19 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.allowStop = false;
     this.pid = uuidv4();
 
-    this.#session = new Session({
+    const commonSessionOptions = {
       screenName: options.screenName || CONF_DEFAULTS.SCREEN_NAME,
       screenApp: options.screenApp || CONF_DEFAULTS.SCREEN_APP,
       brand: options.brand || CONF_DEFAULTS.BRAND,
       model: options.model || CONF_DEFAULTS.MODEL,
       logger: options.logger
-    });
+    } as any;
+
+    this.#sessions = {
+      YT: new Session({ client: CLIENTS.YT, ...commonSessionOptions }),
+      YTMUSIC: new Session({ client: CLIENTS.YTMUSIC, ...commonSessionOptions })
+    };
+    this.#activeSession = null;
 
     this.#connectedSenders = [];
     this.#logger = options.logger;
@@ -92,45 +100,94 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.#autoplayModeBeforeUnsupportedOverride = null;
   }
 
-  async start() {
+  async start(): Promise<void> {
     if (this.state !== STATUSES.STOPPED) {
       return;
     }
+
     this.#logger.debug('[yt-cast-receiver] Starting YouTubeApp...');
     this.state = STATUSES.STARTING;
     this.#player.on('state', this.#playerStateListener);
-    this.#session.on('messages', this.#handleIncomingMessage.bind(this));
-    this.#session.on('terminate', (error) => {
-      // Session terminated. So should YouTubeApp.
-      this.stop(error);
-    });
+
+    const clientKeys = Object.keys(CLIENTS) as ClientKey[];
     try {
-      await this.#session.begin();
+      const startPromises = clientKeys.map((key) => {
+        const session = this.#sessions[key];
+        session.on('messages', this.#handleIncomingMessage.bind(this));
+        session.on('terminate', (error) => {
+          // Session terminated. So should YouTubeApp.
+          this.stop(error);
+        });
+        return session.begin();
+      });
+
+      await Promise.all(startPromises);
     }
     catch (error) {
       this.#player.removeListener('state', this.#playerStateListener);
-      this.#session.removeAllListeners();
+      clientKeys.forEach(async (key) => {
+        const session = this.#sessions[key];
+        session.removeAllListeners();
+        try {
+          await session.end();
+        }
+        catch (err) {
+          // Do nothing
+        }
+      });
+
       this.state = STATUSES.STOPPED;
       throw new AppError('Failed to start YouTubeApp', error);
     }
+
     this.state = STATUSES.RUNNING;
   }
 
   // Implements
-  async launch(launchData: string): Promise<string> {
-    const parsedCode = queryString.parse(launchData).pairingCode;
-    const code = Array.isArray(parsedCode) ? parsedCode[0] : parsedCode;
-    if (code) {
+  async launch(data: string): Promise<string> {
+    const launchData = queryString.parse(data);
+    this.#logger.debug('[yt-cast-receiver] YouTubeApp received DIAL launch request. Launch data:', launchData);
+    const { pairingCode: pairingCodeData, theme: themeData } = launchData;
+    const pairingCode = Array.isArray(pairingCodeData) ? pairingCodeData[0] : pairingCodeData;
+    const theme = (Array.isArray(themeData) ? themeData[0] : themeData);
+    const session = Object.values(this.#sessions).find((s) => s.client.theme === theme);
+    if (pairingCode && session) {
+      await this.#checkAndSwitchActiveSession(session);
       this.#logger.info('[yt-cast-receiver] Connecting sender through DIAL...');
-      await this.#session.registerPairingCode(Array.isArray(code) ? code[0] : code);
+      await this.#activeSession?.registerPairingCode(pairingCode);
       return this.pid;
     }
 
+    if (!pairingCode) {
+      throw new AppError('Failed to launch YouTubeApp',
+        new IncompleteAPIDataError('Invalid launch data', [ 'pairingCode' ]));
+    }
+
     throw new AppError('Failed to launch YouTubeApp',
-      new IncompleteAPIDataError('Invalid launch data', [ 'pairingCode' ]));
+      new IncompleteAPIDataError(`Invalid launch data. Unknown theme: ${theme}`));
+  }
+
+  async #checkAndSwitchActiveSession(targetSession: Session) {
+    if (!this.#activeSession) {
+      this.#activeSession = targetSession;
+      return;
+    }
+    // Restart active session (thereby disconnecting current senders) if it is different from target session.
+    // We cannot have multiple connections from different clients.
+    if (this.#activeSession.client !== targetSession.client) {
+      this.#logger.debug(`[yt-cast-receiver] Target session is for ${targetSession.client.name} clients, whereas active session is for ${this.#activeSession.client.name} clients.`);
+      this.#logger.debug('[yt-cast-receiver] Disconnecting current senders (if any) and restarting active session, before switching over to target session...');
+      await this.#player.stop();
+      await this.#activeSession.restart();
+      this.#activeSession = targetSession;
+      this.#logger.debug(`[yt-cast-receiver] Active session switched to '${targetSession.client.name}'.`);
+    }
   }
 
   async #setAutoplayMode(AID: number | null, value: AutoplayMode) {
+    if (!this.#activeSession) {
+      return;
+    }
     const stateBefore = this.#player.queue.getState();
     await this.#player.queue.setAutoplayMode(value);
     const stateAfter = this.#player.queue.getState();
@@ -141,17 +198,17 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     if (stateBefore.autoplay?.id !== stateAfter.autoplay?.id) {
       sendMessages.push(new Message.AutoplayUpNext(AID, stateAfter.autoplay?.id || null));
     }
-    this.#session.sendMessage(sendMessages);
+    this.#activeSession.sendMessage(sendMessages);
   }
 
   enableAutoplayOnConnect(value = false) {
     this.#autoplayModeOnConnect = value ? AUTOPLAY_MODES.ENABLED : AUTOPLAY_MODES.DISABLED;
   }
 
-  async #handleIncomingMessage(message: Message | Message[]): Promise<void> {
+  async #handleIncomingMessage(message: Message | Message[], client: Client): Promise<void> {
     if (Array.isArray(message)) {
       for (const c of message) {
-        await this.#handleIncomingMessage(c as Message);
+        await this.#handleIncomingMessage(c as Message, client);
       }
       return;
     }
@@ -159,7 +216,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     const { AID, name, payload } = message as Message;
 
     this.#logger.debug('-----------------------------------');
-    this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) Incoming message: '${name}'`);
+    this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) (${client.name}) Incoming message: '${name}'`);
 
     const sendMessages = [];
 
@@ -168,6 +225,13 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         let newSender: Sender;
         try {
           newSender = Sender.parse(payload);
+          const targetSession = Object.values(this.#sessions).find((session) => session.client === client);
+          if (targetSession) {
+            await this.#checkAndSwitchActiveSession(targetSession);
+          }
+          else {
+            throw new DataError('Session not found possibly due to unknown client', undefined, client);
+          }
         }
         catch (err) {
           const error = new SenderConnectionError('Failed to register connected sender', err, 'connect');
@@ -175,6 +239,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           this.emit('error', error);
           break;
         }
+
         if (!this.#connectedSenders.find((c) => c.id === newSender.id)) {
           this.#logger.info(`[yt-cast-receiver] Sender connected: ${newSender.name}`);
           this.#logger.debug('[yt-cast-receiver] Connected sender info:', newSender);
@@ -271,7 +336,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         this.#logger.debug(`[yt-cast-receiver] '${message.name}' message payload:`, payload);
         const stateBeforeSet = this.#player.queue.getState();
         const navBeforeSet = this.#player.getNavInfo();
-        await this.#player.queue.updateByMessage(message);
+        await this.#player.queue.updateByMessage(message, client);
         const stateAfterSet = this.#player.queue.getState();
         const navAfterSet = this.#player.getNavInfo();
         if (stateBeforeSet.autoplay?.id !== stateAfterSet.autoplay?.id) {
@@ -340,11 +405,11 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       default:
-        this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) Not handled: '${name}'`);
+        this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) (${client.name}) Not handled: '${name}'`);
     }
 
-    if (sendMessages.length > 0) {
-      this.#session.sendMessage(sendMessages);
+    if (sendMessages.length > 0 && this.#activeSession && this.#activeSession.client === client) {
+      this.#activeSession.sendMessage(sendMessages);
     }
   }
 
@@ -363,9 +428,12 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.#player.removeListener('state', this.#playerStateListener);
     await this.#player.reset();
 
-    this.#session.removeAllListeners();
+    const stopPromises = Object.values(this.#sessions).map((session) => {
+      session.removeAllListeners();
+      return session.end;
+    });
     try {
-      await this.#session.end();
+      await Promise.all(stopPromises);
     }
     catch (err) {
       this.#logger.warn('[yt-cast-receiver] Ignoring error while stopping YouTubeApp:', error);
@@ -382,8 +450,12 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
   }
 
-  #handlePlayerStateEvent(payload: {AID: number, current: PlayerState, previous: PlayerState}) {
-    const {AID, current, previous} = payload;
+  #handlePlayerStateEvent(payload: { AID: number, current: PlayerState, previous: PlayerState }) {
+    if (!this.#activeSession) {
+      return;
+    }
+
+    const { AID, current, previous } = payload;
 
     if (this.#connectedSenders.length === 0) {
       this.#logger.debug('[yt-cast-receiver] Ignoring player state event because there is no connected sender.');
@@ -428,16 +500,16 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         // We could be responding to a series of 'setVolume' messages. To reduce
         // Lag on sender side, we only send the latest 'onVolumeChanged' message after
         // A short interval of no further such messages.
-        this.#session.sendMessage(messages, { key: 'onVolumeChanged', interval: 200 });
+        this.#activeSession.sendMessage(messages, { key: 'onVolumeChanged', interval: 200 });
       }
       else {
-        this.#session.sendMessage(messages);
+        this.#activeSession.sendMessage(messages);
       }
     }
   }
 
   getPairingCodeRequestService(): PairingCodeRequestService {
-    return this.#session.pairingCodeRequestService;
+    return this.#sessions['YT'].pairingCodeRequestService;
   }
 
   get connectedSenders(): Sender[] {
