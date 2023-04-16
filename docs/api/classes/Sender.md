@@ -10,6 +10,7 @@ A `Sender` object holds information about a sender.
 
 - [app](Sender.md#app)
 - [capabilities](Sender.md#capabilities)
+- [client](Sender.md#client)
 - [device](Sender.md#device)
 - [id](Sender.md#id)
 - [name](Sender.md#name)
@@ -26,7 +27,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L9)
+[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L11)
 
 ___
 
@@ -36,7 +37,17 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L10)
+[lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L13)
+
+___
+
+### client
+
+• **client**: ``null`` \| [`Client`](../interfaces/Client.md)
+
+#### Defined in
+
+[lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L12)
 
 ___
 
@@ -46,7 +57,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L11)
+[lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L14)
 
 ___
 
@@ -56,7 +67,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L7)
+[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L9)
 
 ___
 
@@ -66,7 +77,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:8](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L8)
+[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L10)
 
 ## Methods
 
@@ -80,4 +91,4 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Sender.ts#L42)
+[lib/app/Sender.ts:47](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Sender.ts#L47)

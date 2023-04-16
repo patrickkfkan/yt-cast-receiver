@@ -6,10 +6,21 @@
 
 ### Properties
 
+- [client](Video.md#client)
 - [context](Video.md#context)
 - [id](Video.md#id)
 
 ## Properties
+
+### client
+
+• **client**: [`Client`](Client.md)
+
+#### Defined in
+
+[lib/app/Video.ts:5](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Video.ts#L5)
+
+___
 
 ### context
 
@@ -17,7 +28,7 @@
 
 #### Defined in
 
-[lib/app/Video.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Video.ts#L4)
+[lib/app/Video.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Video.ts#L7)
 
 ___
 
@@ -27,4 +38,4 @@ ___
 
 #### Defined in
 
-[lib/app/Video.ts:2](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/Video.ts#L2)
+[lib/app/Video.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Video.ts#L4)

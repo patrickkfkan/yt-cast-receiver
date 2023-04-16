@@ -26,7 +26,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L29)
+[lib/app/YouTubeApp.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L30)
 
 ___
 
@@ -40,7 +40,7 @@ true
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L37)
+[lib/app/YouTubeApp.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L38)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L42)
+[lib/app/YouTubeApp.ts:43](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L43)
 
 ___
 
@@ -64,7 +64,7 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L33)
+[lib/app/YouTubeApp.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L34)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L41)
+[lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L42)
 
 ___
 
@@ -92,7 +92,7 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L25)
+[lib/app/YouTubeApp.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L26)
 
 ___
 
@@ -106,4 +106,4 @@ CONF_DEFAULTS.SCREEN_NAME
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/9c3f7bb/src/lib/app/YouTubeApp.ts#L21)
+[lib/app/YouTubeApp.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L22)
