@@ -9,7 +9,7 @@ import VideoLoader from './VideoLoader.js';
  * for fetching video info (see {@link VideoLoader}).
  */
 export default class FakePlayer extends Player {
-  
+
   videoLoader: VideoLoader;
   currentVideoId: string | null;
   currentVideoTitle: string | null;
@@ -93,13 +93,17 @@ export default class FakePlayer extends Player {
     this.timer.stop();
     this.#resetTimeout();
     const info = await this.videoLoader.getInfo(video);
-    const duration = info.duration;
-    this.currentVideoId = video.id;
-    this.currentVideoTitle = info.title;
-    this.timer.start();
-    this.#startTimeout(duration - this.seekOffset);
-    this.duration = Number(duration);
-    return true;
+    this.logger.debug(`[FakePlayer] Video info for ${video.id}:`, info);
+    if (info) {
+      const duration = info.duration || 0;
+      this.currentVideoId = video.id;
+      this.currentVideoTitle = info.title;
+      this.timer.start();
+      this.#startTimeout(duration - this.seekOffset);
+      this.duration = Number(duration);
+      return true;
+    }
+    return false;
   }
 
   async #fakePause() {
