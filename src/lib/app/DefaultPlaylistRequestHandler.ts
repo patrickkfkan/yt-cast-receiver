@@ -1,6 +1,6 @@
 import Innertube, * as InnertubeLib from 'youtubei.js';
 import Playlist from './Playlist.js';
-import PlaylistRequestHandler from './PlaylistRequestHandler.js';
+import PlaylistRequestHandler, { PlaylistPreviousNextVideos } from './PlaylistRequestHandler.js';
 import Video from './Video.js';
 
 type InnertubeEndpoint = InnertubeLib.YTNodes.NavigationEndpoint;
@@ -29,7 +29,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getPreviousNextVideos(target: Video, playlist: Playlist): Promise<{ previous?: Video | null | undefined; next?: Video | null | undefined; }> {
+  async getPreviousNextVideos(target: Video, playlist: Playlist): Promise<PlaylistPreviousNextVideos> {
     if (!this.#innertube) {
       await this.#init();
     }

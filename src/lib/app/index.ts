@@ -1,4 +1,5 @@
 export { default as PlaylistRequestHandler } from './PlaylistRequestHandler.js';
+export * from './PlaylistRequestHandler.js';
 export { default as Sender } from './Sender.js';
 export { default as Client } from './Client.js';
 export * from './Client.js';

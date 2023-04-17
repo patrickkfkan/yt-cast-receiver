@@ -2,6 +2,11 @@ import Logger from '../utils/Logger.js';
 import Playlist from './Playlist.js';
 import Video from './Video.js';
 
+export interface PlaylistPreviousNextVideos {
+  previous?: Video | null;
+  next?: Video | null;
+}
+
 /**
  * Handles requests made by a `Playlist` instance.
  */
@@ -29,7 +34,7 @@ abstract class PlaylistRequestHandler {
    * @param playlist - The `Playlist` instance making the request.
    * @returns (Object)
    */
-  abstract getPreviousNextVideos(target: Video, playlist: Playlist): Promise<{ previous?: Video | null, next?: Video | null }>;
+  abstract getPreviousNextVideos(target: Video, playlist: Playlist): Promise<PlaylistPreviousNextVideos>;
 
   /**
    * Resets the handler to its initial state. By default, this method does nothing.
