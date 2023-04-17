@@ -26,7 +26,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L30)
+[lib/app/YouTubeApp.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L28)
 
 ___
 
@@ -40,7 +40,7 @@ true
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L38)
+[lib/app/YouTubeApp.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L36)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:43](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L43)
+[lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L41)
 
 ___
 
@@ -64,7 +64,7 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L34)
+[lib/app/YouTubeApp.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L32)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L42)
+[lib/app/YouTubeApp.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L40)
 
 ___
 
@@ -92,18 +92,14 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L26)
+[lib/app/YouTubeApp.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L24)
 
 ___
 
 ### screenName
 
-• `Optional` **screenName**: `string`
-
-**`Default`**
-
-CONF_DEFAULTS.SCREEN_NAME
+• **screenName**: `string`
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/YouTubeApp.ts#L22)
+[lib/app/YouTubeApp.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L20)

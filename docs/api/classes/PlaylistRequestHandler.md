@@ -23,6 +23,7 @@ Handles requests made by a `Playlist` instance.
 ### Methods
 
 - [getPreviousNextVideos](PlaylistRequestHandler.md#getpreviousnextvideos)
+- [getPreviousNextVideosAbortable](PlaylistRequestHandler.md#getpreviousnextvideosabortable)
 - [reset](PlaylistRequestHandler.md#reset)
 - [setLogger](PlaylistRequestHandler.md#setlogger)
 
@@ -44,13 +45,13 @@ Handles requests made by a `Playlist` instance.
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/PlaylistRequestHandler.ts#L42)
+[lib/app/PlaylistRequestHandler.ts:58](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L58)
 
 ## Methods
 
 ### getPreviousNextVideos
 
-▸ `Abstract` **getPreviousNextVideos**(`target`, `playlist`): `Promise`<{ `next?`: ``null`` \| [`Video`](../interfaces/Video.md) ; `previous?`: ``null`` \| [`Video`](../interfaces/Video.md)  }\>
+▸ `Abstract` **getPreviousNextVideos**(`target`, `playlist`): `Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
 
 Given `target` video that resides in `playlist`, implementations shall fetch
 the previous and next videos in the list.
@@ -73,13 +74,35 @@ must satisfy the [Video](../interfaces/Video.md) interface constraint.
 
 #### Returns
 
-`Promise`<{ `next?`: ``null`` \| [`Video`](../interfaces/Video.md) ; `previous?`: ``null`` \| [`Video`](../interfaces/Video.md)  }\>
+`Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
 
 (Object)
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/PlaylistRequestHandler.ts#L32)
+[lib/app/PlaylistRequestHandler.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L48)
+
+___
+
+### getPreviousNextVideosAbortable
+
+▸ **getPreviousNextVideosAbortable**(`target`, `playlist`, `abortSignal`): `Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | [`Video`](../interfaces/Video.md) |
+| `playlist` | [`Playlist`](Playlist.md) |
+| `abortSignal` | `AbortSignal` |
+
+#### Returns
+
+`Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
+
+#### Defined in
+
+[lib/app/PlaylistRequestHandler.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L22)
 
 ___
 
@@ -96,7 +119,7 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/PlaylistRequestHandler.ts#L38)
+[lib/app/PlaylistRequestHandler.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L54)
 
 ___
 
@@ -116,4 +139,4 @@ ___
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/PlaylistRequestHandler.ts#L12)
+[lib/app/PlaylistRequestHandler.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L18)

@@ -33,6 +33,7 @@ yt-cast-receiver
 - [Logger](interfaces/Logger.md)
 - [PlayerNavInfo](interfaces/PlayerNavInfo.md)
 - [PlayerState](interfaces/PlayerState.md)
+- [PlaylistPreviousNextVideos](interfaces/PlaylistPreviousNextVideos.md)
 - [PlaylistState](interfaces/PlaylistState.md)
 - [Video](interfaces/Video.md)
 - [YouTubeCastReceiverOptions](interfaces/YouTubeCastReceiverOptions.md)
@@ -64,7 +65,7 @@ One of the values in [AUTOPLAY_MODES](README.md#autoplay_modes).
 
 #### Defined in
 
-[lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Player.ts#L12)
+[lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L12)
 
 ___
 
@@ -74,7 +75,7 @@ ___
 
 #### Defined in
 
-[lib/app/Client.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Client.ts#L1)
+[lib/app/Client.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Client.ts#L1)
 
 ___
 
@@ -86,7 +87,7 @@ One of the values in [LOG_LEVELS](README.md#log_levels).
 
 #### Defined in
 
-[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/utils/Logger.ts#L7)
+[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/utils/Logger.ts#L7)
 
 ___
 
@@ -98,7 +99,7 @@ One of the values in [PLAYER_STATUSES](README.md#player_statuses).
 
 #### Defined in
 
-[lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Player.ts#L17)
+[lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L17)
 
 ___
 
@@ -110,7 +111,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:31](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L31)
+[lib/YouTubeCastReceiver.ts:47](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L47)
 
 ## Variables
 
@@ -128,7 +129,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/Constants.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Constants.ts#L24)
+[lib/Constants.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Constants.ts#L23)
 
 ___
 
@@ -138,7 +139,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Constants.ts#L53)
+[lib/Constants.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Constants.ts#L52)
 
 ___
 
@@ -153,11 +154,10 @@ ___
 | `BRAND` | ``"Generic"`` |
 | `MODEL` | ``"SmartTV"`` |
 | `SCREEN_APP` | ``"ytcr"`` |
-| `SCREEN_NAME` | ``"YouTube Cast Receiver"`` |
 
 #### Defined in
 
-[lib/Constants.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Constants.ts#L17)
+[lib/Constants.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Constants.ts#L17)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Constants.ts#L38)
+[lib/Constants.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Constants.ts#L37)
 
 ___
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Constants.ts#L30)
+[lib/Constants.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Constants.ts#L29)
 
 ___
 
@@ -216,4 +216,4 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/Constants.ts#L46)
+[lib/Constants.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Constants.ts#L45)

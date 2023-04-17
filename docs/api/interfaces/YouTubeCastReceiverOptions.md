@@ -9,45 +9,53 @@ Options consumed by constructor of `YouTubeCastReceiver` class.
 ### Properties
 
 - [app](YouTubeCastReceiverOptions.md#app)
-- [brand](YouTubeCastReceiverOptions.md#brand)
+- [device](YouTubeCastReceiverOptions.md#device)
 - [dial](YouTubeCastReceiverOptions.md#dial)
 - [logLevel](YouTubeCastReceiverOptions.md#loglevel)
 - [logger](YouTubeCastReceiverOptions.md#logger)
-- [model](YouTubeCastReceiverOptions.md#model)
 
 ## Properties
 
 ### app
 
-• `Optional` **app**: `Omit`<[`AppOptions`](AppOptions.md), ``"brand"`` \| ``"model"`` \| ``"logger"``\>
+• `Optional` **app**: `Omit`<[`AppOptions`](AppOptions.md), ``"brand"`` \| ``"model"`` \| ``"logger"`` \| ``"screenName"``\>
 
 YouTube app options.
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L20)
+[lib/YouTubeCastReceiver.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L21)
 
 ___
 
-### brand
+### device
 
-• `Optional` **brand**: `string`
+• `Optional` **device**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `brand?` | `string` | - |
+| `model?` | `string` | - |
+| `name?` | `string` | The name shown in a sender app's Cast menu, when the receiver device is discovered through DIAL. **`Default`** Hostname |
+| `screenName?` | `string` | The name shown in a sender app's Cast menu, when the receiver device was previously connected to through manual pairing. **`Default`** 'YouTube on <device.name>'' |
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L22)
+[lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L23)
 
 ___
 
 ### dial
 
-• `Optional` **dial**: `Omit`<[`DialOptions`](DialOptions.md), ``"manufacturer"`` \| ``"modelName"`` \| ``"logger"``\>
+• `Optional` **dial**: `Omit`<[`DialOptions`](DialOptions.md), ``"friendlyName"`` \| ``"manufacturer"`` \| ``"modelName"`` \| ``"logger"``\>
 
 DIAL server options.
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L17)
+[lib/YouTubeCastReceiver.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L18)
 
 ___
 
@@ -57,7 +65,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L24)
+[lib/YouTubeCastReceiver.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L40)
 
 ___
 
@@ -67,14 +75,4 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L25)
-
-___
-
-### model
-
-• `Optional` **model**: `string`
-
-#### Defined in
-
-[lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/YouTubeCastReceiver.ts#L23)
+[lib/YouTubeCastReceiver.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L41)

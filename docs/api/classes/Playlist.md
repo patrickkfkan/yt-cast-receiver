@@ -15,6 +15,7 @@ Representation of the player queue.
 - [hasPrevious](Playlist.md#hasprevious)
 - [id](Playlist.md#id)
 - [isLast](Playlist.md#islast)
+- [isUpdating](Playlist.md#isupdating)
 - [length](Playlist.md#length)
 - [videoIds](Playlist.md#videoids)
 
@@ -34,7 +35,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[lib/app/Playlist.ts:200](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L200)
+[lib/app/Playlist.ts:226](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L226)
 
 ___
 
@@ -48,7 +49,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:211](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L211)
+[lib/app/Playlist.ts:237](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L237)
 
 ___
 
@@ -62,7 +63,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:207](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L207)
+[lib/app/Playlist.ts:233](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L233)
 
 ___
 
@@ -76,7 +77,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:224](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L224)
+[lib/app/Playlist.ts:250](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L250)
 
 ___
 
@@ -90,7 +91,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:220](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L220)
+[lib/app/Playlist.ts:246](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L246)
 
 ___
 
@@ -106,7 +107,7 @@ Id of the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:142](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L142)
+[lib/app/Playlist.ts:168](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L168)
 
 ___
 
@@ -120,7 +121,21 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:215](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L215)
+[lib/app/Playlist.ts:241](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L241)
+
+___
+
+### isUpdating
+
+• `get` **isUpdating**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[lib/app/Playlist.ts:257](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L257)
 
 ___
 
@@ -136,7 +151,7 @@ The number of videos in the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:156](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L156)
+[lib/app/Playlist.ts:182](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L182)
 
 ___
 
@@ -152,7 +167,7 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:149](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L149)
+[lib/app/Playlist.ts:175](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L175)
 
 ## Methods
 
@@ -166,4 +181,4 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[lib/app/Playlist.ts:180](https://github.com/patrickkfkan/yt-cast-receiver/blob/77915bb/src/lib/app/Playlist.ts#L180)
+[lib/app/Playlist.ts:206](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Playlist.ts#L206)
