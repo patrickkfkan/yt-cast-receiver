@@ -1,3 +1,4 @@
+import { AbortSignal } from 'abort-controller';
 import Logger from '../utils/Logger.js';
 import Playlist from './Playlist.js';
 import Video from './Video.js';
@@ -16,6 +17,16 @@ abstract class PlaylistRequestHandler {
 
   setLogger(logger: Logger) {
     this.#logger = logger;
+  }
+
+  getPreviousNextVideosAbortable(target: Video, playlist: Playlist, abortSignal: AbortSignal): Promise<PlaylistPreviousNextVideos> {
+    abortSignal.onabort = () => {
+      const abortError = Error(`PlaylistRequestHandler.getPreviousNextVideos() aborted for video Id: ${target.id}`);
+      abortError.name = 'AbortError';
+      throw abortError;
+    };
+
+    return this.getPreviousNextVideos(target, playlist);
   }
 
   /**

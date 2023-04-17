@@ -132,7 +132,7 @@ export default abstract class Player extends EventEmitter {
       await this.stop();
     }
     this.#logger.info(`[yt-cast-receiver] Player.play(): ${video.id} @ ${position || 0}s`);
-    this.queue.setAsCurrent(video);
+    this.#queue.setAsCurrent(video);
     await this.#setStatusAndEmit(PLAYER_STATUSES.LOADING, AID);
     const result = await this.doPlay(video, position || 0);
     if (result) {
@@ -235,6 +235,10 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to `true` on playback of the next video; `false` otherwise.
    */
   async next(AID?: number | null): Promise<boolean> {
+    if (this.#queue.isUpdating) {
+      this.#logger.debug('[yt-cast-receiver] Player.next() ignored: queue is updating.');
+      return false;
+    }
     this.#logger.info('[yt-cast-receiver] Player.next()');
     const nextVideo = await this.#queue.next();
     if (!nextVideo) {
@@ -263,6 +267,10 @@ export default abstract class Player extends EventEmitter {
    * @returns Promise that resolves to `true` on playback of the previous video; `false` otherwise.
    */
   async previous(AID?: number | null): Promise<boolean> {
+    if (this.#queue.isUpdating) {
+      this.#logger.debug('[yt-cast-receiver] Player.previous() ignored: queue is updating.');
+      return false;
+    }
     this.#logger.info('[yt-cast-receiver] Player.previous()');
     const previousVideo = await this.#queue.previous();
     if (!previousVideo) {
@@ -337,7 +345,7 @@ export default abstract class Player extends EventEmitter {
   }
 
   get autoplayMode(): AutoplayMode {
-    return this.queue.autoplayMode;
+    return this.#queue.autoplayMode;
   }
 
   get cpn(): string {

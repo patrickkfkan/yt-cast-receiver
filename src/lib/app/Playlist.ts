@@ -1,3 +1,4 @@
+import AbortController from 'abort-controller';
 import { AUTOPLAY_MODES } from '../Constants.js';
 import { AutoplayMode } from '../Player.js';
 import Client from './Client.js';
@@ -24,6 +25,7 @@ export default class Playlist {
   #next: Video | null;
   #autoplayMode: AutoplayMode;
   #requestHandler: PlaylistRequestHandler;
+  #previousNextAbortController: AbortController | null;
 
   /** @internal */
   constructor() {
@@ -32,6 +34,7 @@ export default class Playlist {
     this.#current = null;
     this.#previous = null;
     this.#autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
+    this.#previousNextAbortController = null;
   }
 
   /** @internal */
@@ -113,12 +116,35 @@ export default class Playlist {
     await this.#refreshPreviousNext();
   }
 
+  async #abortRefreshPreviousNext() {
+    if (this.#previousNextAbortController) {
+      this.#previousNextAbortController.abort();
+      this.#previousNextAbortController = null;
+    }
+  }
+
   async #refreshPreviousNext() {
     this.#previous = null;
     this.#next = null;
     const currentIndex = this.#current?.context?.index !== undefined ? this.#current.context.index : -1;
     if (currentIndex >= 0) {
-      const nav = this.#current ? await this.#requestHandler.getPreviousNextVideos(this.#current, this) : null;
+      let nav = null;
+      if (this.#current) {
+        this.#abortRefreshPreviousNext();
+        this.#previousNextAbortController = new AbortController();
+        try {
+          nav = await this.#requestHandler.getPreviousNextVideosAbortable(this.#current, this, this.#previousNextAbortController.signal);
+        }
+        catch (error: any) {
+          if (error.name === 'AbortError') {
+            return;
+          }
+          throw error;
+        }
+        finally {
+          this.#previousNextAbortController = null;
+        }
+      }
       this.#previous = nav?.previous || null;
       if (!this.isLast || this.#autoplayMode === AUTOPLAY_MODES.ENABLED) {
         this.#next = nav?.next || null;
@@ -226,6 +252,10 @@ export default class Playlist {
       return false;
     }
     return true;
+  }
+
+  get isUpdating(): boolean {
+    return !!this.#previousNextAbortController;
   }
 
   /**
