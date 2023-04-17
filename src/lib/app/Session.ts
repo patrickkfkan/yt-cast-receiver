@@ -502,6 +502,22 @@ export default class Session extends EventEmitter {
       run: this.#doSendMessage.bind(this, sc, resolve, reject),
       cancel: () => {
         resolve(false);
+      },
+      onError: (task: Task, error: any) => {
+        const smTask = task as SendMessageTask;
+        this.#logger.error(`[yt-cast-receiver] (${this.client.name}) Error occurred in SendMessageTask:`, smTask.message, error);
+        // Retry task after refreshToken, but if it fails again then we would have to end session.
+        smTask.onError = (task: Task, error: any) => {
+          this.end(error);
+        };
+        this.#taskQueue.unshift(smTask);
+        this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Retry task after refreshing lounge token...`);
+        try {
+          this.#refreshLoungeToken();
+        }
+        catch (err) {
+          this.end(err);
+        }
       }
     });
   }
@@ -595,14 +611,18 @@ export class SendMessageTask implements Task {
   message;
   #run;
   #cancel;
+  #onError;
 
   constructor(data: {
     message: Message | Message[],
     run: (...args: any) => Promise<void>,
-    cancel: () => void}) {
+    cancel: () => void,
+    onError: (task: Task, error: any) => any
+  }) {
     this.message = data.message;
     this.#run = data.run;
     this.#cancel = data.cancel;
+    this.#onError = data.onError;
   }
 
   async run() {
@@ -611,5 +631,9 @@ export class SendMessageTask implements Task {
 
   cancel(): void {
     this.#cancel();
+  }
+
+  onError(task: Task, error: any): any {
+    this.#onError(task, error);
   }
 }

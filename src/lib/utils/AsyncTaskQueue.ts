@@ -4,8 +4,9 @@
  * {@link AsyncTaskQueue} task.
  */
 export interface Task {
-  run(): Promise<any>;
-  cancel(): void;
+  run: () => Promise<any>;
+  cancel: () => void;
+  onError?: (task: Task, error: any) => any;
 }
 
 /**
@@ -40,18 +41,27 @@ export default class AsyncTaskQueue {
     }
   }
 
+  unshift(task: Task) {
+    this.#tasks.unshift(task);
+  }
+
   async start() {
     this.#stopped = false;
+    let failedTask: any = null;
     while (this.#tasks.length > 0 && !this.#stopped) {
       const task = this.#tasks.shift();
       try {
         task && await task.run();
       }
       catch (error) {
-        // Ignore error and continue
+        failedTask = { task, error };
+        break;
       }
     }
     this.#stopped = true;
+    if (failedTask && failedTask.task.onError) {
+      failedTask.task.onError(failedTask.task, failedTask.error);
+    }
   }
 
   clear() {
