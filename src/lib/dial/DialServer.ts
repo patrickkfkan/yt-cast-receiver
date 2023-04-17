@@ -11,6 +11,7 @@ export interface DialOptions {
   port?: number,
   corsAllowOrigins?: boolean,
   prefix?: string,
+  friendlyName: string;
   /**
    * @default CONF_DEFAULTS.BRAND
    */
@@ -86,14 +87,15 @@ export default class DialServer {
     const expressApp = express();
     this.#dialOptions = {
       expressApp,
-      port: options?.port || 3000,
-      corsAllowOrigins: options?.corsAllowOrigins || false,
-      prefix: options?.prefix || '/ytcr',
-      manufacturer: options?.manufacturer || CONF_DEFAULTS.BRAND,
-      modelName: options?.modelName || CONF_DEFAULTS.MODEL,
+      port: options.port || 3000,
+      corsAllowOrigins: options.corsAllowOrigins || false,
+      prefix: options.prefix || '/ytcr',
+      friendlyName: options.friendlyName,
+      manufacturer: options.manufacturer || CONF_DEFAULTS.BRAND,
+      modelName: options.modelName || CONF_DEFAULTS.MODEL,
       delegate: createDelegate({'YouTube': app}, this.#logger),
-      bindToInterfaces: options?.bindToInterfaces,
-      bindToAddresses: options?.bindToAddresses
+      bindToInterfaces: options.bindToInterfaces,
+      bindToAddresses: options.bindToAddresses
     };
     this.#dialServer = new dial.Server(this.#dialOptions);
     this.#expressServer = http.createServer(expressApp);

@@ -15,7 +15,6 @@ export const URLS = {
 };
 
 export const CONF_DEFAULTS = {
-  SCREEN_NAME: 'YouTube Cast Receiver',
   SCREEN_APP: 'ytcr',
   BRAND: 'Generic',
   MODEL: 'SmartTV'

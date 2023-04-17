@@ -8,21 +8,37 @@ import { STATUSES } from './Constants.js';
 import PairingCodeRequestService from './app/PairingCodeRequestService.js';
 import Sender from './app/Sender.js';
 import { ValueOf } from './utils/Type.js';
+import { hostname } from 'os';
 
 /**
  * Options consumed by constructor of `YouTubeCastReceiver` class.
  */
 export interface YouTubeCastReceiverOptions {
   /** DIAL server options. */
-  dial?: Omit<DialOptions, 'logger' | 'manufacturer' | 'modelName'>,
+  dial?: Omit<DialOptions, 'logger' | 'friendlyName' | 'manufacturer' | 'modelName'>;
 
   /** YouTube app options. */
-  app?: Omit<AppOptions, 'logger' | 'brand' | 'model'>,
+  app?: Omit<AppOptions, 'logger' | 'screenName' | 'brand' | 'model'>;
 
-  brand?: string,
-  model?: string,
-  logLevel?: LogLevel,
-  logger?: Logger
+  device?: {
+    /**
+     * The name shown in a sender app's Cast menu, when the receiver device is discovered through DIAL.
+     * @default Hostname
+     */
+    name?: string;
+
+    /**
+     * The name shown in a sender app's Cast menu, when the receiver device was previously connected to through manual pairing.
+     *  @default 'YouTube on <device.name>''
+     */
+    screenName?: string;
+
+    brand?: string;
+    model?: string;
+  };
+
+  logLevel?: LogLevel;
+  logger?: Logger;
 }
 
 /**
@@ -49,17 +65,22 @@ export default class YouTubeCastReceiver extends EventEmitter {
     this.#logger = options.logger || new DefaultLogger();
     this.#logger.setLevel(options.logLevel || 'info');
 
+    const friendlyName = options.device?.name || hostname();
+    const screenName = options.device?.screenName || `YouTube on ${friendlyName}`;
+
     const appOptions: AppOptions = {
-      ...options.app || {},
-      brand: options.brand,
-      model: options.model,
+      ...(options.app || {}),
+      screenName,
+      brand: options.device?.brand,
+      model: options.device?.model,
       logger: this.#logger
     };
 
     const dialOptions: DialOptions = {
-      ...options.dial || {},
-      manufacturer: options.brand,
-      modelName: options.model,
+      ...(options.dial || {}),
+      friendlyName,
+      manufacturer: options.device?.brand,
+      modelName: options.device?.model,
       logger: this.#logger
     };
 

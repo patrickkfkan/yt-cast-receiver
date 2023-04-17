@@ -169,21 +169,23 @@ const receiver = new YouTubeCastReceiver(player, [options]);
 You can configure the `YouTubeCastReceiver` instance by passing options to its constructor. All options are optional.
 
 (Object)
-- `brand`: (string) defaults to 'Generic'.
-- `model`: (string) defaults to 'SmartTV'.
-- `logger`: `Logger` implementation (default: `DefaultLogger` instance) - see [Logging](#logging).
-- `logLevel`: one of [Constants.LOG_LEVELS](#constants) (default: INFO).
 - `app`: (object) receiver app options
   - `playlistRequestHandler`: `PlaylistRequestHandler` implementation (default: `DefaultPlaylistRequestHandler` instance) - see [Player Queue](#player-queue).
   - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects.
-  - `screenApp`: (string) defaults to 'YouTube Cast Receiver'.
-  - `screenName`: (string) defaults to 'ytcr'.
+  - `screenApp`: (string) defaults to 'ytcr'.
 - `dial`: (object) DIAL server options
   - `bindToAddresses`: Array<`string`> (default: `undefined` - bind to all network addresses).
   - `bindToInterfaces`: Array<`string`> (default: `undefined` - bind to all network interfaces).
   - `corsAllowOrigins`: (boolean) defaults to `false` - no origin allowed.
   - `port`: (number) port on which to accept requests (default: 3000).
   - `prefix`: (string) access path (default: '/ytcr').
+- `device`: (object) Info about the receiver device
+  - `name`: (string) name shown in a sender app's Cast menu, when the receiver device is discovered through DIAL. Defaults to hostname of the receiver device.
+  - `screenName`: (string) name shown in a sender app's Cast menu, when the receiver device was previously connected to through [manual pairing](#manual-pairing). Defaults to 'YouTube on `device.name`'.
+  - `brand`: (string) defaults to 'Generic'.
+  - `model`: (string) defaults to 'SmartTV'.
+- `logger`: `Logger` implementation (default: `DefaultLogger` instance) - see [Logging](#logging).
+- `logLevel`: one of [Constants.LOG_LEVELS](#constants) (default: INFO).
 </details>
 
 ### 3. Start receiver

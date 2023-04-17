@@ -16,10 +16,8 @@ import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
 import Client, { ClientKey } from './Client.js';
 
 export interface AppOptions {
-  /**
-   * @default CONF_DEFAULTS.SCREEN_NAME
-   */
-  screenName?: string,
+
+  screenName: string,
   /**
    * @default CONF_DEFAULTS.SCREEN_APP
    */
@@ -75,7 +73,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.pid = uuidv4();
 
     const commonSessionOptions = {
-      screenName: options.screenName || CONF_DEFAULTS.SCREEN_NAME,
+      screenName: options.screenName,
       screenApp: options.screenApp || CONF_DEFAULTS.SCREEN_APP,
       brand: options.brand || CONF_DEFAULTS.BRAND,
       model: options.model || CONF_DEFAULTS.MODEL,
