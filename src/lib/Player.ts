@@ -18,11 +18,11 @@ export type PlayerStatus = ValueOf<typeof PLAYER_STATUSES>;
 
 export interface PlayerState {
   status: PlayerStatus;
-  queue: PlaylistState,
-  position: number,
-  duration: number
-  volume: number,
-  cpn: string,
+  queue: PlaylistState;
+  position: number;
+  duration: number;
+  volume: number;
+  cpn: string;
 }
 
 export interface PlayerNavInfo {

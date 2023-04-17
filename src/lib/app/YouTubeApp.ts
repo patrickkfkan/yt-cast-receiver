@@ -17,28 +17,28 @@ import Client, { ClientKey } from './Client.js';
 
 export interface AppOptions {
 
-  screenName: string,
+  screenName: string;
   /**
    * @default CONF_DEFAULTS.SCREEN_APP
    */
-  screenApp?: string,
+  screenApp?: string;
   /**
    * @default CONF_DEFAULTS.BRAND
    */
-  brand?: string,
+  brand?: string;
   /**
    * @default CONF_DEFAULTS.MODEL
    */
-  model?: string,
+  model?: string;
   /**
    * @default true
    */
-  enableAutoplayOnConnect?: boolean,
+  enableAutoplayOnConnect?: boolean;
   /**
    * @default `DefaultPlaylistRequestHandler` instance
    */
-  playlistRequestHandler?: PlaylistRequestHandler,
-  logger: Logger
+  playlistRequestHandler?: PlaylistRequestHandler;
+  logger: Logger;
 }
 
 type AppStatus = ValueOf<typeof STATUSES>;

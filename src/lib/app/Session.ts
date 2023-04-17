@@ -32,23 +32,23 @@ export interface LoungeToken {
 */
 export interface Screen {
   /** Screen Id obtained from YouTube */
-  id?: string,
+  id?: string;
 
   /** Screen name */
-  name: string,
+  name: string;
 
   /** Screen app */
-  app: string
+  app: string;
 }
 
 /** @internal */
 export interface SessionOptions {
   client: Client;
-  screenName: string,
-  screenApp: string,
-  brand: string,
-  model: string,
-  logger: Logger
+  screenName: string;
+  screenApp: string;
+  brand: string;
+  model: string;
+  logger: Logger;
 }
 
 type SessionStatus = ValueOf<typeof STATUSES> | 'refreshing';

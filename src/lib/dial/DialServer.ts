@@ -8,21 +8,21 @@ import { CONF_DEFAULTS, STATUSES } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 
 export interface DialOptions {
-  port?: number,
-  corsAllowOrigins?: boolean,
-  prefix?: string,
+  port?: number;
+  corsAllowOrigins?: boolean;
+  prefix?: string;
   friendlyName: string;
   /**
    * @default CONF_DEFAULTS.BRAND
    */
-  manufacturer?: string,
+  manufacturer?: string;
   /**
    * @default CONF_DEFAULTS.MODEL
    */
-  modelName?: string,
-  bindToInterfaces?: string[],
-  bindToAddresses?: string[],
-  logger: Logger
+  modelName?: string;
+  bindToInterfaces?: string[];
+  bindToAddresses?: string[];
+  logger: Logger;
 }
 
 /**

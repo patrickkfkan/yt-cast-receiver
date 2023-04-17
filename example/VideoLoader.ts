@@ -2,15 +2,15 @@ import Innertube, * as InnertubeLib from 'youtubei.js';
 import { Video } from '../dist/mjs';
 
 interface BasicInfo {
-  type: 'song' | 'video',
-  title: string,
-  channel?: string,
-  artist?: string,
-  album?: string,
+  type: 'song' | 'video';
+  title: string;
+  channel?: string;
+  artist?: string;
+  album?: string;
 }
 
 export interface VideoInfo extends BasicInfo {
-  duration: number
+  duration: number;
 }
 
 /**
