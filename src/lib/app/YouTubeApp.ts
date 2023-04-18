@@ -428,7 +428,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
     const stopPromises = Object.values(this.#sessions).map((session) => {
       session.removeAllListeners();
-      return session.end;
+      return session.end();
     });
     try {
       await Promise.all(stopPromises);
