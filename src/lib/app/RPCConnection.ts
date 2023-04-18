@@ -98,6 +98,7 @@ export default class RPCConnection extends EventEmitter {
         this.#logger.error('[yt-cast-receiver] RPC connection reader error:', error);
         // Force disconnect
         readable.destroy();
+        this.#handleDisconnect();
       });
 
       this.#reader.on('end', this.#handleDisconnect.bind(this));
