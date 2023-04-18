@@ -778,8 +778,14 @@ Note: demo uses port 8099.
 # Changelog
 
 1.0.0
-- Complete rewrite with major breaking changes from v0.1.x!
+- Complete rewrite with major breaking changes in the API from v0.1.x!
 - Move to Typescript and package as ESM + CJS hybrid module.
+- New features:
+  - Support casting from YouTube Music (credit: [dgalli1](https://github.com/dgalli1))
+  - Allow multiple sender connections
+  - Support manual pairing, aka Link with TV Code (YouTube only)
+  - Provide player implementations with sufficient data to play private media (such as uploads in your YouTube Music library)
+  - Improved logging
 
 0.1.2
 
@@ -804,4 +810,4 @@ MIT
 
 *Note on commercial use*:
 
-This project uses a [forked version](https://github.com/patrickkfkan/peer-dial) of [peer-dial](https://github.com/fraunhoferfokus/peer-dial) for DIAL server implementation, which is provided "free for non commercial use" under GPLv3. This means if you want to use `yt-cast-receiver` in a commercial product (not recommended anyway), you should contact the author of the [peer-dial](https://github.com/fraunhoferfokus/peer-dial) module for consent.
+This project uses a [forked version](https://github.com/patrickkfkan/peer-dial) of [peer-dial](https://github.com/fraunhoferfokus/peer-dial) for DIAL server implementation, which is provided "free for non commercial use". This means if you want to use `yt-cast-receiver` in a commercial product (not recommended anyway), you should contact the author of the *peer-dial* module for consent.
