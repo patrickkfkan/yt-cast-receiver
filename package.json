@@ -72,5 +72,12 @@
     "timer-node": "^5.0.7",
     "uuid": "^9.0.0",
     "youtubei.js": "^4.3.0"
-  }
+  },
+  "keywords": [
+    "youtube",
+    "music",
+    "chromecast",
+    "cast",
+    "dial"
+  ]
 }
