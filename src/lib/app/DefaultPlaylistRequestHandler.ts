@@ -69,7 +69,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
       return result;
     }
     catch (error) {
-      this.logger.error(`[ytcr] Failed to get autoplay video for video Id: ${target.id}`, error);
+      this.logger.error(`[yt-cast-receiver] Failed to get autoplay video for video Id: ${target.id}`, error);
       return { previous: null, next: null };
     }
   }
