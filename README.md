@@ -184,6 +184,7 @@ You can configure the `YouTubeCastReceiver` instance by passing options to its c
   - `screenName`: (string) name shown in a sender app's Cast menu, when the receiver device was previously connected to through [manual pairing](#manual-pairing). Defaults to 'YouTube on `device.name`'.
   - `brand`: (string) defaults to 'Generic'.
   - `model`: (string) defaults to 'SmartTV'.
+- `dataStore`: `DataStore` implementation (default: `DefaultDataStore` instance) - see [DataStore](#datastore).
 - `logger`: `Logger` implementation (default: `DefaultLogger` instance) - see [Logging](#logging).
 - `logLevel`: one of [Constants.LOG_LEVELS](#constants) (default: INFO).
 </details>
@@ -632,6 +633,61 @@ class MyLogger extends DefaultLogger {
 }
 ```
 </details>
+
+## DataStore
+
+A `DataStore` implementation is used to persist certain data during the startup phase of the receiver. The following lists the keys used to reference the persisted data and their purpose:
+
+|     Key     |     Description                 |
+|-------------|---------------------------------|
+|`app.pid`    |(string) Used by the DIAL server to broadcast the receiver's identity. If `pid` changes every time the receiver starts, you might see duplicate entries in the Cast menu.|
+|`mdxContext` |(object: {`screenId`, `deviceId`}) Identifies the 'screen' being cast to. You can think of a screen as something to which senders connect, and thus controlled by users, and on which the receiver plays content. Preserving the `mdxContext`facilitates reconnections in case a Cast session got interrupted, such as when the receiver stops abnormally and needs to be restarted.
+
+To disable persistence, set the `dataStore` option to `false` when creating the receiver instance:
+
+```
+const receiver = new YouTubeCastReceiver({
+  ...
+  dataStore: false
+});
+```
+
+By default, a `DefaultDataStore` instance is used to persist data. It saves data to local files using the [node-persist](https://github.com/simonlast/node-persist) module. You can provide your own implementation by extending the `DataStore` class:
+
+```
+import { DataStore } from 'yt-cast-receiver';
+
+class MyDataStore extends DataStore {
+
+  // Store `value` referenced by `key`.
+  async set<T>(key: string, value: T): Promise<void> {
+    ...
+  }
+
+  // Return stored value by `key`, or `null` if none found.
+  async get<T>(key: string): Promise<T | null> {
+    ...
+  }
+}
+
+```
+Although not required, it is recommended that you provide a method in your implementation to clear the stored data. This would allow the receiver to start afresh.
+
+The `DefaultDataStore`, for example, provides a `clear()` method:
+```
+import { DefaultDataStore } from "yt-cast-receiver";
+
+const defaultDataStore = new DefaultDataStore();
+await defaultDataStore.clear();
+
+const receiver = new YouTubeCastReceiver({
+  ...
+  dataStore: defaultDataStore
+});
+
+receiver.start(); // Fresh start!
+```
+
 
 ## Constants
 
