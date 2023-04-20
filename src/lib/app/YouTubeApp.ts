@@ -2,18 +2,18 @@ import EventEmitter from 'events';
 import * as dial from '@patrickkfkan/peer-dial';
 import queryString from 'query-string';
 import { v4 as uuidv4 } from 'uuid';
-import Player, { AutoplayMode, PlayerNavInfo, PlayerState } from '../Player.js';
+import Player, { AutoplayMode, PlayerState } from '../Player.js';
 import Message from './Message.js';
 import Session from './Session.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
 import Sender from './Sender.js';
-import { AppError, SenderConnectionError, IncompleteAPIDataError, DataError } from '../utils/Errors.js';
+import { AppError, SenderConnectionError, IncompleteAPIDataError } from '../utils/Errors.js';
 import Logger from '../utils/Logger.js';
 import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
-import Client, { ClientKey } from './Client.js';
+import { ClientKey } from './Client.js';
 import DataStore from '../utils/DataStore.js';
 
 export interface AppOptions {
@@ -235,7 +235,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     let autoplayMode: AutoplayMode;
     if (!this.#connectedSenders.every((c) => c.supportsAutoplay())) {
       this.#logger.debug('[yt-cast-receiver] (Some) sender(s) do not support autoplay. Autoplay support disabled.');
-      
+
       if (this.#player.autoplayMode !== AUTOPLAY_MODES.UNSUPPORTED) {
         this.#autoplayModeBeforeUnsupportedOverride = this.#player.autoplayMode;
       }
@@ -287,7 +287,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         }
         catch (err) {
           const error = new SenderConnectionError('Failed to register connected sender', err, 'connect');
-          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to handle \'remoteConnected\' message:`, error);
+          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to handle 'remoteConnected' message:`, error);
           this.emit('error', error);
           break;
         }
@@ -308,7 +308,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           this.emit('senderConnect', newSender);
         }
         else {
-          this.#logger.debug('[yt-cast-receiver] (${client.name}) Sender already connected.');
+          this.#logger.debug(`[yt-cast-receiver] (${client.name}) Sender already connected.`);
         }
         break;
 
@@ -321,7 +321,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         }
         catch (err) {
           const error = new SenderConnectionError('Failed to unregister disconnected sender', err, 'disconnect');
-          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to handle \'remoteDisconnected\' message:`, error);
+          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to handle 'remoteDisconnected' message:`, error);
           this.emit('error', error);
           break;
         }
@@ -365,11 +365,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
               try {
                 const sender = Sender.parse(data);
                 senders.push(sender);
+                return senders;
               }
               catch (err) {
                 this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse sender data in 'loungeStatus' message:`, err);
-              }
-              finally {
                 return senders;
               }
             }, []);

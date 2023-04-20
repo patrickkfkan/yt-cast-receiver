@@ -206,7 +206,7 @@ export default class Session extends EventEmitter {
           this.#bindParams.updateWithMessage(cmd);
         }
         else if (cmd.name === 'loungeStatus') {
-          this.#handleMessage([cmd]);
+          this.#handleMessage([ cmd ]);
         }
       }
       // Test if we can start posting state / rpc

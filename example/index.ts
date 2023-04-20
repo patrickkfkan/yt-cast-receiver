@@ -248,9 +248,9 @@ class FakePlayerDemo {
       this.#screen.element.program.disableMouse();
 
       // Receiver may already have connected senders when started. This happens
-      // when it was stopped previously without disconnecting senders first (usually
-      // due to a crash). When receiver restarts, senders that are still connected
-      // are reinstated.
+      // When it was stopped previously without disconnecting senders first (usually
+      // Due to a crash). When receiver restarts, senders that are still connected
+      // Are reinstated.
       const senders = this.#receiver.getConnectedSenders();
       if (senders.length > 0) {
         const log = `Connected to ${senders[senders.length - 1].name}. Total connected senders: ${senders.length}`;
