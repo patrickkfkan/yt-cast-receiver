@@ -621,7 +621,7 @@ export default class Session extends EventEmitter {
 
   #handleMessage(messages: Message[]) {
     this.#bindParams.updateWithMessage(messages);
-    this.emit('messages', messages, this.#client);
+    this.emit('messages', messages, this);
   }
 
   get pairingCodeRequestService(): PairingCodeRequestService {
@@ -644,7 +644,7 @@ export default class Session extends EventEmitter {
    * Emitted when incoming messages arrive.
    * @param listener.messages - An array of `Message` objects.
    */
-  on(event: 'messages', listener: (messages: Message[], client: Client) => void): this;
+  on(event: 'messages', listener: (messages: Message[], session: Session) => void): this;
   /**
    * @event
    * Emitted when session terminated due to irrecoverable error.

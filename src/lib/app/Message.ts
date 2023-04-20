@@ -1,5 +1,5 @@
 import removeNewline from 'newline-remove';
-import { PLAYER_STATUSES } from '../Constants.js';
+import { AUTOPLAY_MODES, PLAYER_STATUSES } from '../Constants.js';
 import { AutoplayMode, PlayerNavInfo, PlayerState } from '../Player.js';
 
 /**
@@ -167,8 +167,8 @@ export namespace Message {
    * Notifies senders whether to enable, disable or hide the Autoplay button.
    */
   export class OnAutoplayModeChanged extends Message {
-    constructor(AID: number | null, info: AutoplayMode | PlayerNavInfo) {
-      const autoplayMode = typeof info === 'string' ? info : info.autoplayMode;
+    constructor(AID: number | null, info: AutoplayMode | PlayerNavInfo | null) {
+      const autoplayMode = info === null ? AUTOPLAY_MODES.UNSUPPORTED : typeof info === 'string' ? info : info.autoplayMode;
       const payload = {
         autoplayMode
       };
@@ -183,10 +183,10 @@ export namespace Message {
    * Notifies senders whether previous / next video is available.
    */
   export class OnHasPreviousNextChanged extends Message {
-    constructor(AID: number | null, playerNavInfo: PlayerNavInfo) {
+    constructor(AID: number | null, playerNavInfo: PlayerNavInfo | null) {
       const payload = {
-        hasPrevious: playerNavInfo.hasPrevious,
-        hasNext: playerNavInfo.hasNext
+        hasPrevious: !!playerNavInfo?.hasPrevious,
+        hasNext: !!playerNavInfo?.hasNext
       };
       super(AID, 'onHasPreviousNextChanged', payload);
     }
