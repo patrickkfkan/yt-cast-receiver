@@ -62,6 +62,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   #sessions: Record<ClientKey, Session>;
   #activeSession: Session | null;
   #connectedSenders: Sender[];
+  #dataStore: DataStore | null;
   #logger: Logger;
   #player: Player;
   #autoplayModeOnConnect: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED;
@@ -74,15 +75,18 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.name = 'YouTube Cast Receiver App';
     this.state = STATUSES.STOPPED;
     this.allowStop = false;
-    this.pid = uuidv4();
+
+    this.#connectedSenders = [];
+    this.#dataStore = options.dataStore || null;
+    this.#logger = options.logger;
 
     const commonSessionOptions = {
       screenName: options.screenName,
       screenApp: options.screenApp || CONF_DEFAULTS.SCREEN_APP,
       brand: options.brand || CONF_DEFAULTS.BRAND,
       model: options.model || CONF_DEFAULTS.MODEL,
-      dataStore: options.dataStore || null,
-      logger: options.logger
+      dataStore: this.#dataStore,
+      logger: this.#logger
     } as any;
 
     this.#sessions = {
@@ -90,9 +94,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       YTMUSIC: new Session({ client: CLIENTS.YTMUSIC, ...commonSessionOptions })
     };
     this.#activeSession = null;
-
-    this.#connectedSenders = [];
-    this.#logger = options.logger;
 
     this.#player = player;
     this.#player.setLogger(options.logger);
@@ -106,6 +107,19 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   async start(): Promise<void> {
     if (this.state !== STATUSES.STOPPED) {
       return;
+    }
+
+    if (this.#dataStore) {
+      const storedPid = await this.#dataStore.get<string>('app.pid');
+      if (storedPid) {
+        this.#logger.debug(`[yt-cast-receiver] Setting app pid to stored value: ${storedPid}`);
+        this.pid = storedPid;
+      }
+      else {
+        this.pid = uuidv4();
+        this.#logger.debug(`[yt-cast-receiver] Saving generated app pid: ${this.pid}`);
+        await this.#dataStore.set('app.pid', this.pid);
+      }
     }
 
     this.#logger.debug('[yt-cast-receiver] Starting YouTubeApp...');
