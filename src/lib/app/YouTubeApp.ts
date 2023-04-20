@@ -383,9 +383,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
               new Message.NowPlaying(AID, null)
             );
           }
-          else {
-            this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to determine active session from connected senders at app startup.`);
-          }
         }
         else {
           const playerNavInfo = isSessionActive ? this.#player.getNavInfo() : null;
