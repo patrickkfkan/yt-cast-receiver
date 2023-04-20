@@ -2,7 +2,7 @@ import Innertube, * as InnertubeLib from 'youtubei.js';
 import { Video } from '../dist/mjs';
 
 interface BasicInfo {
-  type: 'song' | 'video';
+  src: 'yt' | 'ytmusic';
   title: string;
   channel?: string;
   artist?: string;
@@ -11,6 +11,7 @@ interface BasicInfo {
 
 export interface VideoInfo extends BasicInfo {
   duration: number;
+  streamUrl?: any;
 }
 
 /**
@@ -19,6 +20,8 @@ export interface VideoInfo extends BasicInfo {
 export default class VideoLoader {
 
   #innertube: Innertube | null;
+  #innertubeInitialClient: InnertubeLib.Context['client'];
+  #innertubeTVClient: InnertubeLib.Context['client'];
 
   constructor() {
     this.#innertube = null;
@@ -27,6 +30,13 @@ export default class VideoLoader {
   async #init() {
     if (!this.#innertube) {
       this.#innertube = await Innertube.create();
+      this.#innertubeInitialClient = {...this.#innertube.session.context.client};
+      this.#innertubeTVClient = {
+        ...this.#innertube.session.context.client,
+        clientName: 'TVHTML5',
+        clientVersion: '7.20230405.08.01',
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36; SMART-TV; Tizen 4.0,gzip(gfe)'
+      };
     }
   }
 
@@ -54,10 +64,8 @@ export default class VideoLoader {
       payload.index = video.context.index;
     }
 
-    // Modify innertube session context to indicate we are requesting data for a 'TV' client.
-    this.#innertube.session.context.client.clientName = 'TVHTML5';
-    this.#innertube.session.context.client.clientVersion = '7.20230405.08.01';
-    this.#innertube.session.context.client.userAgent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36; SMART-TV; Tizen 4.0,gzip(gfe)';
+    // Modify innertube session context to indicate we are requesting data as a 'TV' client.
+    this.#innertube.session.context.client = this.#innertubeTVClient;
 
     // Remember to include `ctt` param if available - this is required particularly for private videos.
     if (video.context?.ctt) {
@@ -95,14 +103,14 @@ export default class VideoLoader {
 
     if (videoMetadata) {
       basicInfo = {
-        type: 'video',
+        src: 'yt',
         title: new InnertubeLib.Misc.Text(videoMetadata.title).toString(),
         channel: new InnertubeLib.Misc.Text(videoMetadata.owner?.videoOwnerRenderer?.title).toString()
       };
     }
     else if (songMetadata) {
       basicInfo = {
-        type: 'song',
+        src: 'ytmusic',
         title: new InnertubeLib.Misc.Text(songMetadata.title).toString(),
         artist: new InnertubeLib.Misc.Text(songMetadata.byline).toString(),
         album: new InnertubeLib.Misc.Text(songMetadata.albumName).toString()
@@ -111,19 +119,49 @@ export default class VideoLoader {
 
     if (basicInfo) {
       // Fetch response from '/player' endpoint.
+      // But first revert to initial client in innertube context, otherwise livestreams will only have DASH manifest URL
+      // - we would like to fetch complete streaming data.
+      this.#innertube.session.context.client = {...this.#innertubeInitialClient};
+      if (basicInfo.src === 'ytmusic') {
+        // For YouTube Music, it is also necessary to set `payload.client` to 'YTMUSIC'. Innertube will modify
+        // `context.client` with YouTube Music client info before submitting it to the '/player' endpoint.
+        payload.client = 'YTMUSIC';
+      }
       const playerResponse = await this.#innertube.actions.execute('/player', payload) as any;
 
       // Wrap it in innertube VideoInfo. Why? Because it offers many useful methods like `chooseFormat()`.
       const innertubeVideoInfo = new InnertubeLib.YT.VideoInfo([ playerResponse ], this.#innertube.actions, InnertubeLib.Utils.generateRandomString(16));
 
-      /**
-       * Although not applicable to our FakePlayer, in an actual player implementation you would
-       * also return the actual stream for playback. You can do that with VideoInfo.chooseFormat() or toDash().
-       */
+      let streamUrl: any;
+      if (innertubeVideoInfo.basic_info.is_live) {
+        streamUrl = {
+          dash: innertubeVideoInfo.streaming_data?.dash_manifest_url,
+          hls: innertubeVideoInfo.streaming_data?.hls_manifest_url
+        };
+      }
+      else {
+        // Fetch stream URL with `chooseFormat()`:
+        const allFormats = [
+          ...innertubeVideoInfo.streaming_data?.formats || [],
+          ...innertubeVideoInfo.streaming_data?.adaptive_formats || []
+        ];
+        const hasAudioFormat = allFormats.some((f) => f.has_audio) ? 'audio' : false;
+        const hasVideoFormat = allFormats.some((f) => f.has_video) ? 'video' : false;
+        const hasAudioAndVideoFormat = allFormats.some((f) => f.has_audio && f.has_video) ? 'video+audio' : false;
+        const formatType = hasAudioAndVideoFormat || hasVideoFormat || hasAudioFormat || undefined;
+        try {
+          const format = innertubeVideoInfo?.chooseFormat({type: formatType, quality: 'best'});
+          streamUrl = format ? format.decipher(this.#innertube.session.player) : null;
+        }
+        catch (error) {
+          streamUrl = null;
+        }
+      }
 
       const result = {
         ...basicInfo,
-        duration: innertubeVideoInfo.basic_info.duration || 0
+        duration: innertubeVideoInfo.basic_info.duration || 0,
+        streamUrl
       } as VideoInfo;
 
       return result;
