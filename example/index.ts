@@ -246,6 +246,16 @@ class FakePlayerDemo {
       // https://github.com/chjj/blessed/issues/263
       // - Seems we need to do this after `render()` to have effect
       this.#screen.element.program.disableMouse();
+
+      // Receiver may already have connected senders when started. This happens
+      // when it was stopped previously without disconnecting senders first (usually
+      // due to a crash). When receiver restarts, senders that are still connected
+      // are reinstated.
+      const senders = this.#receiver.getConnectedSenders();
+      if (senders.length > 0) {
+        const log = `Connected to ${senders[senders.length - 1].name}. Total connected senders: ${senders.length}`;
+        this.#screen.statusBar.setContent(log);
+      }
     }
 
     // Start service to obtain manual pairing code and listen to events.

@@ -9,6 +9,8 @@ import PairingCodeRequestService from './app/PairingCodeRequestService.js';
 import Sender from './app/Sender.js';
 import { ValueOf } from './utils/Type.js';
 import { hostname } from 'os';
+import DataStore from './utils/DataStore.js';
+import DefaultDataStore from './utils/DefaultDataStore.js';
 
 /**
  * Options consumed by constructor of `YouTubeCastReceiver` class.
@@ -18,7 +20,7 @@ export interface YouTubeCastReceiverOptions {
   dial?: Omit<DialOptions, 'logger' | 'friendlyName' | 'manufacturer' | 'modelName'>;
 
   /** YouTube app options. */
-  app?: Omit<AppOptions, 'logger' | 'screenName' | 'brand' | 'model'>;
+  app?: Omit<AppOptions, 'logger' | 'screenName' | 'brand' | 'model' | 'dataStore'>;
 
   device?: {
     /**
@@ -36,6 +38,12 @@ export interface YouTubeCastReceiverOptions {
     brand?: string;
     model?: string;
   };
+
+  /**
+   * The `DataStore` instance used for persisting data such as session info.
+   * @default `DefaultDataStore` instance
+   */
+  dataStore?: DataStore | false;
 
   logLevel?: LogLevel;
   logger?: Logger;
@@ -68,11 +76,17 @@ export default class YouTubeCastReceiver extends EventEmitter {
     const friendlyName = options.device?.name || hostname();
     const screenName = options.device?.screenName || `YouTube on ${friendlyName}`;
 
+    const dataStore = options.dataStore !== false ? (options.dataStore || new DefaultDataStore()) : null;
+    if (dataStore) {
+      dataStore.setLogger(this.#logger);
+    }
+
     const appOptions: AppOptions = {
       ...(options.app || {}),
       screenName,
       brand: options.device?.brand,
       model: options.device?.model,
+      dataStore,
       logger: this.#logger
     };
 

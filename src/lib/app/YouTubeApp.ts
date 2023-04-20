@@ -14,6 +14,7 @@ import { ValueOf } from '../utils/Type.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
 import Client, { ClientKey } from './Client.js';
+import DataStore from '../utils/DataStore.js';
 
 export interface AppOptions {
 
@@ -38,6 +39,9 @@ export interface AppOptions {
    * @default `DefaultPlaylistRequestHandler` instance
    */
   playlistRequestHandler?: PlaylistRequestHandler;
+
+  dataStore: DataStore | null;
+
   logger: Logger;
 }
 
@@ -77,6 +81,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       screenApp: options.screenApp || CONF_DEFAULTS.SCREEN_APP,
       brand: options.brand || CONF_DEFAULTS.BRAND,
       model: options.model || CONF_DEFAULTS.MODEL,
+      dataStore: options.dataStore || null,
       logger: options.logger
     } as any;
 
@@ -166,20 +171,23 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   }
 
   async #checkAndSwitchActiveSession(targetSession: Session) {
+    if (this.#activeSession?.client === targetSession.client) {
+      return;
+    }
+
     if (!this.#activeSession) {
       this.#activeSession = targetSession;
-      return;
     }
     // Restart active session (thereby disconnecting current senders) if it is different from target session.
     // We cannot have multiple connections from different clients.
-    if (this.#activeSession.client !== targetSession.client) {
+    else {
       this.#logger.debug(`[yt-cast-receiver] Target session is for ${targetSession.client.name} clients, whereas active session is for ${this.#activeSession.client.name} clients.`);
       this.#logger.debug('[yt-cast-receiver] Disconnecting current senders (if any) and restarting active session, before switching over to target session...');
       await this.#player.stop();
       await this.#activeSession.restart();
       this.#activeSession = targetSession;
-      this.#logger.debug(`[yt-cast-receiver] Active session switched to '${targetSession.client.name}'.`);
     }
+    this.#logger.debug(`[yt-cast-receiver] Active session switched to '${targetSession.client.name}'.`);
   }
 
   async #setAutoplayMode(AID: number | null, value: AutoplayMode) {
@@ -197,6 +205,37 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       sendMessages.push(new Message.AutoplayUpNext(AID, stateAfter.autoplay?.id || null));
     }
     this.#activeSession.sendMessage(sendMessages);
+  }
+
+  async #setAutoplayModeByConnectedSenderCapabilities(AID: number | null) {
+    if (this.#connectedSenders.length === 0) {
+      return;
+    }
+
+    this.#logger.debug('[yt-cast-receiver] Setting autoplay mode by sender(s) capabilities.');
+    let autoplayMode: AutoplayMode;
+    if (!this.#connectedSenders.every((c) => c.supportsAutoplay())) {
+      this.#logger.debug('[yt-cast-receiver] (Some) sender(s) do not support autoplay. Autoplay support disabled.');
+      
+      if (this.#player.autoplayMode !== AUTOPLAY_MODES.UNSUPPORTED) {
+        this.#autoplayModeBeforeUnsupportedOverride = this.#player.autoplayMode;
+      }
+      autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
+    }
+    else {
+      this.#logger.debug('[yt-cast-receiver] (All) sender(s) support autoplay.');
+      if (this.#player.autoplayMode !== AUTOPLAY_MODES.UNSUPPORTED) {
+        this.#logger.debug(`[yt-cast-receiver] Keeping current autoplay mode: ${this.#player.autoplayMode}`);
+        autoplayMode = this.#player.autoplayMode;
+      }
+      else {
+        autoplayMode = this.#autoplayModeBeforeUnsupportedOverride || this.#autoplayModeOnConnect;
+        this.#logger.debug(`[yt-cast-receiver] Setting autoplay mode: ${autoplayMode}`);
+      }
+      this.#autoplayModeBeforeUnsupportedOverride = null;
+    }
+
+    return this.#setAutoplayMode(AID, autoplayMode);
   }
 
   enableAutoplayOnConnect(value = false) {
@@ -242,40 +281,13 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           this.#logger.info(`[yt-cast-receiver] Sender connected: ${newSender.name}`);
           this.#logger.debug('[yt-cast-receiver] Connected sender info:', newSender);
 
-          // Determine autoplay mode
-          let autoplayMode: AutoplayMode;
-          if (this.#connectedSenders.length === 0) {
-            if (!newSender.supportsAutoplay()) {
-              this.#logger.info('[yt-cast-receiver] Sender does not have autoplay capability. Autoplay support disabled.');
-              autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
-            }
-            else {
-              this.#logger.info(`[yt-cast-receiver] Sender has autoplay capability. Setting autoplay support to value of \`autoplayModeOnConnect\`: ${this.#autoplayModeOnConnect}`);
-              autoplayMode = this.#autoplayModeOnConnect;
-            }
-            this.#autoplayModeBeforeUnsupportedOverride = null;
-          }
-          else if (!newSender.supportsAutoplay() || this.#connectedSenders.find((c) => !c.supportsAutoplay())) {
-            // If any connected sender (including newSender) does not support
-            // Autoplay, set autoplay mode to 'unsupported'.
-            this.#logger.info('[yt-cast-receiver] One or more senders do not support autoplay. Autoplay support disabled.');
-            if (this.#player.autoplayMode !== AUTOPLAY_MODES.UNSUPPORTED) {
-              this.#autoplayModeBeforeUnsupportedOverride = this.#player.autoplayMode;
-            }
-            autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
-          }
-          else {
-            // Stick to current autoplay mode
-            autoplayMode = this.#player.autoplayMode;
-            this.#autoplayModeBeforeUnsupportedOverride = null;
-          }
-          await this.#setAutoplayMode(AID, autoplayMode);
+          this.#connectedSenders.push(newSender);
+          await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
 
           const playerState = await this.#player.getState();
           sendMessages.push(new Message.NowPlaying(AID, playerState));
           sendMessages.push(new Message.OnStateChange(AID, playerState));
 
-          this.#connectedSenders.push(newSender);
           this.emit('senderConnect', newSender);
         }
         else {
@@ -306,10 +318,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           await this.#player.reset();
         }
         else if (this.#player.autoplayMode === AUTOPLAY_MODES.UNSUPPORTED) {
-          // Recheck autoplay mode
-          if (this.#connectedSenders.every((c) => c.supportsAutoplay())) {
-            this.#setAutoplayMode(AID, this.#autoplayModeBeforeUnsupportedOverride || this.#autoplayModeOnConnect);
-          }
+          await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
         }
 
         this.#logger.info(`[yt-cast-receiver] Sender disconnected: ${disconnectedSender.name}`);
@@ -322,11 +331,53 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       case 'loungeStatus':
-        const playerNavInfo = this.#player.getNavInfo();
-        sendMessages.push(
-          new Message.OnHasPreviousNextChanged(AID, playerNavInfo),
-          new Message.OnAutoplayModeChanged(AID, playerNavInfo)
-        );
+        if (this.state === STATUSES.STARTING) {
+          let loungeDevices;
+          try {
+            loungeDevices = JSON.parse(payload.devices);
+          }
+          catch (error) {
+            this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse 'devices' property of 'loungeStatus' message payload:`, error);
+            loungeDevices = [];
+          }
+          const loungeStatusSenders = loungeDevices
+            .filter((dev: any) => dev.type === 'REMOTE_CONTROL')
+            .reduce((senders: Sender[], data: any) => {
+              try {
+                const sender = Sender.parse(data);
+                senders.push(sender);
+              }
+              catch (err) {
+                this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse sender data in 'loungeStatus' message:`, err);
+              }
+              finally {
+                return senders;
+              }
+            }, []);
+          if (loungeStatusSenders.length > 0) {
+            this.#connectedSenders = loungeStatusSenders;
+            this.#logger.debug(`[yt-cast-receiver] (${client.name}) Updated connected senders info with 'loungeStatus' message:`, this.#connectedSenders);
+            const targetSession = Object.values(this.#sessions).find((session) => session.client === client);
+            if (targetSession) {
+              this.#activeSession = targetSession;
+              this.#logger.debug(`[yt-cast-receiver] Active session switched to '${targetSession.client.name}'.`);
+              await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
+              //sendMessages.push(new Message.OnStateChange(null, await this.#player.getState()));
+              sendMessages.push(new Message.OnHasPreviousNextChanged(AID, this.#player.getNavInfo()));
+              sendMessages.push(new Message.NowPlaying(AID, await this.#player.getState()));
+            }
+            else {
+              this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to determine active session from connected senders at app startup.`);
+            }
+          }
+        }
+        else {
+          const playerNavInfo = this.#player.getNavInfo();
+          sendMessages.push(
+            new Message.OnHasPreviousNextChanged(AID, playerNavInfo),
+            new Message.OnAutoplayModeChanged(AID, playerNavInfo)
+          );
+        }
         break;
 
       case 'setPlaylist':

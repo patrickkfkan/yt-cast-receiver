@@ -11,6 +11,7 @@ import Logger from '../utils/Logger.js';
 import { CLIENTS, STATUSES, URLS } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 import Client from './Client.js';
+import DataStore from '../utils/DataStore.js';
 
 /**
  * @internal
@@ -48,7 +49,13 @@ export interface SessionOptions {
   screenApp: string;
   brand: string;
   model: string;
+  dataStore: DataStore | null;
   logger: Logger;
+}
+
+export interface MDXContext {
+  deviceId?: string;
+  screenId?: string;
 }
 
 type SessionStatus = ValueOf<typeof STATUSES> | 'refreshing';
@@ -90,6 +97,7 @@ export default class Session extends EventEmitter {
   #bindParams: BindParams;
   #rpcConnection: RPCConnection;
   #ofs: number;
+  #dataStore: DataStore | null;
   #logger: Logger;
   #taskQueue: AsyncTaskQueue;
   #deferredMessages: Record<string, {
@@ -115,6 +123,7 @@ export default class Session extends EventEmitter {
       brand: options.brand,
       model: options.model
     });
+    this.#dataStore = options.dataStore;
     this.#logger = options.logger;
     this.#taskQueue = new AsyncTaskQueue();
     this.#deferredMessages = {};
@@ -133,6 +142,21 @@ export default class Session extends EventEmitter {
       this.#status = STATUSES.STARTING;
     }
 
+    // Use stored MDX context if session is not refreshing or restarting (screenId: undefined).
+    const mdxContextStorageKey = `mdxContext.${this.#client.theme}`;
+    let isScreenIdFromDataStore = false;
+    if (!isRefreshing && !this.#screen.id && this.#dataStore) {
+      const storedMdxContext = await this.#dataStore.get<MDXContext>(mdxContextStorageKey);
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Configuring session with stored MDX context:`, storedMdxContext);
+      if (storedMdxContext) {
+        this.#bindParams.updateWithMdxContext(storedMdxContext);
+      }
+      if (storedMdxContext?.screenId) {
+        this.#screen.id = storedMdxContext.screenId;
+        isScreenIdFromDataStore = true;
+      }
+    }
+
     // 1. Generate screenId and complete `Screen` info.
     //    - Do not generate if already available, e.g. if refreshing session.
     // 2. With `Screen`, obtain `LoungeToken`.
@@ -145,7 +169,23 @@ export default class Session extends EventEmitter {
       if (!this.#screen.id) {
         this.#screen.id = await this.#generateScreenId();
       }
-      const loungeToken = await this.#getLoungeToken();
+
+      let loungeToken;
+      try {
+        loungeToken = await this.#getLoungeToken();
+      }
+      catch (error) {
+        if (!isScreenIdFromDataStore) {
+          throw error;
+        }
+        // Maybe error was caused by using screenId from DataStore.
+        // We generate a fresh screenId and try refetching lounge token.
+        this.#logger.error(`[yt-cast-receiver] (${this.#client.name}) Failed to obtain lounge token with screen Id from stored MDX context (${this.#screen.id}):`,
+          error, 'Going to generate fresh screen Id and try again...');
+        this.#screen.id = await this.#generateScreenId();
+        loungeToken = await this.#getLoungeToken();
+      }
+
       this.#bindParams.updateWithLoungeToken(loungeToken);
 
       // Refresh `LoungeToken` upon its expiry
@@ -164,6 +204,9 @@ export default class Session extends EventEmitter {
       for (const cmd of initSessionMessages) {
         if (cmd.name === 'c' || cmd.name === 'S') {
           this.#bindParams.updateWithMessage(cmd);
+        }
+        else if (cmd.name === 'loungeStatus') {
+          this.#handleMessage([cmd]);
         }
       }
       // Test if we can start posting state / rpc
@@ -223,6 +266,12 @@ export default class Session extends EventEmitter {
 
         throw error;
       }
+    }
+    else if (this.#dataStore) {
+      // Session started successfully - store MDX context.
+      const mdxContext = this.#mdxContext;
+      this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Saving MDX context to data store:`, mdxContext);
+      this.#dataStore.set<MDXContext>(mdxContextStorageKey, mdxContext);
     }
   }
 
@@ -581,6 +630,13 @@ export default class Session extends EventEmitter {
 
   get client(): Client {
     return this.#client;
+  }
+
+  get #mdxContext(): MDXContext {
+    return {
+      deviceId: this.#bindParams.id,
+      screenId: this.#screen.id
+    };
   }
 
   /**

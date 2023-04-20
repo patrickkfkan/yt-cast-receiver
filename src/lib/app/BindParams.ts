@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import queryString from 'query-string';
-import { LoungeToken } from './Session.js';
+import { LoungeToken, MDXContext } from './Session.js';
 import Message from './Message.js';
 import { IncompleteAPIDataError } from '../utils/Errors.js';
 
@@ -112,6 +112,12 @@ export default class BindParams {
     delete this.gsessionid;
     this.RID = this.#generateRID();
     this.AID = 3;
+  }
+
+  updateWithMdxContext(context: MDXContext) {
+    if (context.deviceId) {
+      this.id = context.deviceId;
+    }
   }
 
   updateWithLoungeToken(token: LoungeToken) {
