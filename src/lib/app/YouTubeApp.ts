@@ -376,9 +376,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
               this.#activeSession = targetSession;
               this.#logger.debug(`[yt-cast-receiver] Active session switched to '${targetSession.client.name}'.`);
               await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
-              //sendMessages.push(new Message.OnStateChange(null, await this.#player.getState()));
               sendMessages.push(new Message.OnHasPreviousNextChanged(AID, this.#player.getNavInfo()));
-              sendMessages.push(new Message.NowPlaying(AID, await this.#player.getState()));
+              sendMessages.push(new Message.NowPlaying(AID, null));
             }
             else {
               this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to determine active session from connected senders at app startup.`);

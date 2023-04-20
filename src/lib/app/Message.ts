@@ -88,9 +88,9 @@ export namespace Message {
    * Notifies senders what video is now playing as well as its current state.
    */
   export class NowPlaying extends Message {
-    constructor(AID: number | null, playerState: PlayerState) {
+    constructor(AID: number | null, playerState: PlayerState | null) {
       const payload = {} as any;
-      if (playerState.queue.current) {
+      if (playerState?.queue.current) {
         payload.currentTime = playerState.position;
         payload.duration = playerState.duration;
         payload.cpn = playerState.cpn;
@@ -114,8 +114,8 @@ export namespace Message {
           payload.params = context.params;
         }
       }
-      if (playerState.status === PLAYER_STATUSES.PLAYING ||
-        playerState.status === PLAYER_STATUSES.PAUSED) {
+      if (playerState?.status === PLAYER_STATUSES.PLAYING ||
+        playerState?.status === PLAYER_STATUSES.PAUSED) {
         payload.loadedTime = playerState.duration;
       }
 
