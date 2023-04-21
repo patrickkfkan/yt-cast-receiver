@@ -41,7 +41,7 @@ from YouTube.
 
 #### Defined in
 
-[lib/app/DefaultPlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/DefaultPlaylistRequestHandler.ts#L17)
+[lib/app/DefaultPlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/DefaultPlaylistRequestHandler.ts#L17)
 
 ## Accessors
 
@@ -59,7 +59,7 @@ PlaylistRequestHandler.logger
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:58](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L58)
+[lib/app/PlaylistRequestHandler.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/PlaylistRequestHandler.ts#L66)
 
 ## Methods
 
@@ -98,7 +98,7 @@ must satisfy the [Video](../interfaces/Video.md) interface constraint.
 
 #### Defined in
 
-[lib/app/DefaultPlaylistRequestHandler.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/DefaultPlaylistRequestHandler.ts#L32)
+[lib/app/DefaultPlaylistRequestHandler.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/DefaultPlaylistRequestHandler.ts#L32)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L22)
+[lib/app/PlaylistRequestHandler.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/PlaylistRequestHandler.ts#L22)
 
 ___
 
@@ -145,7 +145,7 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[lib/app/DefaultPlaylistRequestHandler.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/DefaultPlaylistRequestHandler.ts#L153)
+[lib/app/DefaultPlaylistRequestHandler.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/DefaultPlaylistRequestHandler.ts#L153)
 
 ___
 
@@ -169,4 +169,4 @@ ___
 
 #### Defined in
 
-[lib/app/PlaylistRequestHandler.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/PlaylistRequestHandler.ts#L18)
+[lib/app/PlaylistRequestHandler.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/PlaylistRequestHandler.ts#L18)

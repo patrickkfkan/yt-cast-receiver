@@ -7,6 +7,7 @@
 ### Properties
 
 - [brand](AppOptions.md#brand)
+- [dataStore](AppOptions.md#datastore)
 - [enableAutoplayOnConnect](AppOptions.md#enableautoplayonconnect)
 - [logger](AppOptions.md#logger)
 - [model](AppOptions.md#model)
@@ -26,7 +27,17 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L28)
+[lib/app/YouTubeApp.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L29)
+
+___
+
+### dataStore
+
+• **dataStore**: ``null`` \| [`DataStore`](../classes/DataStore.md)
+
+#### Defined in
+
+[lib/app/YouTubeApp.ts:43](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L43)
 
 ___
 
@@ -40,7 +51,7 @@ true
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L36)
+[lib/app/YouTubeApp.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L37)
 
 ___
 
@@ -50,7 +61,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L41)
+[lib/app/YouTubeApp.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L45)
 
 ___
 
@@ -64,7 +75,7 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L32)
+[lib/app/YouTubeApp.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L33)
 
 ___
 
@@ -78,7 +89,7 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L40)
+[lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L41)
 
 ___
 
@@ -92,7 +103,7 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L24)
+[lib/app/YouTubeApp.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L25)
 
 ___
 
@@ -102,4 +113,4 @@ ___
 
 #### Defined in
 
-[lib/app/YouTubeApp.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/YouTubeApp.ts#L20)
+[lib/app/YouTubeApp.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/YouTubeApp.ts#L21)

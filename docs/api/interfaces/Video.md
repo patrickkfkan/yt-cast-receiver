@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[lib/app/Video.ts:5](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Video.ts#L5)
+[lib/app/Video.ts:5](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/Video.ts#L5)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[lib/app/Video.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Video.ts#L7)
+[lib/app/Video.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/Video.ts#L7)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[lib/app/Video.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/app/Video.ts#L4)
+[lib/app/Video.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/app/Video.ts#L4)

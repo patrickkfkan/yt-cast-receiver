@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[lib/Player.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L25)
+[lib/Player.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L25)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L23)
+[lib/Player.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L23)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L22)
+[lib/Player.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L22)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L21)
+[lib/Player.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L21)
 
 ___
 
@@ -61,14 +61,14 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L20)
+[lib/Player.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L20)
 
 ___
 
 ### volume
 
-• **volume**: `number`
+• **volume**: [`Volume`](Volume.md)
 
 #### Defined in
 
-[lib/Player.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/Player.ts#L24)
+[lib/Player.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L24)

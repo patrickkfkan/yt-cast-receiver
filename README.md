@@ -106,12 +106,14 @@ The methods you need to implement are:
 </details>
 
 <details>
-<summary><code>doSetVolume(level): Promise&lt;boolean&gt;</code></summary>
+<summary><code>doSetVolume(volume): Promise&lt;boolean&gt;</code></summary>
 <br />
-<p>Implementations shall set the volume to the specified level.</p>
+<p>Implementations shall set the volume and muted state to the values specified in the <code>volume</code> object param.</p>
 
 **Params**
-- `level`: (number) the volume level to set (0 - 100).
+- `volume`: (object)
+  - `volume`: (number) volume level between 0-100.
+  - `muted`: (boolean) muted state.
 
 **Returns**
 <br />
@@ -119,12 +121,17 @@ The methods you need to implement are:
 </details>
 
 <details>
-<summary><code>doGetVolume(): Promise&lt;number&gt;</code></summary>
+<summary><code>doGetVolume(): Promise&lt;<code>Volume</code>&gt;</code></summary>
 <br />
-<p>Implementations shall return the current volume level.</p>
+<p>* Implementations shall return the current volume level and muted state.</p>
 
 **Returns**
-<p>Promise that resolves to the value of the current volume level (0 - 100).</p>
+<p>
+Promise that resolves to an object that satifies the [Volume](./docs/api/interfaces/Volume.md) interface constraint:
+- volume: (number) volume level between 0-100.
+- muted: (boolean) muted state.
+</p>
+
 </details>
 
 <details>
@@ -376,7 +383,7 @@ await player.pause();
 
 ## Videos
 
-A video is represented by an object that satisfies the [Video](./src/lib/app/Video.ts) interface constraint:
+A video is represented by an object that satisfies the [Video](./docs/api/interfaces/Video.md) interface constraint:
 
 - `id`: (string) video Id.
 - `client`: (object) the client that is requesting playback; one of [Constants.CLIENTS](#constants).

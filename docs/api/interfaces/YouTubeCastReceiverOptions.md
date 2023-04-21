@@ -9,6 +9,7 @@ Options consumed by constructor of `YouTubeCastReceiver` class.
 ### Properties
 
 - [app](YouTubeCastReceiverOptions.md#app)
+- [dataStore](YouTubeCastReceiverOptions.md#datastore)
 - [device](YouTubeCastReceiverOptions.md#device)
 - [dial](YouTubeCastReceiverOptions.md#dial)
 - [logLevel](YouTubeCastReceiverOptions.md#loglevel)
@@ -18,13 +19,29 @@ Options consumed by constructor of `YouTubeCastReceiver` class.
 
 ### app
 
-• `Optional` **app**: `Omit`<[`AppOptions`](AppOptions.md), ``"brand"`` \| ``"model"`` \| ``"logger"`` \| ``"screenName"``\>
+• `Optional` **app**: `Omit`<[`AppOptions`](AppOptions.md), ``"brand"`` \| ``"model"`` \| ``"logger"`` \| ``"screenName"`` \| ``"dataStore"``\>
 
 YouTube app options.
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L21)
+[lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/YouTubeCastReceiver.ts#L23)
+
+___
+
+### dataStore
+
+• `Optional` **dataStore**: ``false`` \| [`DataStore`](../classes/DataStore.md)
+
+The `DataStore` instance used for persisting data such as session info.
+
+**`Default`**
+
+`DefaultDataStore` instance
+
+#### Defined in
+
+[lib/YouTubeCastReceiver.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/YouTubeCastReceiver.ts#L46)
 
 ___
 
@@ -43,7 +60,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L23)
+[lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/YouTubeCastReceiver.ts#L25)
 
 ___
 
@@ -55,7 +72,7 @@ DIAL server options.
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L18)
+[lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/YouTubeCastReceiver.ts#L20)
 
 ___
 
@@ -65,7 +82,7 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L40)
+[lib/YouTubeCastReceiver.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/YouTubeCastReceiver.ts#L48)
 
 ___
 
@@ -75,4 +92,4 @@ ___
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/5eecf1d/src/lib/YouTubeCastReceiver.ts#L41)
+[lib/YouTubeCastReceiver.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/YouTubeCastReceiver.ts#L49)
