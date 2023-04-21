@@ -49,6 +49,7 @@ export default abstract class Player extends EventEmitter {
   #cpn: string;
   #logger: Logger;
   #previousState: PlayerState | null;
+  #canMute: boolean;
 
   /**
    * Implementations shall play the target video from the specified position.
@@ -119,6 +120,7 @@ export default abstract class Player extends EventEmitter {
     this.#queue = new Playlist();
     this.#cpn = uuidv4().replace(/-/g, '').substring(0, 16);
     this.#previousState = null;
+    this.#canMute = false;
   }
 
   /**
@@ -301,6 +303,14 @@ export default abstract class Player extends EventEmitter {
    */
   async setVolume(volume: Volume, AID?: number | null): Promise<boolean> {
     this.#logger.info('[yt-cast-receiver] Player.setVolume():', volume);
+    if (!this.#canMute && volume.muted) {
+      const overrideVolume = {
+        level: 0,
+        muted: false
+      };
+      this.#logger.info('[yt-cast-receiver] Player mute capability disabled. Setting volume to:', overrideVolume);
+      return this.setVolume(overrideVolume);
+    }
     const previousState = await this.getState();
     const result = await this.doSetVolume(volume);
     if (result) {
@@ -350,6 +360,19 @@ export default abstract class Player extends EventEmitter {
     return this.doGetDuration();
   }
 
+  async setMuteCapability(value: boolean, AID: number | null) {
+    this.#canMute = value;
+    const currentVolume = await this.getVolume();
+    if (!this.#canMute && currentVolume.muted) {
+      const newVolume = {
+        level: 0,
+        muted: false
+      };
+      await this.setVolume(newVolume, AID);
+      this.#logger.debug('[yt-cast-receiver] Disabled player mute capability and set original muted volume to:', newVolume);
+    }
+  }
+
   get logger(): Logger {
     return this.#logger;
   }
@@ -368,6 +391,10 @@ export default abstract class Player extends EventEmitter {
 
   get queue(): Playlist {
     return this.#queue;
+  }
+
+  get canMute(): boolean {
+    return this.#canMute;
   }
 
   getNavInfo(): PlayerNavInfo {

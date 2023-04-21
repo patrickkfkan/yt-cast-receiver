@@ -257,6 +257,23 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     return this.#setAutoplayMode(AID, autoplayMode);
   }
 
+  async #setPlayerMuteCapabilityBySenderCapabilities(AID: number | null) {
+    if (this.#connectedSenders.length === 0) {
+      return;
+    }
+
+    this.#logger.debug('[yt-cast-receiver] Setting player mute capability by sender(s) capabilities.');
+
+    if (!this.#connectedSenders.every((c) => c.supportsVolumeMute())) {
+      this.#logger.debug('[yt-cast-receiver] (Some) sender(s) do not support volume muting. Player mute capability disabled.');
+      this.#player.setMuteCapability(false, AID);
+    }
+    else {
+      this.#logger.debug('[yt-cast-receiver] (All) sender(s) support volume muting. Player mute capability enabled.');
+      this.#player.setMuteCapability(true, AID);
+    }
+  }
+
   enableAutoplayOnConnect(value = false) {
     this.#autoplayModeOnConnect = value ? AUTOPLAY_MODES.ENABLED : AUTOPLAY_MODES.DISABLED;
   }
@@ -298,6 +315,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
           this.#connectedSenders.push(newSender);
           await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
+          await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
 
           const playerState = await this.#player.getState();
           sendMessages.push(
@@ -340,6 +358,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
         }
 
+        if (this.#connectedSenders.length > 0) {
+          await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
+        }
+
         this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender disconnected: ${disconnectedSender.name}`);
         this.#logger.debug(`[yt-cast-receiver] (${client.name}) Disconnected sender info:`, disconnectedSender);
         this.emit('senderDisconnect', disconnectedSender);
@@ -378,6 +400,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
             this.#activeSession = session;
             this.#logger.debug(`[yt-cast-receiver] Active session switched to '${client.name}'.`);
             await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
+            await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
             sendMessages.push(
               new Message.OnHasPreviousNextChanged(AID, this.#player.getNavInfo()),
               new Message.NowPlaying(AID, null)
@@ -459,9 +482,17 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
       case 'setVolume':
         if (!isSessionActive) return;
+
+        let mutedBool = false;
+        if (typeof payload.muted === 'string') {
+          mutedBool = payload.muted.toLowerCase().trim() === 'true';
+        }
+        else if (typeof payload.muted === 'boolean') {
+          mutedBool = payload.muted;
+        }
         const newVolume = {
           level: parseInt(payload.volume, 10),
-          muted: payload.muted
+          muted: mutedBool
         } as Volume;
         const currentVolume = await this.#player.getVolume();
         if (newVolume.level !== currentVolume.level || newVolume.muted !== currentVolume.muted) {
@@ -546,7 +577,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     if (previous) {
       statusChanged = previous.status !== current.status;
       positionChanged = previous.position !== current.position;
-      volumeChanged = previous.volume !== current.volume;
+      volumeChanged = previous.volume.level !== current.volume.level || previous.volume.muted !== current.volume.muted;
       nowPlayingChanged = previous.queue.current?.id !== current.queue.current?.id ||
         previous.queue.id !== current.queue.id ||
         previous.queue.current?.context?.index !== current.queue.current?.context?.index;

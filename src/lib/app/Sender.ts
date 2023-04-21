@@ -47,4 +47,9 @@ export default class Sender {
   supportsAutoplay(): boolean {
     return this.capabilities.includes('atp');
   }
+
+  supportsVolumeMute(): boolean {
+    // Sender app is 'youtube.m-desktop' or 'youtube-desktop'
+    return this.app?.endsWith('-desktop') || false;
+  }
 }
