@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[lib/dial/DialServer.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L24)
+[lib/dial/DialServer.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L24)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[lib/dial/DialServer.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L23)
+[lib/dial/DialServer.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L23)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[lib/dial/DialServer.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L12)
+[lib/dial/DialServer.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L12)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[lib/dial/DialServer.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L14)
+[lib/dial/DialServer.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L14)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[lib/dial/DialServer.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L25)
+[lib/dial/DialServer.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L25)
 
 ___
 
@@ -78,7 +78,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[lib/dial/DialServer.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L18)
+[lib/dial/DialServer.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L18)
 
 ___
 
@@ -92,7 +92,7 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[lib/dial/DialServer.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L22)
+[lib/dial/DialServer.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L22)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[lib/dial/DialServer.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L11)
+[lib/dial/DialServer.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L11)
 
 ___
 
@@ -112,4 +112,4 @@ ___
 
 #### Defined in
 
-[lib/dial/DialServer.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/dial/DialServer.ts#L13)
+[lib/dial/DialServer.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/dial/DialServer.ts#L13)

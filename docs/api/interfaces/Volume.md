@@ -6,10 +6,20 @@
 
 ### Properties
 
+- [level](Volume.md#level)
 - [muted](Volume.md#muted)
-- [volume](Volume.md#volume)
 
 ## Properties
+
+### level
+
+• **level**: `number`
+
+#### Defined in
+
+[lib/Player.ts:39](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L39)
+
+___
 
 ### muted
 
@@ -17,14 +27,4 @@
 
 #### Defined in
 
-[lib/Player.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L40)
-
-___
-
-### volume
-
-• **volume**: `number`
-
-#### Defined in
-
-[lib/Player.ts:39](https://github.com/patrickkfkan/yt-cast-receiver/blob/b504596/src/lib/Player.ts#L39)
+[lib/Player.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L40)
