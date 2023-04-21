@@ -1,7 +1,15 @@
 import { Timer } from 'timer-node';
-import { Player, PlayerState, PLAYER_STATUSES } from '../dist/mjs/index.js';
+import { Player, PlayerState, PLAYER_STATUSES, Volume } from '../dist/mjs/index.js';
 import Video from '../dist/mjs/lib/app/Video.js';
 import VideoLoader from './VideoLoader.js';
+
+export interface FakeState {
+  status: number;
+  videoTitle: string;
+  position: number;
+  duration: number;
+  volume: Volume;
+}
 
 /**
  * Custom implementation of {@link Player} for use with {@link FakePlayerDemo}.
@@ -17,7 +25,7 @@ export default class FakePlayer extends Player {
   seekOffset: number;
   duration: number;
   timeout: NodeJS.Timeout | null;
-  volume: number;
+  volume: Volume;
 
   constructor() {
     super();
@@ -28,7 +36,10 @@ export default class FakePlayer extends Player {
     this.seekOffset = 0;
     this.duration = 0;
     this.timeout = null;
-    this.volume = 50;
+    this.volume = {
+      volume: 50,
+      muted: false
+    };
 
     // When we receive a `state` event from the super class, signalling a change
     // In player state, we emit our own `fakeState` event for `FakeDemoPlayer` to consume.
@@ -60,12 +71,12 @@ export default class FakePlayer extends Player {
     return this.#fakeSeek(position);
   }
 
-  protected async doSetVolume(volume: number): Promise<boolean> {
+  protected async doSetVolume(volume: Volume): Promise<boolean> {
     this.volume = volume;
     return true;
   }
 
-  protected async doGetVolume(): Promise<number> {
+  protected async doGetVolume(): Promise<Volume> {
     return this.volume;
   }
 
@@ -159,7 +170,7 @@ export default class FakePlayer extends Player {
     });
   }
 
-  on(event: 'fakeState', listener: (data: { status: number, videoTitle: string, position: number, duration: number, volume: number }) => void): this;
+  on(event: 'fakeState', listener: (data: FakeState) => void): this;
   on(event: 'state', listener: (data: {AID: string, current: PlayerState, previous: PlayerState | null}) => void): this;
   on(event: string | symbol, listener: (...args: any[]) => void): this {
     super.on(event, listener);

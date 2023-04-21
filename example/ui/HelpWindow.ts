@@ -28,7 +28,7 @@ export default class HelpWindow extends UIComponent {
       <space>         Pause / resume playback
       < / >           Previous / next video (if available)
       ← / →           Seek backwards / forward
-      + / -           Volume up / down
+      + / - / m       Volume up / down / toggle mute
 
       {underline}{cyan-fg}Log{/}
       l               Choose log level

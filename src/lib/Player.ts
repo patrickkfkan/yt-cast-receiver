@@ -21,7 +21,7 @@ export interface PlayerState {
   queue: PlaylistState;
   position: number;
   duration: number;
-  volume: number;
+  volume: Volume;
   cpn: string;
 }
 
@@ -33,6 +33,11 @@ export interface PlayerNavInfo {
   hasNext: boolean;
 
   autoplayMode: AutoplayMode;
+}
+
+export interface Volume {
+  volume: number;
+  muted: boolean;
 }
 
 /**
@@ -80,17 +85,17 @@ export default abstract class Player extends EventEmitter {
   protected abstract doSeek(position: number): Promise<boolean>;
 
   /**
-   * Implementations shall set the volume to the specified level.
-   * @param volume The volume level to set (0 - 100).
+   * Implementations shall set the volume and muted state to the values specified in the `volume` object param.
+   * @param volume (object) {`volume`: number between 0-100, `muted`: boolean}
    * @returns Promise that resolves to `true` when volume was set; `false` otherwise.
    */
-  protected abstract doSetVolume(volume: number): Promise<boolean>;
+  protected abstract doSetVolume(volume: Volume): Promise<boolean>;
 
   /**
-   * Implementations shall return the current volume level.
-   * @returns Promise that resolves to the value of the current volume level (0 - 100).
+   * Implementations shall return the current volume level and muted state.
+   * @returns Promise that resolves to an object with these properties: {`volume`: number between 0-100, `muted`: boolean}.
    */
-  protected abstract doGetVolume(): Promise<number>;
+  protected abstract doGetVolume(): Promise<Volume>;
 
   /**
    * Implementations shall return the current playback position.
@@ -284,12 +289,12 @@ export default abstract class Player extends EventEmitter {
 
   /**
    * Calls `doSetVolume()`; if returned Promise resolves to `true`, notifies connected senders of new volume level.
-   * @param volume - Volume level to set (0-100).
+   * @param volume - (object) {`volume`: number between 0-100, `muted`: boolean}
    * @param AID - Internal use; do not specify.
    * @returns Promise that resolves to the resolved result of `doSetVolume()`.
    */
-  async setVolume(volume: number, AID?: number | null): Promise<boolean> {
-    this.#logger.info(`[yt-cast-receiver] Player.setVolume(): ${volume}`);
+  async setVolume(volume: Volume, AID?: number | null): Promise<boolean> {
+    this.#logger.info('[yt-cast-receiver] Player.setVolume():', volume);
     const previousState = await this.getState();
     const result = await this.doSetVolume(volume);
     if (result) {
@@ -313,11 +318,14 @@ export default abstract class Player extends EventEmitter {
 
   /**
    * Calls `doGetVolume()`.
-   * @returns Promise that resolves to the resolved result of `doGetVolume()` (0-100).
+   * @returns Promise that resolves to the resolved result of `doGetVolume()`.
    */
-  async getVolume(): Promise<number> {
+  async getVolume(): Promise<Volume> {
     const v = await this.doGetVolume();
-    return v < 0 ? 0 : v > 100 ? 100 : v;
+    return {
+      volume: v.volume < 0 ? 0 : v.volume > 100 ? 100 : v.volume,
+      muted: v.muted
+    };
   }
 
   /**

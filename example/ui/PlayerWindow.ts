@@ -1,5 +1,6 @@
 import blessed from 'blessed';
-import { PLAYER_STATUSES } from '../../dist/mjs/index.js';
+import { PLAYER_STATUSES, Volume } from '../../dist/mjs/index.js';
+import { FakeState } from '../FakePlayer.js';
 import UIComponent from './UIComponent.js';
 
 export default class PlayerWindow extends UIComponent {
@@ -89,7 +90,7 @@ export default class PlayerWindow extends UIComponent {
     return this.#element;
   }
 
-  update(data: { status: number, videoTitle: string, position: number, duration: number, volume: number }) {
+  update(data: FakeState) {
     this.#updateSeekbar(data);
     this.#updateStatusTitle(data);
     this.#updateVolume(data.volume);
@@ -124,8 +125,8 @@ export default class PlayerWindow extends UIComponent {
     this.invalidate();
   }
 
-  #updateVolume(volume: number) {
-    this.#volumeLabel.setContent(`{green-fg}Volume:{/} ${volume}`);
+  #updateVolume(volume: Volume) {
+    this.#volumeLabel.setContent(`{green-fg}Volume:{/} ${volume.volume}${volume.muted ? ' (muted)' : ''}`);
     this.invalidate();
   }
 

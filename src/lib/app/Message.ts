@@ -1,6 +1,6 @@
 import removeNewline from 'newline-remove';
 import { AUTOPLAY_MODES, PLAYER_STATUSES } from '../Constants.js';
-import { AutoplayMode, PlayerNavInfo, PlayerState } from '../Player.js';
+import { AutoplayMode, PlayerNavInfo, PlayerState, Volume } from '../Player.js';
 
 /**
  * @internal
@@ -151,10 +151,10 @@ export namespace Message {
    * Notifies senders of current volume level.
    */
   export class OnVolumeChanged extends Message {
-    constructor(AID: number | null, volume: number, muted: boolean) {
+    constructor(AID: number | null, volume: Volume) {
       const payload = {
-        volume,
-        muted
+        volume: volume.volume,
+        muted: volume.muted
       };
       super(AID, 'onVolumeChanged', payload);
     }

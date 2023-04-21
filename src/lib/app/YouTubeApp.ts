@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import * as dial from '@patrickkfkan/peer-dial';
 import queryString from 'query-string';
 import { v4 as uuidv4 } from 'uuid';
-import Player, { AutoplayMode, PlayerState } from '../Player.js';
+import Player, { AutoplayMode, PlayerState, Volume } from '../Player.js';
 import Message from './Message.js';
 import Session from './Session.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
@@ -454,14 +454,17 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
       case 'getVolume':
         const volume = await this.#player.getVolume();
-        sendMessages.push(new Message.OnVolumeChanged(AID, volume, false));
+        sendMessages.push(new Message.OnVolumeChanged(AID, volume));
         break;
 
       case 'setVolume':
         if (!isSessionActive) return;
-        const newVolume = parseInt(payload.volume, 10);
+        const newVolume = {
+          volume: parseInt(payload.volume, 10),
+          muted: payload.muted
+        } as Volume;
         const currentVolume = await this.#player.getVolume();
-        if (newVolume !== currentVolume) {
+        if (newVolume.volume !== currentVolume.volume || newVolume.muted !== currentVolume.muted) {
           await this.#player.setVolume(newVolume, AID);
         }
         break;
@@ -561,7 +564,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       messages.push(new Message.OnStateChange(AID, current));
     }
     if (volumeChanged) {
-      messages.push(new Message.OnVolumeChanged(AID, current.volume, false));
+      messages.push(new Message.OnVolumeChanged(AID, current.volume));
     }
     if (autoplayChanged) {
       messages.push(new Message.AutoplayUpNext(AID, current.queue.autoplay?.id || null));
