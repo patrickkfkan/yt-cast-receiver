@@ -192,16 +192,16 @@ class FakePlayerDemo {
       else if (key.ch === '+') {
         const volume = await this.#player.getVolume();
         const newVolume = {
-          volume: Math.min(volume.volume + 5, 100),
+          level: Math.min(volume.level + 5, 100),
           muted: false
         } as Volume;
         await this.#player.setVolume(newVolume);
       }
       else if (key.ch === '-') {
         const volume = await this.#player.getVolume();
-        const newVolumeLevel = Math.max(volume.volume - 5, 0);
+        const newVolumeLevel = Math.max(volume.level - 5, 0);
         const newVolume = {
-          volume: newVolumeLevel,
+          level: newVolumeLevel,
           muted: volume.muted
         } as Volume;
         await this.#player.setVolume(newVolume);
@@ -213,7 +213,7 @@ class FakePlayerDemo {
         }
         else {
           this.#volumeBeforeMute = volume;
-          await this.#player.setVolume({volume: 0, muted: true});
+          await this.#player.setVolume({level: 0, muted: true});
         }
       }
       else if (key.name === 'up') {

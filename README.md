@@ -108,11 +108,11 @@ The methods you need to implement are:
 <details>
 <summary><code>doSetVolume(volume): Promise&lt;boolean&gt;</code></summary>
 <br />
-<p>Implementations shall set the volume and muted state to the values specified in the <code>volume</code> object param.</p>
+<p>Implementations shall set the volume level and muted state to the values specified in the <code>volume</code> object param.</p>
 
 **Params**
 - `volume`: (object)
-  - `volume`: (number) volume level between 0-100.
+  - `level`: (number) volume level between 0-100.
   - `muted`: (boolean) muted state.
 
 **Returns**
@@ -123,13 +123,15 @@ The methods you need to implement are:
 <details>
 <summary><code>doGetVolume(): Promise&lt;<code>Volume</code>&gt;</code></summary>
 <br />
-<p>* Implementations shall return the current volume level and muted state.</p>
+<p>Implementations shall return the current volume level and muted state.</p>
 
 **Returns**
 <p>
+
 Promise that resolves to an object that satifies the [Volume](./docs/api/interfaces/Volume.md) interface constraint:
-- volume: (number) volume level between 0-100.
-- muted: (boolean) muted state.
+
+- `level`: (number) volume level between 0-100.
+- `muted`: (boolean) muted state.
 </p>
 
 </details>
@@ -253,7 +255,7 @@ When a user interacts with a control, the sender app sends the corresponding com
 <summary><code>play(video, position, AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Notifies senders that player is in 'loading' state, then calls `doPlay()`; if returned Promise resolves to `true`, notifies senders that playback has started.
+Notifies senders that player is in 'loading' state, then calls <code>doPlay()</code>; if returned Promise resolves to <code>true</code>, notifies senders that playback has started.
 </p>
 
 **Params**
@@ -270,7 +272,7 @@ Promise that resolves to the resolved result of `doPlay()`.
 <summary><code>pause(AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Calls `doPause()`; if returned Promise resolves to `true`, notifies connected senders that playback has paused.
+Calls <code>doPause()</code>; if returned Promise resolves to <code>true</code>, notifies connected senders that playback has paused.
 </p>
 
 **Params**
@@ -285,7 +287,7 @@ Promise that resolves to the resolved result of `doPause()`, or `false` if no pl
 <summary><code>resume(AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Calls `doResume()`; if returned Promise resolves to `true`, notifies connected senders that playback has resumed.
+Calls <code>doResume()</code>; if returned Promise resolves to <code>true</code>, notifies connected senders that playback has resumed.
 </p>
 
 **Params**
@@ -300,13 +302,14 @@ Promise that resolves to the resolved result of `doResume()`, or `false` if play
 <summary><code>stop(AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Calls `doStop()`; if returned Promise resolves to `true`, notifies connected senders that playback has stopped.
+Calls <code>doStop()</code>; if returned Promise resolves to <code>true</code>, notifies connected senders that playback has stopped.
 </p>
 
 **Params**
 - `AID`: internal use; do not specify.
 
 **Returns**
+
 Promise that resolves to the resolved result of `doStop()`, or `true` if player already in stopped or idle state.
 </details>
 
@@ -314,7 +317,7 @@ Promise that resolves to the resolved result of `doStop()`, or `true` if player 
 <summary><code>seek(position, AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Calls `doSeek()`; if returned Promise resolves to `true`, notifies connected senders of new seek position.
+Calls <code>doSeek()</code>; if returned Promise resolves to <code>true</code>, notifies connected senders of new seek position.
 </p>
 
 **Params**
@@ -360,11 +363,13 @@ Promise that resolves to `true` on playback of the previous video; `false` other
 <summary><code>setVolume(volume, AID): Promise&lt;boolean&gt;</code></summary>
 <br />
 <p>
-Calls `doSetVolume()`; if returned Promise resolves to `true`, notifies connected senders of new volume level.
+Calls <code>doSetVolume()</code>; if returned Promise resolves to <code>true</code>, notifies connected senders of new volume.
 </p>
 
 **Params**
-- `volume`: (number) volume level to set (0-100).
+- `volume`: (object)
+  - `level`: (number) volume level between 0-100.
+  - `muted`: (boolean) muted state.
 - `AID`: internal use; do not specify.
 
 **Returns**

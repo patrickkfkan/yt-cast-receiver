@@ -153,7 +153,7 @@ export namespace Message {
   export class OnVolumeChanged extends Message {
     constructor(AID: number | null, volume: Volume) {
       const payload = {
-        volume: volume.volume,
+        volume: volume.level,
         muted: volume.muted
       };
       super(AID, 'onVolumeChanged', payload);

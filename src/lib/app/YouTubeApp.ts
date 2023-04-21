@@ -460,11 +460,11 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       case 'setVolume':
         if (!isSessionActive) return;
         const newVolume = {
-          volume: parseInt(payload.volume, 10),
+          level: parseInt(payload.volume, 10),
           muted: payload.muted
         } as Volume;
         const currentVolume = await this.#player.getVolume();
-        if (newVolume.volume !== currentVolume.volume || newVolume.muted !== currentVolume.muted) {
+        if (newVolume.level !== currentVolume.level || newVolume.muted !== currentVolume.muted) {
           await this.#player.setVolume(newVolume, AID);
         }
         break;

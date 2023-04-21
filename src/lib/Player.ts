@@ -36,7 +36,7 @@ export interface PlayerNavInfo {
 }
 
 export interface Volume {
-  volume: number;
+  level: number;
   muted: boolean;
 }
 
@@ -85,15 +85,19 @@ export default abstract class Player extends EventEmitter {
   protected abstract doSeek(position: number): Promise<boolean>;
 
   /**
-   * Implementations shall set the volume and muted state to the values specified in the `volume` object param.
-   * @param volume (object) {`volume`: number between 0-100, `muted`: boolean}
+   * Implementations shall set the volume level and muted state to the values specified in the `volume` object param.
+   * @param volume (object)
+   *   - `level`: (number) volume level between 0-100.
+   *   - `muted`: (boolean) muted state.
    * @returns Promise that resolves to `true` when volume was set; `false` otherwise.
    */
   protected abstract doSetVolume(volume: Volume): Promise<boolean>;
 
   /**
    * Implementations shall return the current volume level and muted state.
-   * @returns Promise that resolves to an object with these properties: {`volume`: number between 0-100, `muted`: boolean}.
+   * @returns Promise that resolves to an object with these properties:
+   *   - `level`: (number) volume level between 0-100.
+   *   - `muted`: (boolean) muted state.
    */
   protected abstract doGetVolume(): Promise<Volume>;
 
@@ -289,7 +293,9 @@ export default abstract class Player extends EventEmitter {
 
   /**
    * Calls `doSetVolume()`; if returned Promise resolves to `true`, notifies connected senders of new volume level.
-   * @param volume - (object) {`volume`: number between 0-100, `muted`: boolean}
+   * @param volume - (object)
+   *   - `level`: (number) volume level between 0-100.
+   *   - `muted`: (boolean) muted state.
    * @param AID - Internal use; do not specify.
    * @returns Promise that resolves to the resolved result of `doSetVolume()`.
    */
@@ -323,7 +329,7 @@ export default abstract class Player extends EventEmitter {
   async getVolume(): Promise<Volume> {
     const v = await this.doGetVolume();
     return {
-      volume: v.volume < 0 ? 0 : v.volume > 100 ? 100 : v.volume,
+      level: v.level < 0 ? 0 : v.level > 100 ? 100 : v.level,
       muted: v.muted
     };
   }

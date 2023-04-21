@@ -37,7 +37,7 @@ export default class FakePlayer extends Player {
     this.duration = 0;
     this.timeout = null;
     this.volume = {
-      volume: 50,
+      level: 50,
       muted: false
     };
 
