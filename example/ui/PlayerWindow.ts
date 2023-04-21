@@ -126,7 +126,7 @@ export default class PlayerWindow extends UIComponent {
   }
 
   #updateVolume(volume: Volume) {
-    this.#volumeLabel.setContent(`{green-fg}Volume:{/} ${volume.level}${volume.muted ? ' (muted)' : ''}`);
+    this.#volumeLabel.setContent(`{green-fg}Volume:{/} ${volume.muted ? '0' : volume.level}${volume.muted ? ' (muted)' : ''}`);
     this.invalidate();
   }
 

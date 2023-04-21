@@ -1,4 +1,4 @@
-import YouTubeCastReceiver, { Player, Logger, PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, LogLevel, STATUSES, Volume } from '../dist/mjs/index.js';
+import YouTubeCastReceiver, { Player, Logger, PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, LogLevel, STATUSES } from '../dist/mjs/index.js';
 import FakePlayer, { FakeState } from './FakePlayer.js';
 import FakePlayerDemoLogger from './FakePlayerDemoLogger.js';
 import FakePlayerDemoScreen from './ui/FakePlayerDemoScreen.js';
@@ -14,7 +14,6 @@ class FakePlayerDemo {
   #receiver: YouTubeCastReceiver;
   #autoShowPlayer: boolean;
   #pairingCodeRequestService: PairingCodeRequestService;
-  #volumeBeforeMute: Volume;
 
   constructor() {
     // Check if UI disabled
@@ -191,30 +190,28 @@ class FakePlayerDemo {
       }
       else if (key.ch === '+') {
         const volume = await this.#player.getVolume();
-        const newVolume = {
-          level: Math.min(volume.level + 5, 100),
+        const baseLevel = volume.muted ? 0 : volume.level;
+        await this.#player.setVolume({
+          level: Math.min(baseLevel + 5, 100),
           muted: false
-        } as Volume;
-        await this.#player.setVolume(newVolume);
+        });
       }
       else if (key.ch === '-') {
         const volume = await this.#player.getVolume();
-        const newVolumeLevel = Math.max(volume.level - 5, 0);
-        const newVolume = {
-          level: newVolumeLevel,
+        if (volume.muted) {
+          return;
+        }
+        await this.#player.setVolume({
+          level: Math.max(volume.level - 5, 0),
           muted: volume.muted
-        } as Volume;
-        await this.#player.setVolume(newVolume);
+        });
       }
       else if (key.name?.toLowerCase() === 'm') {
         const volume = await this.#player.getVolume();
-        if (volume.muted && this.#volumeBeforeMute) {
-          await this.#player.setVolume(this.#volumeBeforeMute);
-        }
-        else {
-          this.#volumeBeforeMute = volume;
-          await this.#player.setVolume({level: 0, muted: true});
-        }
+        await this.#player.setVolume({
+          ...volume,
+          muted: !volume.muted
+        });
       }
       else if (key.name === 'up') {
         this.#screen.logBox.scroll(-1);
