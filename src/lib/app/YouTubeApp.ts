@@ -226,7 +226,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.#activeSession.sendMessage(sendMessages);
   }
 
-  async #setAutoplayModeByConnectedSenderCapabilities(AID: number | null) {
+  async #setAutoplayModeBySenderCapabilities(AID: number | null) {
     if (this.#connectedSenders.length === 0) {
       return;
     }
@@ -314,7 +314,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           this.#logger.debug(`[yt-cast-receiver] (${client.name}) Connected sender info:`, newSender);
 
           this.#connectedSenders.push(newSender);
-          await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
+          await this.#setAutoplayModeBySenderCapabilities(AID);
           await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
 
           const playerState = await this.#player.getState();
@@ -355,7 +355,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           await this.#player.reset();
         }
         else if (this.#player.autoplayMode === AUTOPLAY_MODES.UNSUPPORTED) {
-          await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
+          await this.#setAutoplayModeBySenderCapabilities(AID);
         }
 
         if (this.#connectedSenders.length > 0) {
@@ -399,7 +399,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
             this.#logger.debug(`[yt-cast-receiver] (${client.name}) Updated connected senders info with 'loungeStatus' message:`, this.#connectedSenders);
             this.#activeSession = session;
             this.#logger.debug(`[yt-cast-receiver] Active session switched to '${client.name}'.`);
-            await this.#setAutoplayModeByConnectedSenderCapabilities(AID);
+            await this.#setAutoplayModeBySenderCapabilities(AID);
             await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
             sendMessages.push(
               new Message.OnHasPreviousNextChanged(AID, this.#player.getNavInfo()),
