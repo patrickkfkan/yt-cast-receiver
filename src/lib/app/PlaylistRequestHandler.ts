@@ -19,14 +19,22 @@ abstract class PlaylistRequestHandler {
     this.#logger = logger;
   }
 
-  getPreviousNextVideosAbortable(target: Video, playlist: Playlist, abortSignal: AbortSignal): Promise<PlaylistPreviousNextVideos> {
-    abortSignal.onabort = () => {
-      const abortError = Error(`PlaylistRequestHandler.getPreviousNextVideos() aborted for video Id: ${target.id}`);
-      abortError.name = 'AbortError';
-      throw abortError;
+  async getPreviousNextVideosAbortable(target: Video, playlist: Playlist, abortSignal: AbortSignal): Promise<PlaylistPreviousNextVideos> {
+
+    const checkAbortSignal = () => {
+      if (abortSignal.aborted) {
+        const msg = `PlaylistRequestHandler.getPreviousNextVideos() aborted for video Id: ${target.id}`;
+        this.#logger.debug(`[yt-cast-receiver] ${msg}.`);
+        const abortError = Error(msg);
+        abortError.name = 'AbortError';
+        throw abortError;
+      }
     };
 
-    return this.getPreviousNextVideos(target, playlist);
+    checkAbortSignal();
+    const result = await this.getPreviousNextVideos(target, playlist);
+    checkAbortSignal();
+    return result;
   }
 
   /**
