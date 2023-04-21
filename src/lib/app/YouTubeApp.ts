@@ -197,7 +197,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     else {
       this.#logger.debug(`[yt-cast-receiver] Target session is for ${targetSession.client.name} clients, whereas active session is for ${this.#activeSession.client.name} clients.`);
       this.#logger.debug('[yt-cast-receiver] Switching over to target session, while disconnecting senders (if any) from old session.');
-      await this.#player.stop();
+      await this.#player.reset();
       this.#connectedSenders = [];
       const oldSession = this.#activeSession;
       this.#connectedSenders.forEach((c) => {
