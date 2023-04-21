@@ -30,7 +30,7 @@ export default class VideoLoader {
   async #init() {
     if (!this.#innertube) {
       this.#innertube = await Innertube.create();
-      this.#innertubeInitialClient = {...this.#innertube.session.context.client};
+      this.#innertubeInitialClient = { ...this.#innertube.session.context.client };
       this.#innertubeTVClient = {
         ...this.#innertube.session.context.client,
         clientName: 'TVHTML5',
@@ -48,11 +48,19 @@ export default class VideoLoader {
       throw Error('VideoLoader not initialized');
     }
 
+    const cpn = InnertubeLib.Utils.generateRandomString(16);
+
     // Prepare request payload
     const payload = {
+      cpn,
       videoId: video.id,
       enableMdxAutoplay: true,
-      isMdxPlayback: true
+      isMdxPlayback: true,
+      playbackContext: {
+        contentPlaybackContext: {
+          signatureTimestamp: this.#innertube.session.player?.sts || 0
+        }
+      }
     } as any;
     if (video.context?.playlistId) {
       payload.playlistId = video.context.playlistId;
@@ -121,7 +129,7 @@ export default class VideoLoader {
       // Fetch response from '/player' endpoint.
       // But first revert to initial client in innertube context, otherwise livestreams will only have DASH manifest URL
       // - we would like to fetch complete streaming data.
-      this.#innertube.session.context.client = {...this.#innertubeInitialClient};
+      this.#innertube.session.context.client = { ...this.#innertubeInitialClient };
       if (basicInfo.src === 'ytmusic') {
         // For YouTube Music, it is also necessary to set `payload.client` to 'YTMUSIC'. Innertube will modify
         // `context.client` with YouTube Music client info before submitting it to the '/player' endpoint.
@@ -130,7 +138,7 @@ export default class VideoLoader {
       const playerResponse = await this.#innertube.actions.execute('/player', payload) as any;
 
       // Wrap it in innertube VideoInfo. Why? Because it offers many useful methods like `chooseFormat()`.
-      const innertubeVideoInfo = new InnertubeLib.YT.VideoInfo([ playerResponse ], this.#innertube.actions, InnertubeLib.Utils.generateRandomString(16));
+      const innertubeVideoInfo = new InnertubeLib.YT.VideoInfo([ playerResponse ], this.#innertube.actions, cpn);
 
       let streamUrl: any;
       if (innertubeVideoInfo.basic_info.is_live) {
@@ -150,7 +158,7 @@ export default class VideoLoader {
         const hasAudioAndVideoFormat = allFormats.some((f) => f.has_audio && f.has_video) ? 'video+audio' : false;
         const formatType = hasAudioAndVideoFormat || hasVideoFormat || hasAudioFormat || undefined;
         try {
-          const format = innertubeVideoInfo?.chooseFormat({type: formatType, quality: 'best'});
+          const format = innertubeVideoInfo?.chooseFormat({ type: formatType, quality: 'best' });
           streamUrl = format ? format.decipher(this.#innertube.session.player) : null;
         }
         catch (error) {
