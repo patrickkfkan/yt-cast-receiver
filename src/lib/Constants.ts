@@ -60,6 +60,12 @@ export const CLIENTS = {
   }
 } as Record<ClientKey, Client>;
 
+export const MUTE_POLICIES = {
+  ZERO_VOLUME_LEVEL: 'zeroLevel',
+  PRESERVE_VOLUME_LEVEL: 'preserveLevel',
+  AUTO: 'auto'
+} as const;
+
 /**
  * @hidden
  */
@@ -70,5 +76,6 @@ export default {
   PLAYER_STATUSES,
   LOG_LEVELS,
   STATUSES,
-  CLIENTS
+  CLIENTS,
+  MUTE_POLICIES
 };

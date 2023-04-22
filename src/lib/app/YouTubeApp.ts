@@ -9,7 +9,7 @@ import PairingCodeRequestService from './PairingCodeRequestService.js';
 import Sender from './Sender.js';
 import { AppError, SenderConnectionError, IncompleteAPIDataError } from '../utils/Errors.js';
 import Logger from '../utils/Logger.js';
-import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS } from '../Constants.js';
+import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS, MUTE_POLICIES } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
@@ -35,6 +35,10 @@ export interface AppOptions {
    * @default true
    */
   enableAutoplayOnConnect?: boolean;
+  /**
+   * @default MUTE_POLICIES.AUTO
+   */
+  mutePolicy?: ValueOf<typeof MUTE_POLICIES>;
   /**
    * @default `DefaultPlaylistRequestHandler` instance
    */
@@ -66,6 +70,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   #logger: Logger;
   #player: Player;
   #autoplayModeOnConnect: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED;
+  #mutePolicy: AppOptions['mutePolicy'];
   #autoplayModeBeforeUnsupportedOverride: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED | null;
   #playerStateListener: any;
 
@@ -101,6 +106,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.#player.queue.requestHandler.setLogger(options.logger);
     this.#playerStateListener = this.#handlePlayerStateEvent.bind(this);
     this.enableAutoplayOnConnect(options.enableAutoplayOnConnect !== undefined ? options.enableAutoplayOnConnect : true);
+    this.#mutePolicy = options.mutePolicy !== undefined ? options.mutePolicy : MUTE_POLICIES.AUTO;
     this.#autoplayModeBeforeUnsupportedOverride = null;
   }
 
@@ -257,21 +263,37 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     return this.#setAutoplayMode(AID, autoplayMode);
   }
 
-  async #setPlayerMuteCapabilityBySenderCapabilities(AID: number | null) {
+  async #enforceMutePolicy(AID: number | null) {
     if (this.#connectedSenders.length === 0) {
       return;
     }
 
-    this.#logger.debug('[yt-cast-receiver] Setting player mute capability by sender(s) capabilities.');
+    this.#logger.debug(`[yt-cast-receiver] Configuring player based on mute policy...`);
+    const logTrue = 'player will set volume level to 0 on mute';
+    const logFalse = 'player will preserve volume level on mute';
 
-    if (!this.#connectedSenders.every((c) => c.supportsVolumeMute())) {
-      this.#logger.debug('[yt-cast-receiver] (Some) sender(s) do not support volume muting. Player mute capability disabled.');
-      this.#player.setMuteCapability(false, AID);
+    let zeroVolumeLevelOnMute;
+    switch (this.#mutePolicy) {
+      case MUTE_POLICIES.ZERO_VOLUME_LEVEL:
+        this.#logger.debug(`[yt-cast-receiver] Mute policy is 'ZERO_VOLUME_LEVEL': ${logTrue}.`);
+        zeroVolumeLevelOnMute = true;
+        break;
+      case MUTE_POLICIES.PRESERVE_VOLUME_LEVEL:
+        this.#logger.debug(`[yt-cast-receiver] Mute policy is 'PRESERVE_VOLUME_LEVEL': ${logFalse}.`);
+        zeroVolumeLevelOnMute = false;
+        break;
+      default: // MUTE_POLICIES.AUTO
+        this.#logger.debug(`[yt-cast-receiver] Mute policy is 'AUTO': checking whether sender(s) support mute...`);
+        if (!this.#connectedSenders.every((c) => c.supportsMute())) {
+          this.#logger.debug(`[yt-cast-receiver] (Some) sender(s) do not support mute: ${logTrue}.`);
+          zeroVolumeLevelOnMute = true;
+        }
+        else {
+          this.#logger.debug(`[yt-cast-receiver] (All) sender(s) support mute: ${logFalse}.`);
+          zeroVolumeLevelOnMute = false;
+        }
     }
-    else {
-      this.#logger.debug('[yt-cast-receiver] (All) sender(s) support volume muting. Player mute capability enabled.');
-      this.#player.setMuteCapability(true, AID);
-    }
+    await this.#player.setZeroVolumeLevelOnMute(zeroVolumeLevelOnMute, AID);
   }
 
   enableAutoplayOnConnect(value = false) {
@@ -315,7 +337,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
           this.#connectedSenders.push(newSender);
           await this.#setAutoplayModeBySenderCapabilities(AID);
-          await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
+          await this.#enforceMutePolicy(AID);
 
           const playerState = await this.#player.getState();
           sendMessages.push(
@@ -359,7 +381,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         }
 
         if (this.#connectedSenders.length > 0) {
-          await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
+          await this.#enforceMutePolicy(AID);
         }
 
         this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender disconnected: ${disconnectedSender.name}`);
@@ -400,7 +422,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
             this.#activeSession = session;
             this.#logger.debug(`[yt-cast-receiver] Active session switched to '${client.name}'.`);
             await this.#setAutoplayModeBySenderCapabilities(AID);
-            await this.#setPlayerMuteCapabilityBySenderCapabilities(AID);
+            await this.#enforceMutePolicy(AID);
             sendMessages.push(
               new Message.OnHasPreviousNextChanged(AID, this.#player.getNavInfo()),
               new Message.NowPlaying(AID, null)
