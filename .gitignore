@@ -1,2 +1,4 @@
-node_modules
-tests
+node_modules/
+test/
+dist/
+.node-persist/
