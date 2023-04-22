@@ -304,7 +304,7 @@ export default abstract class Player extends EventEmitter {
   async setVolume(volume: Volume, AID?: number | null): Promise<boolean> {
     const v = { ...volume };
     if (this.#zeroVolumeLevelOnMute && volume.muted && volume.level > 0) {
-      this.#logger.debug(`[yt-cast-receiver] Enforcing 'zeroVolumeLevelOnMute: true'...`);
+      this.#logger.debug('[yt-cast-receiver] Enforcing \'zeroVolumeLevelOnMute: true\'...');
       v.level = 0;
     }
     this.#logger.info('[yt-cast-receiver] Player.setVolume():', v);

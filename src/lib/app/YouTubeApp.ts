@@ -268,7 +268,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       return;
     }
 
-    this.#logger.debug(`[yt-cast-receiver] Configuring player based on mute policy...`);
+    this.#logger.debug('[yt-cast-receiver] Configuring player based on mute policy...');
     const logTrue = 'player will set volume level to 0 on mute';
     const logFalse = 'player will preserve volume level on mute';
 
@@ -283,7 +283,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         zeroVolumeLevelOnMute = false;
         break;
       default: // MUTE_POLICIES.AUTO
-        this.#logger.debug(`[yt-cast-receiver] Mute policy is 'AUTO': checking whether sender(s) support mute...`);
+        this.#logger.debug('[yt-cast-receiver] Mute policy is \'AUTO\': checking whether sender(s) support mute...');
         if (!this.#connectedSenders.every((c) => c.supportsMute())) {
           this.#logger.debug(`[yt-cast-receiver] (Some) sender(s) do not support mute: ${logTrue}.`);
           zeroVolumeLevelOnMute = true;
