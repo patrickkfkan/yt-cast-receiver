@@ -2,7 +2,7 @@
   "name": "yt-cast-receiver",
   "version": "1.0.0",
   "type": "module",
-  "description": "YouTube Cast Receiver for Node",
+  "description": "YouTube Cast Receiver for Node. Supports casting from YouTube and YouTube Music.",
   "scripts": {
     "build": "npm run prepare",
     "build:esm": "npx tsc -p tsconfig-esm.json",
