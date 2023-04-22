@@ -607,14 +607,14 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
 
     const messages = [];
-    if (nowPlayingChanged) {
+    if (statusChanged || positionChanged) {
+      messages.push(new Message.OnStateChange(AID, current));
+    }
+    if (nowPlayingChanged || (statusChanged && (!previous || previous.status !== PLAYER_STATUSES.PLAYING))) {
       messages.push(
         new Message.NowPlaying(AID, current),
         new Message.OnHasPreviousNextChanged(AID, this.#player.getNavInfo())
       );
-    }
-    if (statusChanged || positionChanged) {
-      messages.push(new Message.OnStateChange(AID, current));
     }
     if (volumeChanged) {
       messages.push(new Message.OnVolumeChanged(AID, current.volume));

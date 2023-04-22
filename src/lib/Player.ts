@@ -181,6 +181,7 @@ export default abstract class Player extends EventEmitter {
   async resume(AID?: number | null): Promise<boolean> {
     this.#logger.info('[yt-cast-receiver] Player.resume()');
     if (this.status === PLAYER_STATUSES.PLAYING) {
+      await this.#setStatusAndEmit(PLAYER_STATUSES.PLAYING, AID);
       return false;
     }
     else if (this.status === PLAYER_STATUSES.PAUSED) {
@@ -227,14 +228,16 @@ export default abstract class Player extends EventEmitter {
     }
     this.#logger.info(`[yt-cast-receiver] Player.seek(): ${position}s`);
     const previousState = await this.getState();
+    const fakeState = { ...previousState, position, status: PLAYER_STATUSES.LOADING };
+    this.emit('state', { current: fakeState, previous: previousState, AID });
     const result = await this.doSeek(position);
     if (result) {
-      if (this.status === PLAYER_STATUSES.PAUSED) {
-        this.#previousState = previousState;
+      this.#previousState = fakeState;
+      if (previousState.status === PLAYER_STATUSES.PAUSED) {
+        this.#status = PLAYER_STATUSES.PAUSED;
         return this.resume(AID);
       }
-      const currentState = await this.getState();
-      this.emit('state', { current: currentState, previous: previousState, AID });
+      await this.#setStatusAndEmit(PLAYER_STATUSES.PLAYING, AID);
     }
     return result;
   }

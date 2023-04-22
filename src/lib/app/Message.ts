@@ -115,7 +115,8 @@ export namespace Message {
         }
       }
       if (playerState?.status === PLAYER_STATUSES.PLAYING ||
-        playerState?.status === PLAYER_STATUSES.PAUSED) {
+        playerState?.status === PLAYER_STATUSES.PAUSED ||
+        playerState?.status === PLAYER_STATUSES.LOADING) {
         payload.loadedTime = playerState.duration;
       }
 
@@ -137,9 +138,14 @@ export namespace Message {
         duration: playerState.duration,
         loadedTime: 0,
         seekableStartTime: 0,
-        seekableEndtime: playerState.duration,
+        seekableEndTime: playerState.duration,
         cpn: playerState.cpn
       };
+      if (playerState?.status === PLAYER_STATUSES.PLAYING ||
+        playerState?.status === PLAYER_STATUSES.PAUSED ||
+        playerState?.status === PLAYER_STATUSES.LOADING) {
+        payload.loadedTime = playerState.duration;
+      }
       super(AID, 'onStateChange', payload);
     }
   }
