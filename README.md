@@ -180,7 +180,8 @@ You can configure the `YouTubeCastReceiver` instance by passing options to its c
 (Object)
 - `app`: (object) receiver app options
   - `playlistRequestHandler`: `PlaylistRequestHandler` implementation (default: `DefaultPlaylistRequestHandler` instance) - see [Player Queue](#player-queue).
-  - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects.
+  - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects (default: `true`).
+  - `mutePolicy`: (string) one of [Constants.MUTE_POLICIES](#constants) (default: AUTO). See [Mute Policy](#mute-policy).
   - `screenApp`: (string) defaults to 'ytcr'.
 - `dial`: (object) DIAL server options
   - `bindToAddresses`: Array<`string`> (default: `undefined` - bind to all network addresses).
@@ -700,6 +701,74 @@ const receiver = new YouTubeCastReceiver({
 receiver.start(); // Fresh start!
 ```
 
+## Mute Policy
+
+When volume is muted, its original level remains unchanged. Player implementations shall disable audio output while playing content.
+
+On unmute, the original volume level is restored. Player implementations shall resume audio output.
+
+However, not all sender apps support mute. On apps that don't, the volume level is set to 0 to mimic mute. Known sender apps that support mute are:
+
+1. YouTube desktop website
+2. YouTube Music desktop website
+
+Known sender apps that do not support mute are:
+
+1. YouTube mobile app
+2. YouTube Music mobile app
+
+The entry point to setting the volume level and muted status on the receiver is `setVolume(volume)` of the `Player` API, where `volume` is an object with the following properties:
+
+- `level`: (number) the volume level to set (0-100).
+- `muted`: (boolean) muted status.
+
+For example, when the receiver receives a message from a sender telling it to set the volume, say `level: 50` and `muted: true`, it will call `setVolume()` as follows:
+
+```
+player.setVolume({ level: 50, muted: true });
+```
+
+This will in turn call:
+```
+player.doSetVolume({ level: 50, muted: true });
+```
+
+Your player implementation will then do whatever is necessary to set the volume level and muted status on the receiver device. After that, the receiver will send a volume change notification back to all connected sender apps. The sender apps will then update their UI to show the new volume.
+
+However, as previously mentioned, not all sender apps support mute. In the current scenario, if one of the sender apps does not support mute, then it will ignore `muted: true` in the volume change notification payload and simply show '50' as the current volume level.
+
+To resolve this, the receiver checks for the presence of sender apps that do not support mute. If it finds any, instead of doing the following in `setVolume()`:
+```
+setVolume() {
+  ...
+  this.doSetVolume({ level: 50, muted: true });
+}
+```
+
+It will do this:
+```
+setVolume() {
+  ...
+  this.doSetVolume({ level: 0, muted: true });
+}
+```
+
+Then, when the volume change notification is sent back to sender apps, it will indicate current volume level as 0. Sender apps that do not support mute will still show the correct volume in their UI.
+
+Obviously, the drawback in this approach is that when you click 'unmute' in sender apps that do support mute, the original volume level cannot be restored because it has already been set to 0. If you do not want this effect, and prefer to have sender apps without mute support to show a non-zero volume level when muted, you can specify `mutePolicy` when constructing the receiver instance:
+
+```
+const receiver = this.#receiver = new YouTubeCastReceiver(player, {
+  ...
+  app: {
+    mutePolicy: Constants.MUTE_POLICIES.PRESERVE_VOLUME_LEVEL
+  }
+});
+```
+
+> The default mute policy is `MUTE_POLICIES.AUTO`, which is what has been described above.
+
+On the other hand, if you want to set volume level to 0, regardless of whether sender apps support mute, you can set `mutePolicy` to `MUTE_POLICIES.ZERO_VOLUME_LEVEL`.
 
 ## Constants
 
@@ -818,13 +887,19 @@ doPlay(video: Video...) {
 }
 ```
 </p>
+</details>
+
+<details>
+<summary>Constants.MUTE_POLICIES</summary>
+<br />
+<p>
+Mute policy stipulates whether volume level should be set to 0 when <code>player.setVolume(volume)`</code> is called with <code>`volume.muted: true`</code>.
+</p>
 
 **Properties**
-
-&lt;key: <code>YT</code> | <code>YTMUSIC</code>&gt;: (object)
-  - theme: (string) for internal use
-  - name: (string) 'YouTube' or 'YouTube Music'
-
+- `ZERO_VOLUME_LEVEL`: set volume level to 0.
+- `PRESERVE_VOLUME_LEVEL`: do not override volume level.
+- `AUTO`: preserve volume level or set it to 0, depending on whether connected senders support mute.
 </details>
 
 # API

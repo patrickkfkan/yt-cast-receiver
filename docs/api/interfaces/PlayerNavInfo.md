@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[lib/Player.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L35)
+[lib/Player.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L35)
 
 ___
 
@@ -30,7 +30,7 @@ Boolean indicating whether there is next video in player queue
 
 #### Defined in
 
-[lib/Player.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L33)
+[lib/Player.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L33)
 
 ___
 
@@ -42,4 +42,4 @@ Boolean indicating whether there is previous video in player queue
 
 #### Defined in
 
-[lib/Player.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L30)
+[lib/Player.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L30)

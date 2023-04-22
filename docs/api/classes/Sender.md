@@ -18,6 +18,7 @@ A `Sender` object holds information about a sender.
 ### Methods
 
 - [supportsAutoplay](Sender.md#supportsautoplay)
+- [supportsMute](Sender.md#supportsmute)
 
 ## Properties
 
@@ -27,7 +28,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L11)
+[lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L11)
 
 ___
 
@@ -37,7 +38,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L13)
+[lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L13)
 
 ___
 
@@ -47,7 +48,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L12)
+[lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L12)
 
 ___
 
@@ -57,7 +58,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L14)
+[lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L14)
 
 ___
 
@@ -67,7 +68,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L9)
+[lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L9)
 
 ___
 
@@ -77,7 +78,7 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L10)
+[lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L10)
 
 ## Methods
 
@@ -91,4 +92,18 @@ ___
 
 #### Defined in
 
-[lib/app/Sender.ts:47](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Sender.ts#L47)
+[lib/app/Sender.ts:47](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L47)
+
+___
+
+### supportsMute
+
+▸ **supportsMute**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[lib/app/Sender.ts:51](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Sender.ts#L51)

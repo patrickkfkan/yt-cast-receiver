@@ -23,6 +23,7 @@
 - [logger](Player.md#logger)
 - [queue](Player.md#queue)
 - [status](Player.md#status)
+- [zeroVolumeLevelOnMute](Player.md#zerovolumelevelonmute)
 
 ### Methods
 
@@ -67,7 +68,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-[lib/Player.ts:116](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L116)
+[lib/Player.ts:117](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L117)
 
 ## Accessors
 
@@ -81,7 +82,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-[lib/Player.ts:361](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L361)
+[lib/Player.ts:380](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L380)
 
 ___
 
@@ -95,7 +96,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:365](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L365)
+[lib/Player.ts:384](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L384)
 
 ___
 
@@ -109,7 +110,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:353](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L353)
+[lib/Player.ts:372](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L372)
 
 ___
 
@@ -123,7 +124,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:369](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L369)
+[lib/Player.ts:388](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L388)
 
 ___
 
@@ -137,7 +138,21 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:357](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L357)
+[lib/Player.ts:376](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L376)
+
+___
+
+### zeroVolumeLevelOnMute
+
+• `get` **zeroVolumeLevelOnMute**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[lib/Player.ts:392](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L392)
 
 ## Methods
 
@@ -155,7 +170,7 @@ Promise that resolves to the duration of the current video (in seconds).
 
 #### Defined in
 
-[lib/Player.ts:114](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L114)
+[lib/Player.ts:115](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L115)
 
 ___
 
@@ -173,7 +188,7 @@ Promise that resolves to the current playback position (in seconds).
 
 #### Defined in
 
-[lib/Player.ts:108](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L108)
+[lib/Player.ts:109](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L109)
 
 ___
 
@@ -193,7 +208,7 @@ Promise that resolves to an object with these properties:
 
 #### Defined in
 
-[lib/Player.ts:102](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L102)
+[lib/Player.ts:103](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L103)
 
 ___
 
@@ -211,7 +226,7 @@ Promise that resolves to `true` when playback was paused; `false` otherwise.
 
 #### Defined in
 
-[lib/Player.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L65)
+[lib/Player.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L66)
 
 ___
 
@@ -236,7 +251,7 @@ Promise that resolves to `true` on successful playback; `false` otherwise.
 
 #### Defined in
 
-[lib/Player.ts:59](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L59)
+[lib/Player.ts:60](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L60)
 
 ___
 
@@ -254,7 +269,7 @@ Promise that resolves to `true` when playback was resumed; `false` otherwise.
 
 #### Defined in
 
-[lib/Player.ts:71](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L71)
+[lib/Player.ts:72](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L72)
 
 ___
 
@@ -278,7 +293,7 @@ Promise that resolves to `true` if seek operation was successful; `false` otherw
 
 #### Defined in
 
-[lib/Player.ts:85](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L85)
+[lib/Player.ts:86](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L86)
 
 ___
 
@@ -302,7 +317,7 @@ Promise that resolves to `true` when volume was set; `false` otherwise.
 
 #### Defined in
 
-[lib/Player.ts:94](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L94)
+[lib/Player.ts:95](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L95)
 
 ___
 
@@ -321,7 +336,7 @@ Promise that resolves to `true` when playback was stopped or pending playback wa
 
 #### Defined in
 
-[lib/Player.ts:78](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L78)
+[lib/Player.ts:79](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L79)
 
 ___
 
@@ -339,7 +354,7 @@ Promise returned by `doGetDuration()`.
 
 #### Defined in
 
-[lib/Player.ts:349](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L349)
+[lib/Player.ts:356](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L356)
 
 ___
 
@@ -353,7 +368,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:373](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L373)
+[lib/Player.ts:396](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L396)
 
 ___
 
@@ -371,7 +386,7 @@ Promise returned by `doGetPosition()`.
 
 #### Defined in
 
-[lib/Player.ts:341](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L341)
+[lib/Player.ts:348](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L348)
 
 ___
 
@@ -385,7 +400,7 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:381](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L381)
+[lib/Player.ts:404](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L404)
 
 ___
 
@@ -403,7 +418,7 @@ Promise that resolves to the resolved result of `doGetVolume()`.
 
 #### Defined in
 
-[lib/Player.ts:329](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L329)
+[lib/Player.ts:336](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L336)
 
 ___
 
@@ -428,7 +443,7 @@ Promise that resolves to `true` on playback of the next video; `false` otherwise
 
 #### Defined in
 
-[lib/Player.ts:246](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L246)
+[lib/Player.ts:248](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L248)
 
 ___
 
@@ -452,7 +467,7 @@ internal state and, if necessary, notifies senders of the new player state.
 
 #### Defined in
 
-[lib/Player.ts:412](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L412)
+[lib/Player.ts:435](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L435)
 
 ___
 
@@ -476,7 +491,7 @@ Promise that resolves to the resolved result of `doPause()`, or `false` if no pl
 
 #### Defined in
 
-[lib/Player.ts:162](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L162)
+[lib/Player.ts:164](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L164)
 
 ___
 
@@ -503,7 +518,7 @@ Promise that resolves to the resolved result of `doPlay()`.
 
 #### Defined in
 
-[lib/Player.ts:139](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L139)
+[lib/Player.ts:141](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L141)
 
 ___
 
@@ -527,7 +542,7 @@ Promise that resolves to `true` on playback of the previous video; `false` other
 
 #### Defined in
 
-[lib/Player.ts:278](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L278)
+[lib/Player.ts:280](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L280)
 
 ___
 
@@ -549,7 +564,7 @@ Resets the player to Idle state.
 
 #### Defined in
 
-[lib/Player.ts:317](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L317)
+[lib/Player.ts:324](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L324)
 
 ___
 
@@ -573,7 +588,7 @@ Promise that resolves to the resolved result of `doResume()`, or `false` if play
 
 #### Defined in
 
-[lib/Player.ts:179](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L179)
+[lib/Player.ts:181](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L181)
 
 ___
 
@@ -598,7 +613,7 @@ Promise that resolves to the resolved result of `doSeek()`; `false` if no playba
 
 #### Defined in
 
-[lib/Player.ts:222](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L222)
+[lib/Player.ts:224](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L224)
 
 ___
 
@@ -623,7 +638,7 @@ Promise that resolves to the resolved result of `doSetVolume()`.
 
 #### Defined in
 
-[lib/Player.ts:302](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L302)
+[lib/Player.ts:304](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L304)
 
 ___
 
@@ -647,7 +662,7 @@ A Promise that resolves to the result of `doStop()`; `true` if player already in
 
 #### Defined in
 
-[lib/Player.ts:203](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L203)
+[lib/Player.ts:205](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L205)
 
 ## Events
 
@@ -672,7 +687,7 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/Player.ts:417](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L417)
+[lib/Player.ts:440](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L440)
 
 ▸ **on**(`event`, `listener`): [`Player`](Player.md)
 
@@ -695,4 +710,4 @@ EventEmitter.on
 
 #### Defined in
 
-[lib/Player.ts:423](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L423)
+[lib/Player.ts:446](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L446)

@@ -55,6 +55,7 @@ yt-cast-receiver
 - [CLIENTS](README.md#clients)
 - [CONF\_DEFAULTS](README.md#conf_defaults)
 - [LOG\_LEVELS](README.md#log_levels)
+- [MUTE\_POLICIES](README.md#mute_policies)
 - [PLAYER\_STATUSES](README.md#player_statuses)
 - [STATUSES](README.md#statuses)
 
@@ -68,7 +69,7 @@ One of the values in [AUTOPLAY_MODES](README.md#autoplay_modes).
 
 #### Defined in
 
-[lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L12)
+[lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L12)
 
 ___
 
@@ -78,7 +79,7 @@ ___
 
 #### Defined in
 
-[lib/app/Client.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/app/Client.ts#L1)
+[lib/app/Client.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/app/Client.ts#L1)
 
 ___
 
@@ -90,7 +91,7 @@ One of the values in [LOG_LEVELS](README.md#log_levels).
 
 #### Defined in
 
-[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/utils/Logger.ts#L7)
+[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/Logger.ts#L7)
 
 ___
 
@@ -102,7 +103,7 @@ One of the values in [PLAYER_STATUSES](README.md#player_statuses).
 
 #### Defined in
 
-[lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Player.ts#L17)
+[lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L17)
 
 ___
 
@@ -114,7 +115,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/YouTubeCastReceiver.ts#L55)
+[lib/YouTubeCastReceiver.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/YouTubeCastReceiver.ts#L55)
 
 ## Variables
 
@@ -132,7 +133,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/Constants.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Constants.ts#L23)
+[lib/Constants.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L23)
 
 ___
 
@@ -142,7 +143,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Constants.ts#L52)
+[lib/Constants.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L52)
 
 ___
 
@@ -160,7 +161,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Constants.ts#L17)
+[lib/Constants.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L17)
 
 ___
 
@@ -180,7 +181,25 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Constants.ts#L37)
+[lib/Constants.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L37)
+
+___
+
+### MUTE\_POLICIES
+
+• `Const` **MUTE\_POLICIES**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `AUTO` | ``"auto"`` |
+| `PRESERVE_VOLUME_LEVEL` | ``"preserveLevel"`` |
+| `ZERO_VOLUME_LEVEL` | ``"zeroLevel"`` |
+
+#### Defined in
+
+[lib/Constants.ts:63](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L63)
 
 ___
 
@@ -200,7 +219,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Constants.ts#L29)
+[lib/Constants.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L29)
 
 ___
 
@@ -219,4 +238,4 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/a7c9efd/src/lib/Constants.ts#L45)
+[lib/Constants.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Constants.ts#L45)
