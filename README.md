@@ -775,7 +775,7 @@ On the other hand, if you want to set volume level to 0, regardless of whether s
 Constants are defined for convenience. For example:
 
 ```
-// EJS
+// ESM
 import { Constants } from 'yt-cast-receiver';
 // CJS
 const { Constants } = require('yt-cast-receiver')
