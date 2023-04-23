@@ -532,6 +532,105 @@ const receiver = new YouTubeCastReceiver(player, {
 });
 ```
 
+### Events
+
+To capture events emitted by the player queue:
+
+```
+player.queue.on(eventType, (event) => { ... });
+```
+
+<details>
+<summary><code>on('videoSelected', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when a video in the queue has been selected.
+</p>
+
+`event`: (object)
+- `type`: (string) 'videoSelected'
+- `user`: (object) where applicable, the user that triggered the event.
+  - `name`: (string) name of the user
+  - `thumbnail`: (string) user avatar URI
+- `videoId`: (string) the Id of the video selected.
+</details>
+
+<details>
+<summary><code>on('videoAdded', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when a video has been added to the queue.
+</p>
+
+`event`: (object)
+- `type`: (string) 'videoAdded'
+- `user`: (object) where applicable, the user that triggered the event.
+  - `name`: (string) name of the user
+  - `thumbnail`: (string) user avatar URI
+- `videoId`: (string) the Id of the video added.
+</details>
+
+<details>
+<summary><code>on('videoRemoved', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when a video in the queue has been removed.
+</p>
+
+`event`: (object)
+- `type`: (string) 'videoRemoved'
+- `user`: (object) where applicable, the user that triggered the event.
+  - `name`: (string) name of the user
+  - `thumbnail`: (string) user avatar URI
+- `videoId`: (string) the Id of the video removed.
+</details>
+
+<details>
+<summary><code>on('playlistSet', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when the entire content of the queue has changed.
+</p>
+
+`event`: (object)
+- `type`: (string) 'playlistSet'
+- `user`: (object) where applicable, the user that triggered the event.
+  - `name`: (string) name of the user
+  - `thumbnail`: (string) user avatar URI
+- `videoIds`: (Array<`string`>) the Ids of the videos representing the new content of the queue.
+</details>
+
+<details>
+<summary><code>on('playlistAdded', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when a list of videos has been added to the queue.
+</p>
+
+`event`: (object)
+- `type`: (string) 'playlistAdded'
+- `user`: (object) where applicable, the user that triggered the event.
+  - `name`: (string) name of the user
+  - `thumbnail`: (string) user avatar URI
+- `videoIds`: (Array<`string`>) the Ids of the videos added to the queue.
+</details>
+
+<details>
+<summary><code>on('playlistCleared', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when the queue has been cleared.
+</p>
+
+`event`: (object)
+- `type`: (string) 'playlistCleared'
+- `user`: (object) where applicable, the user that triggered the event.
+  - `name`: (string) name of the user
+  - `thumbnail`: (string) user avatar URI
+</details>
+
+Note that there is no guarantee that a mutation of the queue will result in an event being emitted. The events are intended to allow your application to show simple notifications such as 'Bob has added 100 videos to the queue'.
+
 ## Autoplay on Connect
 
 By default, autoplay is enabled automatically on the sender app when a Cast session begins. You can disable this behaviour:

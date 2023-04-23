@@ -1,4 +1,5 @@
 import YouTubeCastReceiver, { Player, Logger, PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, LogLevel, STATUSES } from '../dist/mjs/index.js';
+import { PlaylistEvent } from '../dist/mjs/lib/app/Playlist.js';
 import FakePlayer, { FakeState } from './FakePlayer.js';
 import FakePlayerDemoLogger from './FakePlayerDemoLogger.js';
 import FakePlayerDemoScreen from './ui/FakePlayerDemoScreen.js';
@@ -37,6 +38,15 @@ class FakePlayerDemo {
 
     // `DefaultLogger` if UI disabled; otherwise this will be our custom `screenLogger`
     this.#logger = receiver.logger;
+
+    // Listen to player queue events
+    const queueEventListener = this.#handleQueueEvent.bind(this);
+    player.queue.on('playlistAdded', queueEventListener);
+    player.queue.on('playlistCleared', queueEventListener);
+    player.queue.on('playlistSet', queueEventListener);
+    player.queue.on('videoAdded', queueEventListener);
+    player.queue.on('videoRemoved', queueEventListener);
+    player.queue.on('videoSelected', queueEventListener);
 
     // Listen to `YouTubeCastReceiver` events.
     receiver.on('senderConnect', (sender) => {
@@ -240,6 +250,65 @@ class FakePlayerDemo {
         }
       }
     });
+  }
+
+  #handleQueueEvent(event: PlaylistEvent) {
+    let msg = '[FakePlayerDemo] ' as string | null;
+    const videoCount = event.videoIds ? event.videoIds.length : event.videoId ? '1' : 0;
+    const byUser = event.user ? ` by ${event.user.name}` : null;
+    switch (event.type) {
+      case 'playlistAdded':
+        if (videoCount > 0) {
+          msg += `Playlist with ${videoCount} videos added to queue`;
+        }
+        else {
+          msg = 'Playlist added to queue';
+        }
+        break;
+      case 'playlistCleared':
+        msg += 'Queue cleared';
+        break;
+      case 'playlistSet':
+        if (videoCount > 0) {
+          msg += `Playlist with ${videoCount} videos set as queue`;
+        }
+        else {
+          msg = 'Playlist set as queue';
+        }
+        break;
+      case 'videoAdded':
+        if (event.videoId) {
+          msg += `Video ${event.videoId} added to queue`;
+        }
+        else {
+          msg += 'Video added to queue';
+        }
+        break;
+      case 'videoRemoved':
+        if (event.videoId) {
+          msg += `Video ${event.videoId} removed from queue`;
+        }
+        else {
+          msg += 'Video removed from queue';
+        }
+        break;
+      case 'videoSelected':
+        if (event.videoId) {
+          msg += `Video ${event.videoId} selected`;
+        }
+        else {
+          msg += 'Video selected';
+        }
+        break;
+      default:
+        msg = null;
+    }
+    if (msg && byUser) {
+      msg += byUser;
+    }
+    if (msg) {
+      this.#logger.info(`${msg}.`);
+    }
   }
 
   async start() {

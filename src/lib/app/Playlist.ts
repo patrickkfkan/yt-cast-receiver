@@ -1,10 +1,22 @@
 import AbortController from 'abort-controller';
+import EventEmitter from 'events';
 import { AUTOPLAY_MODES } from '../Constants.js';
 import { AutoplayMode } from '../Player.js';
+import Logger from '../utils/Logger.js';
+import { ValueOf } from '../utils/Type.js';
 import Client from './Client.js';
 import Message from './Message.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import Video from './Video.js';
+
+export const PLAYLIST_EVENT_TYPES = {
+  VIDEO_SELECTED: 'videoSelected',
+  VIDEO_ADDED: 'videoAdded',
+  VIDEO_REMOVED: 'videoRemoved',
+  PLAYLIST_SET: 'playlistSet',
+  PLAYLIST_ADDED: 'playlistAdded',
+  PLAYLIST_CLEARED: 'playlistCleared'
+} as const;
 
 export interface PlaylistState {
   id: string | null;
@@ -13,10 +25,22 @@ export interface PlaylistState {
   autoplay: Video | null;
 }
 
+export type PlaylistEventType = ValueOf<typeof PLAYLIST_EVENT_TYPES>;
+
+export interface PlaylistEvent {
+  type: PlaylistEventType;
+  videoId?: string;
+  videoIds?: string[];
+  user?: {
+    name: string,
+    thumbnail: string
+  };
+}
+
 /**
  * Representation of the player queue.
  */
-export default class Playlist {
+export default class Playlist extends EventEmitter {
 
   #id: string | null;
   #videoIds: string[];
@@ -24,17 +48,24 @@ export default class Playlist {
   #previous: Video | null;
   #next: Video | null;
   #autoplayMode: AutoplayMode;
+  #logger: Logger;
   #requestHandler: PlaylistRequestHandler;
   #previousNextAbortController: AbortController | null;
 
   /** @internal */
   constructor() {
+    super();
     this.#id = null;
     this.#videoIds = [];
     this.#current = null;
     this.#previous = null;
     this.#autoplayMode = AUTOPLAY_MODES.UNSUPPORTED;
     this.#previousNextAbortController = null;
+  }
+
+  /** @internal */
+  setLogger(logger: Logger) {
+    this.#logger = logger;
   }
 
   /** @internal */
@@ -114,6 +145,60 @@ export default class Playlist {
     }
 
     await this.#refreshPreviousNext();
+    if (data.eventDetails) {
+      try {
+        const eventDetails = JSON.parse(data.eventDetails);
+        const eventType = eventDetails.eventType as keyof typeof PLAYLIST_EVENT_TYPES;
+
+        let emitEventType: PlaylistEventType | null;
+        switch (eventType) {
+          case 'PLAYLIST_ADDED':
+            emitEventType = 'playlistAdded';
+            break;
+          case 'PLAYLIST_CLEARED':
+            emitEventType = 'playlistCleared';
+            break;
+          case 'PLAYLIST_SET':
+            emitEventType = 'playlistSet';
+            break;
+          case 'VIDEO_ADDED':
+            emitEventType = 'videoAdded';
+            break;
+          case 'VIDEO_REMOVED':
+            emitEventType = 'videoRemoved';
+            break;
+          case 'VIDEO_SELECTED':
+            emitEventType = 'videoSelected';
+            break;
+          default:
+            emitEventType = null;
+        }
+        if (emitEventType) {
+          const event: PlaylistEvent = {
+            type: emitEventType
+          };
+          if (eventDetails.user) {
+            event.user = {
+              name: eventDetails.user,
+              thumbnail: eventDetails.userAvatarUri
+            };
+          }
+          if (eventDetails.videoId) {
+            event.videoId = eventDetails.videoId;
+          }
+          if (eventDetails.videoIds) {
+            event.videoIds = eventDetails.videoIds;
+          }
+
+          this.emit(emitEventType, event);
+        }
+      }
+      catch (error) {
+        this.#logger.error('[yt-cast-receiver] Failed to parse playlist eventDetails:', data.eventDetails, error);
+      }
+    }
+
+
   }
 
   async #abortRefreshPreviousNext() {
@@ -263,5 +348,13 @@ export default class Playlist {
    */
   get requestHandler(): PlaylistRequestHandler {
     return this.#requestHandler;
+  }
+
+  on(event: 'playlistCleared', listener: (event: Omit<PlaylistEvent, 'videoId' | 'videoIds'>) => void): this;
+  on(event: 'videoSelected' | 'videoAdded' | 'videoRemoved', listener: (event: Omit<PlaylistEvent, 'videoIds'>) => void): this;
+  on(event: 'playlistAdded' | 'playlistSet', listener: (event: Omit<PlaylistEvent, 'videoId'>) => void): this;
+  on(event: string | symbol, listener: (...args: any[]) => void): this {
+    super.on(event, listener);
+    return this;
   }
 }

@@ -102,6 +102,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
     this.#player = player;
     this.#player.setLogger(options.logger);
+    this.#player.queue.setLogger(options.logger);
     this.#player.queue.setRequestHandler(options.playlistRequestHandler || new DefaultPlaylistRequestHandler());
     this.#player.queue.requestHandler.setLogger(options.logger);
     this.#playerStateListener = this.#handlePlayerStateEvent.bind(this);
