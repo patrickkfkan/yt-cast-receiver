@@ -1019,6 +1019,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.0.1
+- [Added] Queue events
+- [Fixed] Erratic seeking issues and status updates when casting from desktop website
+
 1.0.0
 - Complete rewrite with major breaking changes in the API from v0.1.x!
 - Move to Typescript and package as ESM + CJS hybrid module.
