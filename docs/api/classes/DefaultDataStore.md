@@ -39,7 +39,7 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[lib/utils/DefaultDataStore.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/DefaultDataStore.ts#L11)
+[lib/utils/DefaultDataStore.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/DefaultDataStore.ts#L11)
 
 ## Accessors
 
@@ -57,7 +57,7 @@ DataStore.logger
 
 #### Defined in
 
-[lib/utils/DataStore.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/DataStore.ts#L14)
+[lib/utils/DataStore.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/DataStore.ts#L14)
 
 ## Methods
 
@@ -71,7 +71,7 @@ DataStore.logger
 
 #### Defined in
 
-[lib/utils/DefaultDataStore.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/DefaultDataStore.ts#L36)
+[lib/utils/DefaultDataStore.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/DefaultDataStore.ts#L36)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[lib/utils/DefaultDataStore.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/DefaultDataStore.ts#L26)
+[lib/utils/DefaultDataStore.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/DefaultDataStore.ts#L26)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[lib/utils/DefaultDataStore.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/DefaultDataStore.ts#L17)
+[lib/utils/DefaultDataStore.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/DefaultDataStore.ts#L17)
 
 ___
 
@@ -156,4 +156,4 @@ ___
 
 #### Defined in
 
-[lib/utils/DataStore.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/utils/DataStore.ts#L7)
+[lib/utils/DataStore.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/DataStore.ts#L7)

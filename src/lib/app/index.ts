@@ -7,5 +7,5 @@ export { default as DefaultPlaylistRequestHandler } from './DefaultPlaylistReque
 export { default as PairingCodeRequestService } from './PairingCodeRequestService.js';
 export { default as Playlist } from './Playlist.js';
 export { default as Video } from './Video.js';
-export { PlaylistState } from './Playlist.js';
+export * from './Playlist.js';
 export { AppOptions } from './YouTubeApp.js';

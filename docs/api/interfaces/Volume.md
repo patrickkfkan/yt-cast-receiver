@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[lib/Player.ts:39](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L39)
+[lib/Player.ts:39](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Player.ts#L39)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[lib/Player.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/7694e32/src/lib/Player.ts#L40)
+[lib/Player.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Player.ts#L40)
