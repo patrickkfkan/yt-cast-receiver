@@ -138,6 +138,13 @@ export default class Playlist extends EventEmitter {
         }
         this.#current.context.playlistId = data.listId;
         this.#current.context.index = index;
+
+        if (data.params) {
+          this.#current.context.params = data.params;
+        }
+        else {
+          delete this.#current.context.params;
+        }
       }
       else {
         this.#current = null;
@@ -209,13 +216,13 @@ export default class Playlist extends EventEmitter {
   }
 
   async #refreshPreviousNext() {
+    this.#abortRefreshPreviousNext();
     this.#previous = null;
     this.#next = null;
     const currentIndex = this.#current?.context?.index !== undefined ? this.#current.context.index : -1;
     if (currentIndex >= 0) {
       let nav = null;
       if (this.#current) {
-        this.#abortRefreshPreviousNext();
         this.#previousNextAbortController = new AbortController();
         try {
           nav = await this.#requestHandler.getPreviousNextVideosAbortable(this.#current, this, this.#previousNextAbortController.signal);
