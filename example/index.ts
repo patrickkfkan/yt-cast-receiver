@@ -50,7 +50,16 @@ class FakePlayerDemo {
 
     // Listen to `YouTubeCastReceiver` events.
     receiver.on('senderConnect', (sender) => {
-      const log = `Connected to ${sender.name} (${sender.client?.name}). Total connected senders: ${receiver.getConnectedSenders().length}`;
+      const nameParts = [] as string[];
+      if (sender.user?.name) {
+        nameParts.push(sender.user.name);
+      }
+      if (sender.client?.name) {
+        nameParts.push(sender.client.name);
+      }
+      const nameStr = sender.name + (nameParts.length > 0 ? ` (${nameParts.join(' - ')})` : '');
+
+      const log = `Connected to ${nameStr}. Total connected senders: ${receiver.getConnectedSenders().length}`;
       if (screen) {
         screen.statusBar.setContent(log);
       }
