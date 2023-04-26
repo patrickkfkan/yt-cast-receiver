@@ -62,7 +62,6 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
 
     /**
      * Mark target as watched to reduce its chance of being returned as autoplay video in future results.
-     * We need to do this twice: once with playlist info intact, and once without.
      *
      * Note:
      * By experiment, it takes a bit of time for markWatched() to take effect. For example, let's say video2 is
@@ -71,8 +70,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
      * do it 10 seconds after markWatched(), then the chance will be greatly reduced. This behavior can be observed
      * even on YouTube website.
      */
-    await this.markWatched(target); // Target with playlist info
-    await this.markWatched({...target, context: undefined}); // Target without playlist info
+    await this.markWatched(target);
 
     try {
       // We are sending requests as TV client, so need to specify `noClient: true` to remove `client` property from endpoint
@@ -208,17 +206,23 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
     return result;
   }
 
-  async markWatched(video: Video) {
+  async markWatched(video: Video, run: 1 | 2 = 1): Promise<void> {
     if (!this.#innertube) {
       throw Error('DefaultPlaylistRequestHandler not initialized.');
     }
 
-    this.logger.debug(`[yt-cast-receiver] Marking video ${video.id} as watched...`);
+    /**
+     * MarkWatched() involves 2 runs: once with playlist info intact, and once without.
+     * However, 2nd run will be skipped if video is private because without playlist info, player response won't contain the
+     * Playback tracking URL needed to mark video as watched. Presumably, this is because a private video cannot exist in public space.
+     */
+
+    this.logger.debug(`[yt-cast-receiver] Marking video ${video.id} as watched ${run === 1 ? '(1st run)' : '(2nd run - without playlist info)'}...`);
 
     const isMusic = video.client === CLIENTS.YTMUSIC;
     this.#configureInnertubeContext(video, isMusic ? 'music' : 'initial');
 
-    const endpoint = this.#createInnertubeEndpoint(video);
+    const endpoint = this.#createInnertubeEndpoint(run === 1 ? video : {...video, context: undefined});
     const payload = endpoint.payload;
 
     try {
@@ -250,10 +254,21 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
           client_name: clientInfo.clientName,
           client_version: clientInfo.clientVersion
         }, params);
+
+        if (run === 2) {
+          return;
+        }
+
+        if (playerResponse.data?.videoDetails?.isPrivate) {
+          this.logger.debug('[yt-cast-receiver] DefaultPlaylistRequestHandler skipping 2nd run of markWatched(): video is private and cannot be mark as watched without playlist info.');
+          return;
+        }
+
+        return this.markWatched(video, 2);
       }
-      else {
-        throw Error('No playback tracking URL found');
-      }
+
+      throw Error('No playback tracking URL found');
+
     }
     catch (error) {
       this.logger.warn(`[yt-cast-receiver] DefaultPlaylistRequestHandler failed to mark video ${video.id} as watched:`, error);
