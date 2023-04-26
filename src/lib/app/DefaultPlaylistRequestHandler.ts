@@ -13,6 +13,11 @@ const TV_CLIENT_INFO = {
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36; SMART-TV; Tizen 4.0,gzip(gfe)'
 };
 
+const MUSIC_CLIENT_INFO = {
+  clientName: InnertubeLib.Constants.CLIENTS.YTMUSIC.NAME,
+  clientVersion: InnertubeLib.Constants.CLIENTS.YTMUSIC.VERSION
+};
+
 /**
  * Default implementation of the `PlaylistRequestHandler` abstract class.
  * Uses [YouTube.js](https://github.com/LuanRT/YouTube.js) for fetching data
@@ -23,6 +28,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
   #innertube: Innertube | null;
   #innertubeInitialClient: InnertubeLib.Context['client'];
   #innertubeTVClient: InnertubeLib.Context['client'];
+  #innertubeMusicClient: InnertubeLib.Context['client'];
 
   constructor() {
     super();
@@ -36,6 +42,10 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
       this.#innertubeTVClient = {
         ...this.#innertube.session.context.client,
         ...TV_CLIENT_INFO
+      };
+      this.#innertubeMusicClient = {
+        ...this.#innertube.session.context.client,
+        ...MUSIC_CLIENT_INFO
       };
     }
   }
@@ -65,7 +75,9 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
     await this.markWatched({...target, context: undefined}); // Target without playlist info
 
     try {
-      const endpoint = this.#createInnertubeEndpoint(target);
+      // We are sending requests as TV client, so need to specify `noClient: true` to remove `client` property from endpoint
+      // (really only applies when client is YouTube Music).
+      const endpoint = this.#createInnertubeEndpoint(target, true);
       this.#configureInnertubeContext(target, 'tv');
       const nextResponse = await this.#innertube.actions.execute('/next', endpoint.payload) as any;
 
@@ -106,7 +118,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
     }
   }
 
-  #createInnertubeEndpoint(video: Video): InnertubeEndpoint {
+  #createInnertubeEndpoint(video: Video, noClient = false): InnertubeEndpoint {
     if (!this.#innertube) {
       throw Error('DefaultPlaylistRequestHandler not initialized.');
     }
@@ -126,16 +138,28 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
     if (video.context?.index !== undefined) {
       endpoint.payload.playlistIndex = video.context.index;
     }
+    if (video.client === CLIENTS.YTMUSIC && !noClient) {
+      endpoint.payload.client = 'YTMUSIC';
+    }
 
     return endpoint;
   }
 
-  #configureInnertubeContext(video: Video, type: 'tv' | 'initial') {
+  #configureInnertubeContext(video: Video, type: 'tv' | 'music' | 'initial') {
     if (!this.#innertube) {
       throw Error('DefaultPlaylistRequestHandler not initialized.');
     }
 
-    this.#innertube.session.context.client = type === 'tv' ? this.#innertubeTVClient : this.#innertubeInitialClient;
+    switch (type) {
+      case 'tv':
+        this.#innertube.session.context.client = this.#innertubeTVClient;
+        break;
+      case 'music':
+        this.#innertube.session.context.client = this.#innertubeMusicClient;
+        break;
+      default:
+        this.#innertube.session.context.client = this.#innertubeInitialClient;
+    }
 
     if (video.context?.ctt) {
       this.#innertube.session.context.user = {
@@ -191,7 +215,8 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
 
     this.logger.debug(`[yt-cast-receiver] Marking video ${video.id} as watched...`);
 
-    this.#configureInnertubeContext(video, 'initial');
+    const isMusic = video.client === CLIENTS.YTMUSIC;
+    this.#configureInnertubeContext(video, isMusic ? 'music' : 'initial');
 
     const endpoint = this.#createInnertubeEndpoint(video);
     const payload = endpoint.payload;
@@ -204,14 +229,15 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
         if (video.context?.playlistId) {
           referrer += `&list=${video.context.playlistId}`;
         }
+        const clientInfo = isMusic ? MUSIC_CLIENT_INFO : TV_CLIENT_INFO;
         const params = {
           cpn: InnertubeLib.Utils.generateRandomString(16),
           fmt: 251,
           rtn: 0,
           rt: 0,
-          c: TV_CLIENT_INFO.clientName,
-          cver: TV_CLIENT_INFO.clientVersion,
-          ctheme: video.client === CLIENTS.YTMUSIC ? 'MUSIC' : 'CLASSIC',
+          c: clientInfo.clientName,
+          cver: clientInfo.clientVersion,
+          ctheme: isMusic ? 'MUSIC' : 'CLASSIC',
           cplayer: 'UNIPLAYER',
           ctrl: 'mdx-pair',
           referrer
@@ -221,8 +247,8 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
           params.cttype = 'vvt';
         }
         await this.#innertube.session.actions.stats(playbackUrl, {
-          client_name: TV_CLIENT_INFO.clientName,
-          client_version: TV_CLIENT_INFO.clientVersion
+          client_name: clientInfo.clientName,
+          client_version: clientInfo.clientVersion
         }, params);
       }
       else {
