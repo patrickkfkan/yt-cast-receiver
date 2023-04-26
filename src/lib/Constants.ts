@@ -51,10 +51,12 @@ export const STATUSES = {
 
 export const CLIENTS = {
   YT: {
+    key: 'YT',
     theme: 'cl',
     name: 'YouTube'
   },
   YTMUSIC: {
+    key: 'YTMUSIC',
     theme: 'm',
     name: 'YouTube Music'
   }

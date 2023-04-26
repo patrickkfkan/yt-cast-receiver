@@ -74,6 +74,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   #autoplayModeBeforeUnsupportedOverride: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED | null;
   #playerStateListener: any;
 
+  // Temporary record of user info associated with a sender, grouped by client type and sender Id.
+  // See handling of `loungeStatus` message in `#handleIncomingMessage()`.
+  #userBySenderTmpInfo: Record<ClientKey, Record<Sender['id'], Sender['user']>>;
+
   constructor(player: Player, options: AppOptions) {
     super();
 
@@ -82,6 +86,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.allowStop = false;
 
     this.#connectedSenders = [];
+    this.#userBySenderTmpInfo = {
+      YT: {},
+      YTMUSIC: {}
+    };
     this.#dataStore = options.dataStore || null;
     this.#logger = options.logger;
 
@@ -333,7 +341,13 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         }
 
         if (!this.#connectedSenders.find((c) => c.id === newSender.id)) {
-          this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender connected: ${newSender.name}`);
+          // Retrieve user info from previous handling of `loungeStatus` msg.
+          const user = this.#userBySenderTmpInfo[session.client.key][newSender.id];
+          if (user) {
+            newSender.user = user;
+            delete this.#userBySenderTmpInfo[session.client.key][newSender.id];
+          }
+          this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender connected: ${newSender.name} (user: ${newSender.user?.name})`);
           this.#logger.debug(`[yt-cast-receiver] (${client.name}) Connected sender info:`, newSender);
 
           this.#connectedSenders.push(newSender);
@@ -395,28 +409,28 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         break;
 
       case 'loungeStatus':
+        let loungeDevices;
+        try {
+          loungeDevices = JSON.parse(payload.devices);
+        }
+        catch (error) {
+          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse 'devices' property of 'loungeStatus' message payload:`, error);
+          loungeDevices = [];
+        }
+        const loungeStatusSenders: Sender[] = loungeDevices
+          .filter((dev: any) => dev.type === 'REMOTE_CONTROL')
+          .reduce((senders: Sender[], data: any) => {
+            try {
+              const sender = Sender.parse(data);
+              senders.push(sender);
+              return senders;
+            }
+            catch (err) {
+              this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse sender data in 'loungeStatus' message:`, err);
+              return senders;
+            }
+          }, []);
         if (this.state === STATUSES.STARTING) {
-          let loungeDevices;
-          try {
-            loungeDevices = JSON.parse(payload.devices);
-          }
-          catch (error) {
-            this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse 'devices' property of 'loungeStatus' message payload:`, error);
-            loungeDevices = [];
-          }
-          const loungeStatusSenders = loungeDevices
-            .filter((dev: any) => dev.type === 'REMOTE_CONTROL')
-            .reduce((senders: Sender[], data: any) => {
-              try {
-                const sender = Sender.parse(data);
-                senders.push(sender);
-                return senders;
-              }
-              catch (err) {
-                this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to parse sender data in 'loungeStatus' message:`, err);
-                return senders;
-              }
-            }, []);
           if (loungeStatusSenders.length > 0) {
             this.#connectedSenders = loungeStatusSenders;
             this.#logger.debug(`[yt-cast-receiver] (${client.name}) Updated connected senders info with 'loungeStatus' message:`, this.#connectedSenders);
@@ -436,6 +450,16 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
             new Message.OnHasPreviousNextChanged(AID, playerNavInfo),
             new Message.OnAutoplayModeChanged(AID, playerNavInfo)
           );
+          // When there are senders not currently in `connectedSenders`, we would expect forthcoming `remoteConnected` msgs for them.
+          // These msgs, however, will not contain user info. We therefore save this info and use it to set the `user`
+          // Field of new Sender objects when we subsequently handle the `remoteConnected` msgs.
+          const maybeNewSenders = loungeStatusSenders.filter((s1) => !this.#connectedSenders.find((s2) => s1.id === s2.id));
+          this.#userBySenderTmpInfo[session.client.key] = {};
+          maybeNewSenders.forEach((s) => {
+            if (s.user) {
+              this.#userBySenderTmpInfo[session.client.key][s.id] = {...s.user};
+            }
+          });
         }
         break;
 

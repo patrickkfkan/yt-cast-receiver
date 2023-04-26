@@ -12,6 +12,10 @@ export default class Sender {
   client: Client | null;
   capabilities: string[];
   device: Record<string, any>;
+  user?: {
+    name: string;
+    thumbnail: string;
+  };
 
   /** @internal */
   constructor(data: any) {
@@ -20,6 +24,12 @@ export default class Sender {
     this.capabilities = data.capabilities?.split(',') || [];
     this.app = data.app || null;
     this.client = Object.values(CLIENTS).find((client) => client.theme === data.theme) || null;
+    if (data.user) {
+      this.user = {
+        name: data.user,
+        thumbnail: data.userAvatarUri
+      };
+    }
     try {
       this.device = data.device ? JSON.parse(data.device) : {};
     }
