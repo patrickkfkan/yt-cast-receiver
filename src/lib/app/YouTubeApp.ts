@@ -444,7 +444,21 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         if (!isSessionActive) return;
 
         this.#logger.debug(`[yt-cast-receiver] '${message.name}' message payload:`, payload);
+
+        // Dismiss autoplay first in anticipation of change in autoplay video (when last video in queue
+        // Is different from the one in message payload).
+        const queueVideoIds = this.#player.queue.videoIds;
+        const msgPayloadLastVideoId = message.payload?.videoIds?.split(',').pop();
+        let autoplayDismissed = false;
+        if (queueVideoIds[queueVideoIds.length - 1] !== msgPayloadLastVideoId) {
+          session.sendMessage(new Message.AutoplayUpNext(AID, null));
+          autoplayDismissed = true;
+        }
+
         const stateBeforeSet = this.#player.queue.getState();
+        if (autoplayDismissed) {
+          stateBeforeSet.autoplay = null;
+        }
         const navBeforeSet = this.#player.getNavInfo();
         await this.#player.queue.updateByMessage(message, client);
         const stateAfterSet = this.#player.queue.getState();
