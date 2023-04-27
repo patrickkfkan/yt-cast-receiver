@@ -50,7 +50,6 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getPreviousNextVideos(target: Video, playlist: Playlist): Promise<PlaylistPreviousNextVideos> {
     if (!this.#innertube) {
       await this.#init();
