@@ -1,6 +1,6 @@
 {
   "name": "yt-cast-receiver",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "module",
   "description": "YouTube Cast Receiver for Node. Supports casting from YouTube and YouTube Music.",
   "scripts": {

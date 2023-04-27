@@ -1019,6 +1019,11 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.1.0
+- [Changed] On queue update, dismiss autoplay video first when it is expected to change.
+- [Fixed] Recurring autoplay videos
+- [Added] `user` property in `Sender`
+
 1.0.1
 - [Added] Queue events
 - [Fixed] Erratic seeking issues and status updates when casting from desktop website
