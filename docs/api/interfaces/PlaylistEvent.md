@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[lib/app/Playlist.ts:31](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Playlist.ts#L31)
+[src/lib/app/Playlist.ts:31](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Playlist.ts#L31)
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Playlist.ts#L34)
+[src/lib/app/Playlist.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Playlist.ts#L34)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Playlist.ts#L32)
+[src/lib/app/Playlist.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Playlist.ts#L32)
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Playlist.ts#L33)
+[src/lib/app/Playlist.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Playlist.ts#L33)

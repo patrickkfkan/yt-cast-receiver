@@ -72,7 +72,7 @@ One of the values in [AUTOPLAY_MODES](README.md#autoplay_modes).
 
 #### Defined in
 
-[lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Player.ts#L12)
+[src/lib/Player.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Player.ts#L12)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[lib/app/Client.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Client.ts#L1)
+[src/lib/app/Client.ts:1](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Client.ts#L1)
 
 ___
 
@@ -94,7 +94,7 @@ One of the values in [LOG_LEVELS](README.md#log_levels).
 
 #### Defined in
 
-[lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/utils/Logger.ts#L7)
+[src/lib/utils/Logger.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/utils/Logger.ts#L7)
 
 ___
 
@@ -106,7 +106,7 @@ One of the values in [PLAYER_STATUSES](README.md#player_statuses).
 
 #### Defined in
 
-[lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Player.ts#L17)
+[src/lib/Player.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Player.ts#L17)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Playlist.ts#L28)
+[src/lib/app/Playlist.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Playlist.ts#L28)
 
 ___
 
@@ -128,7 +128,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/YouTubeCastReceiver.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/YouTubeCastReceiver.ts#L55)
+[src/lib/YouTubeCastReceiver.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L55)
 
 ## Variables
 
@@ -146,7 +146,7 @@ One of the values in [STATUSES](README.md#statuses).
 
 #### Defined in
 
-[lib/Constants.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L23)
+[src/lib/Constants.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L23)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L52)
+[src/lib/Constants.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L52)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L17)
+[src/lib/Constants.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L17)
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L37)
+[src/lib/Constants.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L37)
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:63](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L63)
+[src/lib/Constants.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L65)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L29)
+[src/lib/Constants.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L29)
 
 ___
 
@@ -253,7 +253,7 @@ ___
 
 #### Defined in
 
-[lib/app/Playlist.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/app/Playlist.ts#L12)
+[src/lib/app/Playlist.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Playlist.ts#L12)
 
 ___
 
@@ -272,4 +272,4 @@ ___
 
 #### Defined in
 
-[lib/Constants.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/64eea67/src/lib/Constants.ts#L45)
+[src/lib/Constants.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/Constants.ts#L45)
