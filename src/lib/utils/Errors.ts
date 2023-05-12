@@ -82,8 +82,8 @@ export class DialServerError extends YouTubeCastReceiverError {
 }
 
 export class SenderConnectionError extends YouTubeCastReceiverError {
-  constructor(message: string, cause?: any, action?: 'connect' | 'disconnect') {
-    super(message, cause, { action: action || 'connect' });
+  constructor(message: string, cause?: any, action?: 'connect' | 'disconnect' | 'unknown') {
+    super(message, cause, { action: action || 'unknown' });
     this.name = 'SenderConnectionError';
   }
 }

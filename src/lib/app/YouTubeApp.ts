@@ -74,10 +74,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   #autoplayModeBeforeUnsupportedOverride: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED | null;
   #playerStateListener: any;
 
-  // Temporary record of user info associated with a sender, grouped by client type and sender Id.
-  // See handling of `loungeStatus` message in `#handleIncomingMessage()`.
-  #userBySenderTmpInfo: Record<ClientKey, Record<Sender['id'], Sender['user']>>;
-
   constructor(player: Player, options: AppOptions) {
     super();
 
@@ -86,10 +82,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.allowStop = false;
 
     this.#connectedSenders = [];
-    this.#userBySenderTmpInfo = {
-      YT: {},
-      YTMUSIC: {}
-    };
     this.#dataStore = options.dataStore || null;
     this.#logger = options.logger;
 
@@ -216,7 +208,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       this.#connectedSenders = [];
       const oldSession = this.#activeSession;
       this.#connectedSenders.forEach((c) => {
-        this.emit('senderDisconnect', c);
+        this.emit('senderDisconnect', c, false);
       });
       this.#activeSession = targetSession;
       oldSession.sendMessage(new Message.LoungeScreenDisconnected());
@@ -327,83 +319,6 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     const sendMessages = [];
 
     switch (name) {
-      case 'remoteConnected':
-        let newSender: Sender;
-        try {
-          newSender = Sender.parse(payload);
-          await this.#checkAndSwitchActiveSession(session);
-        }
-        catch (err) {
-          const error = new SenderConnectionError('Failed to register connected sender', err, 'connect');
-          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to handle 'remoteConnected' message:`, error);
-          this.emit('error', error);
-          break;
-        }
-
-        if (!this.#connectedSenders.find((c) => c.id === newSender.id)) {
-          // Retrieve user info from previous handling of `loungeStatus` msg.
-          const user = this.#userBySenderTmpInfo[session.client.key][newSender.id];
-          if (user) {
-            newSender.user = user;
-            delete this.#userBySenderTmpInfo[session.client.key][newSender.id];
-          }
-          this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender connected: ${newSender.name} (user: ${newSender.user?.name})`);
-          this.#logger.debug(`[yt-cast-receiver] (${client.name}) Connected sender info:`, newSender);
-
-          this.#connectedSenders.push(newSender);
-          await this.#setAutoplayModeBySenderCapabilities(AID);
-          await this.#enforceMutePolicy(AID);
-
-          const playerState = await this.#player.getState();
-          sendMessages.push(
-            new Message.NowPlaying(AID, playerState),
-            new Message.OnStateChange(AID, playerState)
-          );
-
-          this.emit('senderConnect', newSender);
-        }
-        else {
-          this.#logger.debug(`[yt-cast-receiver] (${client.name}) Sender already connected.`);
-        }
-        break;
-
-      case 'remoteDisconnected':
-        if (!isSessionActive) return;
-
-        let disconnectedSender: Sender;
-        try {
-          disconnectedSender = Sender.parse(payload);
-        }
-        catch (err) {
-          const error = new SenderConnectionError('Failed to unregister disconnected sender', err, 'disconnect');
-          this.#logger.error(`[yt-cast-receiver] (${client.name}) Failed to handle 'remoteDisconnected' message:`, error);
-          this.emit('error', error);
-          break;
-        }
-        const disconnectedSenderIndex = this.#connectedSenders.findIndex((c) => c.id === disconnectedSender.id);
-        if (disconnectedSenderIndex < 0) {
-          this.#logger.warn(`[yt-cast-receiver] (${client.name}) Anomaly detected while unregistering disconnected sender: unable to find target among connected senders. Target:`,
-            disconnectedSender, ' Connected senders:', this.#connectedSenders);
-          break;
-        }
-        this.#connectedSenders.splice(disconnectedSenderIndex, 1);
-
-        if (this.#connectedSenders.length === 0) {
-          await this.#player.reset();
-        }
-        else if (this.#player.autoplayMode === AUTOPLAY_MODES.UNSUPPORTED) {
-          await this.#setAutoplayModeBySenderCapabilities(AID);
-        }
-
-        if (this.#connectedSenders.length > 0) {
-          await this.#enforceMutePolicy(AID);
-        }
-
-        this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender disconnected: ${disconnectedSender.name}`);
-        this.#logger.debug(`[yt-cast-receiver] (${client.name}) Disconnected sender info:`, disconnectedSender);
-        this.emit('senderDisconnect', disconnectedSender);
-        break;
-
       case 'getNowPlaying':
         sendMessages.push(new Message.NowPlaying(AID, isSessionActive ? await this.#player.getState() : null));
         break;
@@ -445,21 +360,37 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           }
         }
         else {
-          const playerNavInfo = isSessionActive ? this.#player.getNavInfo() : null;
-          sendMessages.push(
-            new Message.OnHasPreviousNextChanged(AID, playerNavInfo),
-            new Message.OnAutoplayModeChanged(AID, playerNavInfo)
-          );
-          // When there are senders not currently in `connectedSenders`, we would expect forthcoming `remoteConnected` msgs for them.
-          // These msgs, however, will not contain user info. We therefore save this info and use it to set the `user`
-          // Field of new Sender objects when we subsequently handle the `remoteConnected` msgs.
-          const maybeNewSenders = loungeStatusSenders.filter((s1) => !this.#connectedSenders.find((s2) => s1.id === s2.id));
-          this.#userBySenderTmpInfo[session.client.key] = {};
-          maybeNewSenders.forEach((s) => {
-            if (s.user) {
-              this.#userBySenderTmpInfo[session.client.key][s.id] = {...s.user};
+          let connectionEventDetails: any;
+          try {
+            connectionEventDetails = payload.connectionEventDetails ? JSON.parse(payload.connectionEventDetails) : null;
+          }
+          catch (err) {
+            const error = new SenderConnectionError('Failed to handle sender connection / disconnection', err);
+            this.#logger.error('[yt-cast-receiver] Failed to parse connection event details in payload of loungeStatus message:', payload.connectionEventDetails);
+            this.emit('error', error);
+            connectionEventDetails = null;
+          }
+          let handledConnectionEvent = false;
+          if (connectionEventDetails?.deviceId) {
+            const connectingSender = loungeStatusSenders.find((s) => s.id === connectionEventDetails.deviceId);
+            const disconnectingSender = !connectingSender ? this.#connectedSenders.find((s) => s.id === connectionEventDetails.deviceId) : null;
+            if (connectingSender) {
+              sendMessages.push(...await this.#handleSenderConnected(connectingSender, session, AID));
+              handledConnectionEvent = true;
             }
-          });
+            if (disconnectingSender) {
+              const isImplicitDisconnect = connectionEventDetails.ui !== 'true';
+              sendMessages.push(...await this.#handleSenderDisconnected(disconnectingSender, session, isImplicitDisconnect, AID));
+              handledConnectionEvent = true;
+            }
+          }
+          if (!handledConnectionEvent) {
+            const playerNavInfo = isSessionActive ? this.#player.getNavInfo() : null;
+            sendMessages.push(
+              new Message.OnHasPreviousNextChanged(AID, playerNavInfo),
+              new Message.OnAutoplayModeChanged(AID, playerNavInfo)
+            );
+          }
         }
         break;
 
@@ -580,6 +511,66 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
   }
 
+  async #handleSenderConnected(sender: Sender, session: Session, AID: number | null): Promise<Message[]> {
+    await this.#checkAndSwitchActiveSession(session);
+    const sendMessages = [];
+    const client = session.client;
+    if (!this.#connectedSenders.find((c) => c.id === sender.id)) {
+      this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender connected: ${sender.name} (user: ${sender.user?.name})`);
+      this.#logger.debug(`[yt-cast-receiver] (${client.name}) Connected sender info:`, sender);
+
+      this.#connectedSenders.push(sender);
+      await this.#setAutoplayModeBySenderCapabilities(AID);
+      await this.#enforceMutePolicy(AID);
+
+      const playerNavInfo = this.#player.getNavInfo();
+      const playerState = await this.#player.getState();
+      sendMessages.push(
+        new Message.OnHasPreviousNextChanged(AID, playerNavInfo),
+        new Message.NowPlaying(AID, playerState),
+        new Message.OnStateChange(AID, playerState)
+      );
+
+      this.emit('senderConnect', sender);
+    }
+    else {
+      this.#logger.debug(`[yt-cast-receiver] (${client.name}) Sender already connected.`);
+    }
+
+    return sendMessages;
+  }
+
+  async #handleSenderDisconnected(sender: Sender, session: Session, isImplicitDisconnect: boolean, AID: number | null): Promise<Message[]> {
+    const isSessionActive = session === this.#activeSession;
+    if (!isSessionActive) return [];
+
+    const client = session.client;
+    const senderIndex = this.#connectedSenders.findIndex((c) => c.id === sender.id);
+    if (senderIndex < 0) {
+      this.#logger.warn(`[yt-cast-receiver] (${client.name}) Anomaly detected while unregistering disconnected sender: unable to find target among connected senders. Target:`,
+        sender, ' Connected senders:', this.#connectedSenders);
+      return [];
+    }
+    this.#connectedSenders.splice(senderIndex, 1);
+
+    if (this.#connectedSenders.length === 0) {
+      await this.#player.reset();
+    }
+    else if (this.#player.autoplayMode === AUTOPLAY_MODES.UNSUPPORTED) {
+      await this.#setAutoplayModeBySenderCapabilities(AID);
+    }
+
+    if (this.#connectedSenders.length > 0) {
+      await this.#enforceMutePolicy(AID);
+    }
+
+    this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender disconnected: ${sender.name}`);
+    this.#logger.debug(`[yt-cast-receiver] (${client.name}) Disconnected sender info:`, sender);
+    this.emit('senderDisconnect', sender, isImplicitDisconnect);
+
+    return [];
+  }
+
   async stop(error?: Error) {
     if (this.state !== STATUSES.RUNNING && !error) {
       return;
@@ -609,7 +600,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.state = STATUSES.STOPPED;
 
     senders.forEach((c) => {
-      this.emit('senderDisconnect', c);
+      this.emit('senderDisconnect', c, false);
     });
 
     if (error) {
@@ -683,6 +674,14 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     return [ ...this.#connectedSenders ];
   }
 
+  emit(event: 'error', error: Error): boolean;
+  emit(event: 'terminate', error: Error): boolean;
+  emit(event: 'senderConnect', sender: Sender): boolean;
+  emit(event: 'senderDisconnect', sender: Sender, implicit: boolean): boolean;
+  emit(event: string | symbol, ...args: any[]): boolean {
+    return super.emit(event, ...args);
+  }
+
   /**
    * @event
    * Emitted when the `YouTubeApp` instance has terminated due to irrecoverable error.
@@ -699,8 +698,9 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
    * @event
    * Emitted when a sender has disconnected.
    * @param listener.sender - The disconnected sender.
+   * @param listener.implicit - Whether the disconnection is implicit.
    */
-  on(event: 'senderDisconnect', listener: (sender: Sender) => void): this;
+  on(event: 'senderDisconnect', listener: (sender: Sender, implicit: boolean) => void): this;
   /**
    * @event
    * Emitted when a sender has connected.

@@ -105,8 +105,8 @@ export default class YouTubeCastReceiver extends EventEmitter {
       this.emit('senderConnect', sender);
     });
 
-    this.#app.on('senderDisconnect', (sender) => {
-      this.emit('senderDisconnect', sender);
+    this.#app.on('senderDisconnect', (sender, implicit) => {
+      this.emit('senderDisconnect', sender, implicit);
     });
 
     this.#app.on('error', (error) => {
@@ -201,6 +201,14 @@ export default class YouTubeCastReceiver extends EventEmitter {
     return this.#logger;
   }
 
+  emit(event: 'error', error: Error): boolean;
+  emit(event: 'terminate', error: Error): boolean;
+  emit(event: 'senderConnect', sender: Sender): boolean;
+  emit(event: 'senderDisconnect', sender: Sender, implicit: boolean): boolean;
+  emit(event: string | symbol, ...args: any[]): boolean {
+    return super.emit(event, ...args);
+  }
+
   /**
    * @event
    * Emitted when the `YouTubeApp` instance has terminated due to irrecoverable error.
@@ -218,7 +226,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
    * Emitted when a sender has disconnected.
    * @param listener.sender - The disconnected sender.
    */
-  on(event: 'senderDisconnect', listener: (sender: Sender) => void): this;
+  on(event: 'senderDisconnect', listener: (sender: Sender, implicit: boolean) => void): this;
   /**
    * @event
    * Emitted when a sender has connected.
