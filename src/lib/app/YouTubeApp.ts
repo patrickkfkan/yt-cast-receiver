@@ -697,14 +697,14 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   on(event: 'error', listener: (error: Error) => void): this;
   /**
    * @event
-   * Emitted when a sender has connected.
-   * @param listener.sender - The connected sender.
+   * Emitted when a sender has disconnected.
+   * @param listener.sender - The disconnected sender.
    */
   on(event: 'senderDisconnect', listener: (sender: Sender) => void): this;
   /**
    * @event
-   * Emitted when a sender has disconnected.
-   * @param listener.sender - The disconnected sender.
+   * Emitted when a sender has connected.
+   * @param listener.sender - The connected sender.
    */
   on(event: 'senderConnect', listener: (sender: Sender) => void): this;
   on(event: string | symbol, listener: (...args: any[]) => void): this {
