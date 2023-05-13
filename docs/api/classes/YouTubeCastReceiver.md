@@ -26,6 +26,7 @@ To create a `YouTubeCastReceiver` instance, you need to provide at least a
 
 ### Methods
 
+- [emit](YouTubeCastReceiver.md#emit)
 - [enableAutoplayOnConnect](YouTubeCastReceiver.md#enableautoplayonconnect)
 - [getConnectedSenders](YouTubeCastReceiver.md#getconnectedsenders)
 - [getPairingCodeRequestService](YouTubeCastReceiver.md#getpairingcoderequestservice)
@@ -56,7 +57,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:70](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L70)
+[src/lib/YouTubeCastReceiver.ts:70](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L70)
 
 ## Accessors
 
@@ -70,7 +71,7 @@ EventEmitter.constructor
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:200](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L200)
+[src/lib/YouTubeCastReceiver.ts:200](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L200)
 
 ___
 
@@ -84,9 +85,98 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:196](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L196)
+[src/lib/YouTubeCastReceiver.ts:196](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L196)
 
 ## Methods
+
+### emit
+
+▸ **emit**(`event`, `error`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | ``"error"`` |
+| `error` | `Error` |
+
+#### Returns
+
+`boolean`
+
+#### Overrides
+
+EventEmitter.emit
+
+#### Defined in
+
+[src/lib/YouTubeCastReceiver.ts:204](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L204)
+
+▸ **emit**(`event`, `error`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | ``"terminate"`` |
+| `error` | `Error` |
+
+#### Returns
+
+`boolean`
+
+#### Overrides
+
+EventEmitter.emit
+
+#### Defined in
+
+[src/lib/YouTubeCastReceiver.ts:205](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L205)
+
+▸ **emit**(`event`, `sender`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | ``"senderConnect"`` |
+| `sender` | [`Sender`](Sender.md) |
+
+#### Returns
+
+`boolean`
+
+#### Overrides
+
+EventEmitter.emit
+
+#### Defined in
+
+[src/lib/YouTubeCastReceiver.ts:206](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L206)
+
+▸ **emit**(`event`, `sender`, `implicit`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | ``"senderDisconnect"`` |
+| `sender` | [`Sender`](Sender.md) |
+| `implicit` | `boolean` |
+
+#### Returns
+
+`boolean`
+
+#### Overrides
+
+EventEmitter.emit
+
+#### Defined in
+
+[src/lib/YouTubeCastReceiver.ts:207](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L207)
+
+___
 
 ### enableAutoplayOnConnect
 
@@ -104,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:180](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L180)
+[src/lib/YouTubeCastReceiver.ts:180](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L180)
 
 ___
 
@@ -118,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:192](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L192)
+[src/lib/YouTubeCastReceiver.ts:192](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L192)
 
 ___
 
@@ -132,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:188](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L188)
+[src/lib/YouTubeCastReceiver.ts:188](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L188)
 
 ___
 
@@ -152,7 +242,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:184](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L184)
+[src/lib/YouTubeCastReceiver.ts:184](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L184)
 
 ___
 
@@ -166,7 +256,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:130](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L130)
+[src/lib/YouTubeCastReceiver.ts:130](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L130)
 
 ___
 
@@ -180,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:161](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L161)
+[src/lib/YouTubeCastReceiver.ts:161](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L161)
 
 ## Events
 
@@ -207,7 +297,7 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:209](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L209)
+[src/lib/YouTubeCastReceiver.ts:217](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L217)
 
 ▸ **on**(`event`, `listener`): [`YouTubeCastReceiver`](YouTubeCastReceiver.md)
 
@@ -230,18 +320,18 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:215](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L215)
+[src/lib/YouTubeCastReceiver.ts:223](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L223)
 
 ▸ **on**(`event`, `listener`): [`YouTubeCastReceiver`](YouTubeCastReceiver.md)
 
-Emitted when a sender has connected.
+Emitted when a sender has disconnected.
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `event` | ``"senderDisconnect"`` |
-| `listener` | (`sender`: [`Sender`](Sender.md)) => `void` |
+| `listener` | (`sender`: [`Sender`](Sender.md), `implicit`: `boolean`) => `void` |
 
 #### Returns
 
@@ -253,11 +343,11 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:221](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L221)
+[src/lib/YouTubeCastReceiver.ts:229](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L229)
 
 ▸ **on**(`event`, `listener`): [`YouTubeCastReceiver`](YouTubeCastReceiver.md)
 
-Emitted when a sender has disconnected.
+Emitted when a sender has connected.
 
 #### Parameters
 
@@ -276,4 +366,4 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:227](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/YouTubeCastReceiver.ts#L227)
+[src/lib/YouTubeCastReceiver.ts:235](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/YouTubeCastReceiver.ts#L235)

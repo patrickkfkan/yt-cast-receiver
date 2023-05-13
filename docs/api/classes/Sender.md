@@ -29,7 +29,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L11)
+[src/lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L11)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L13)
+[src/lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L13)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L12)
+[src/lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L12)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L14)
+[src/lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L14)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L9)
+[src/lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L9)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L10)
+[src/lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L10)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L15)
+[src/lib/app/Sender.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L15)
 
 ## Methods
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:57](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L57)
+[src/lib/app/Sender.ts:57](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L57)
 
 ___
 
@@ -124,4 +124,4 @@ ___
 
 #### Defined in
 
-[src/lib/app/Sender.ts:61](https://github.com/patrickkfkan/yt-cast-receiver/blob/91904fb/src/lib/app/Sender.ts#L61)
+[src/lib/app/Sender.ts:61](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/Sender.ts#L61)
