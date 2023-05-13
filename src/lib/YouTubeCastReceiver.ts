@@ -4,7 +4,7 @@ import YouTubeApp, { AppOptions } from './app/YouTubeApp.js';
 import DialServer, { DialOptions } from './dial/DialServer.js';
 import Logger, { LogLevel } from './utils/Logger.js';
 import DefaultLogger from './utils/DefaultLogger.js';
-import { STATUSES } from './Constants.js';
+import { RESET_PLAYER_ON_DISCONNECT_POLICIES, STATUSES } from './Constants.js';
 import PairingCodeRequestService from './app/PairingCodeRequestService.js';
 import Sender from './app/Sender.js';
 import { ValueOf } from './utils/Type.js';
@@ -179,6 +179,10 @@ export default class YouTubeCastReceiver extends EventEmitter {
 
   enableAutoplayOnConnect(value: boolean) {
     this.#app.enableAutoplayOnConnect(value);
+  }
+
+  setResetPlayerOnDisconnectPolicy(value: ValueOf<typeof RESET_PLAYER_ON_DISCONNECT_POLICIES>) {
+    this.#app.setResetPlayerOnDisconnectPolicy(value);
   }
 
   setLogLevel(value: LogLevel) {
