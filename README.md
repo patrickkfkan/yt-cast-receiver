@@ -1063,6 +1063,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.2.1
+- [Fixed] API doc
+- [Fixed] Default export in `Constants`
+
 1.2.0
 - [Added] `implicit` flag in `senderDisconnect` event
 - [Added] `resetPlayerOnDisconnectPolicy` receiver option
