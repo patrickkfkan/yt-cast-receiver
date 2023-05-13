@@ -1063,6 +1063,9 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.2.2
+- [Fixed] Export of `setResetPlayerOnDisconnectPolicy()` in `YouTubeCastReceiver`
+
 1.2.1
 - [Fixed] API doc
 - [Fixed] Default export in `Constants`
