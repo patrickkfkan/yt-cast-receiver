@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/utils/DataStore.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/utils/DataStore.ts#L14)
+[src/lib/utils/DataStore.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/utils/DataStore.ts#L14)
 
 ## Methods
 
@@ -68,7 +68,7 @@
 
 #### Defined in
 
-[src/lib/utils/DataStore.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/utils/DataStore.ts#L12)
+[src/lib/utils/DataStore.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/utils/DataStore.ts#L12)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/utils/DataStore.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/utils/DataStore.ts#L11)
+[src/lib/utils/DataStore.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/utils/DataStore.ts#L11)
 
 ___
 
@@ -115,4 +115,4 @@ ___
 
 #### Defined in
 
-[src/lib/utils/DataStore.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/utils/DataStore.ts#L7)
+[src/lib/utils/DataStore.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/utils/DataStore.ts#L7)

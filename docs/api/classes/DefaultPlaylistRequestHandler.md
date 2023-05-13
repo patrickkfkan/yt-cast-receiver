@@ -42,7 +42,7 @@ from YouTube.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/DefaultPlaylistRequestHandler.ts#L33)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/DefaultPlaylistRequestHandler.ts#L33)
 
 ## Accessors
 
@@ -60,7 +60,7 @@ PlaylistRequestHandler.logger
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/PlaylistRequestHandler.ts#L66)
+[src/lib/app/PlaylistRequestHandler.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/PlaylistRequestHandler.ts#L66)
 
 ## Methods
 
@@ -99,7 +99,7 @@ must satisfy the [Video](../interfaces/Video.md) interface constraint.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/DefaultPlaylistRequestHandler.ts#L53)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/DefaultPlaylistRequestHandler.ts#L53)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/PlaylistRequestHandler.ts#L22)
+[src/lib/app/PlaylistRequestHandler.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/PlaylistRequestHandler.ts#L22)
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:208](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/DefaultPlaylistRequestHandler.ts#L208)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:208](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/DefaultPlaylistRequestHandler.ts#L208)
 
 ___
 
@@ -167,7 +167,7 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:278](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/DefaultPlaylistRequestHandler.ts#L278)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:278](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/DefaultPlaylistRequestHandler.ts#L278)
 
 ___
 
@@ -191,4 +191,4 @@ ___
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/2051e1f/src/lib/app/PlaylistRequestHandler.ts#L18)
+[src/lib/app/PlaylistRequestHandler.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/PlaylistRequestHandler.ts#L18)
