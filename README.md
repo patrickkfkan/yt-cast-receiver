@@ -1063,6 +1063,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.2.0
+- [Added] `implicit` flag in `senderDisconnect` event
+- [Added] `resetPlayerOnDisconnectPolicy` receiver option
+
 1.1.0
 - [Changed] On queue update, dismiss autoplay video first when it is expected to change.
 - [Fixed] Recurring autoplay videos
