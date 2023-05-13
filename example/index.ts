@@ -1,4 +1,4 @@
-import YouTubeCastReceiver, { Player, Logger, PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, LogLevel, STATUSES } from '../dist/mjs/index.js';
+import YouTubeCastReceiver, { Player, Logger, PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, LogLevel, STATUSES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../dist/mjs/index.js';
 import { PlaylistEvent } from '../dist/mjs/lib/app/Playlist.js';
 import FakePlayer, { FakeState } from './FakePlayer.js';
 import FakePlayerDemoLogger from './FakePlayerDemoLogger.js';
@@ -32,6 +32,7 @@ class FakePlayerDemo {
     // Create `YouTubeCastReceiver` instance, specifying our own player implementation.
     const receiver = this.#receiver = new YouTubeCastReceiver(player, {
       dial: { port: 8099 }, // DIAL server port
+      app: { resetPlayerOnDisconnectPolicy: RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_EXPLICITLY_DISCONNECTED },
       logger: screenLogger || undefined, // Our own logger implementation (if UI enabled)
       logLevel: 'debug' // Ouput debug messages
     });

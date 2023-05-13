@@ -9,7 +9,7 @@ import PairingCodeRequestService from './PairingCodeRequestService.js';
 import Sender from './Sender.js';
 import { AppError, SenderConnectionError, IncompleteAPIDataError } from '../utils/Errors.js';
 import Logger from '../utils/Logger.js';
-import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS, MUTE_POLICIES } from '../Constants.js';
+import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS, MUTE_POLICIES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../Constants.js';
 import { ValueOf } from '../utils/Type.js';
 import PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
@@ -39,6 +39,10 @@ export interface AppOptions {
    * @default MUTE_POLICIES.AUTO
    */
   mutePolicy?: ValueOf<typeof MUTE_POLICIES>;
+  /**
+   * @default RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED
+   */
+  resetPlayerOnDisconnectPolicy?: ValueOf<typeof RESET_PLAYER_ON_DISCONNECT_POLICIES>;
   /**
    * @default `DefaultPlaylistRequestHandler` instance
    */
@@ -71,6 +75,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   #player: Player;
   #autoplayModeOnConnect: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED;
   #mutePolicy: AppOptions['mutePolicy'];
+  #resetPlayerOnDisconnectPolicy: AppOptions['resetPlayerOnDisconnectPolicy'];
+  #implicitlyDisconnectedSenders: Sender[];
   #autoplayModeBeforeUnsupportedOverride: typeof AUTOPLAY_MODES.ENABLED | typeof AUTOPLAY_MODES.DISABLED | null;
   #playerStateListener: any;
 
@@ -82,6 +88,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.allowStop = false;
 
     this.#connectedSenders = [];
+    this.#implicitlyDisconnectedSenders = [];
     this.#dataStore = options.dataStore || null;
     this.#logger = options.logger;
 
@@ -109,6 +116,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.enableAutoplayOnConnect(options.enableAutoplayOnConnect !== undefined ? options.enableAutoplayOnConnect : true);
     this.#mutePolicy = options.mutePolicy !== undefined ? options.mutePolicy : MUTE_POLICIES.AUTO;
     this.#autoplayModeBeforeUnsupportedOverride = null;
+
+    this.setResetPlayerOnDisconnectPolicy(options.resetPlayerOnDisconnectPolicy);
   }
 
   async start(): Promise<void> {
@@ -206,6 +215,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       this.#logger.debug('[yt-cast-receiver] Switching over to target session, while disconnecting senders (if any) from old session.');
       await this.#player.reset();
       this.#connectedSenders = [];
+      this.#implicitlyDisconnectedSenders = [];
       const oldSession = this.#activeSession;
       this.#connectedSenders.forEach((c) => {
         this.emit('senderDisconnect', c, false);
@@ -299,6 +309,10 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
 
   enableAutoplayOnConnect(value = false) {
     this.#autoplayModeOnConnect = value ? AUTOPLAY_MODES.ENABLED : AUTOPLAY_MODES.DISABLED;
+  }
+
+  setResetPlayerOnDisconnectPolicy(value: AppOptions['resetPlayerOnDisconnectPolicy']) {
+    this.#resetPlayerOnDisconnectPolicy = value !== undefined ? value : RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED;
   }
 
   async #handleIncomingMessage(message: Message | Message[], session: Session): Promise<void> {
@@ -519,6 +533,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender connected: ${sender.name} (user: ${sender.user?.name})`);
       this.#logger.debug(`[yt-cast-receiver] (${client.name}) Connected sender info:`, sender);
 
+      this.#implicitlyDisconnectedSenders = this.#implicitlyDisconnectedSenders.filter((s) => s.id !== sender.id);
+
       this.#connectedSenders.push(sender);
       await this.#setAutoplayModeBySenderCapabilities(AID);
       await this.#enforceMutePolicy(AID);
@@ -540,7 +556,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     return sendMessages;
   }
 
-  async #handleSenderDisconnected(sender: Sender, session: Session, isImplicitDisconnect: boolean, AID: number | null): Promise<Message[]> {
+  async #handleSenderDisconnected(sender: Sender, session: Session, implicit: boolean, AID: number | null): Promise<Message[]> {
     const isSessionActive = session === this.#activeSession;
     if (!isSessionActive) return [];
 
@@ -553,8 +569,32 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
     this.#connectedSenders.splice(senderIndex, 1);
 
+    this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender disconnected${implicit ? ' (implicit)' : ''}: ${sender.name}`);
+    this.#logger.debug(`[yt-cast-receiver] (${client.name}) Disconnected sender info:`, sender);
+
+    if (implicit && !this.#implicitlyDisconnectedSenders.some((s) => s.id === sender.id)) {
+      this.#implicitlyDisconnectedSenders.push(sender);
+    }
+
     if (this.#connectedSenders.length === 0) {
-      await this.#player.reset();
+      this.#logger.debug(`[yt-cast-receiver] No remaining senders connected. Reset player on disconnect policy is '${this.#resetPlayerOnDisconnectPolicy}'.`);
+      let resetPlayer = false;
+      if (this.#resetPlayerOnDisconnectPolicy === RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED) {
+        resetPlayer = true;
+      }
+      else if (this.#resetPlayerOnDisconnectPolicy === RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_EXPLICITLY_DISCONNECTED) {
+        if (this.#implicitlyDisconnectedSenders.length > 0) {
+          this.#logger.debug(`[yt-cast-receiver] Not resetting player because there is one or more implicitly disconnected sender (count: ${this.#implicitlyDisconnectedSenders.length}).`);
+        }
+        else {
+          this.#logger.debug('[yt-cast-receiver] No implicitly disconnected senders.');
+          resetPlayer = true;
+        }
+      }
+      if (resetPlayer) {
+        this.#logger.debug('[yt-cast-receiver] Resetting player...');
+        await this.#player.reset();
+      }
     }
     else if (this.#player.autoplayMode === AUTOPLAY_MODES.UNSUPPORTED) {
       await this.#setAutoplayModeBySenderCapabilities(AID);
@@ -564,9 +604,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
       await this.#enforceMutePolicy(AID);
     }
 
-    this.#logger.info(`[yt-cast-receiver] (${client.name}) Sender disconnected: ${sender.name}`);
-    this.#logger.debug(`[yt-cast-receiver] (${client.name}) Disconnected sender info:`, sender);
-    this.emit('senderDisconnect', sender, isImplicitDisconnect);
+    this.emit('senderDisconnect', sender, implicit);
 
     return [];
   }
@@ -581,7 +619,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     this.state = STATUSES.STOPPING;
 
     const senders = [ ...this.#connectedSenders ];
-    this.#connectedSenders.splice(0);
+    this.#connectedSenders = [];
+    this.#implicitlyDisconnectedSenders = [];
 
     this.#player.removeListener('state', this.#playerStateListener);
     await this.#player.reset();

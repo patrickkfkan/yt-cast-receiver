@@ -182,6 +182,7 @@ You can configure the `YouTubeCastReceiver` instance by passing options to its c
   - `playlistRequestHandler`: `PlaylistRequestHandler` implementation (default: `DefaultPlaylistRequestHandler` instance) - see [Player Queue](#player-queue).
   - `enableAutoplayOnConnect`: (boolean) whether to enable autoplay on sender app when it connects (default: `true`).
   - `mutePolicy`: (string) one of [Constants.MUTE_POLICIES](#constants) (default: AUTO). See [Mute Policy](#mute-policy).
+  - `resetPlayerOnDisconnectPolicy`: (string) one of [Constants.RESET_PLAYER_ON_DISCONNECT_POLICIES](#constants) (default: ALL_DISCONNECTED). See [Reset Player On Disconnect Policy](#reset-player-on-disconnect-policy).
   - `screenApp`: (string) defaults to 'ytcr'.
 - `dial`: (object) DIAL server options
   - `bindToAddresses`: Array<`string`> (default: `undefined` - bind to all network addresses).
@@ -210,7 +211,7 @@ receiver.on('senderConnect', (sender) => {
 });
 
 // When a sender disconnects
-receiver.on('senderDisconnect', (sender) => {
+receiver.on('senderDisconnect', (sender, implicit) => {
   console.log(`Disconnected from ${sender.name}.`);
 
   // `yt-cast-receiver` supports multiple sender connections. Call
@@ -226,6 +227,8 @@ catch (error) {
   ...
 }
 ```
+
+> In `senderDisconnect` event, the `implicit` flag indicates whether the sender was disconnected due to external event, as opposed to explicit command by the user or receiver. For example, if the user taps the 'Stop Casting' button in the sender app, the `implicit` flag will be `false`. On the other hand, if the sender device disconnects because it has gone outside the range of the receiver's network, then `implicit` will be `true`.
 
 If all goes well, you should see the receiver device listed among the discovered devices when you hit the Cast button in a sender app (the YouTube mobile app, for instance). Selecting it will initiate a Cast session with the receiver. Once connected, you can begin casting videos from the sender app.
 
@@ -869,6 +872,35 @@ const receiver = this.#receiver = new YouTubeCastReceiver(player, {
 
 On the other hand, if you want to set volume level to 0, regardless of whether sender apps support mute, you can set `mutePolicy` to `MUTE_POLICIES.ZERO_VOLUME_LEVEL`.
 
+## Reset Player On Disconnect Policy
+
+By default, the receiver resets the player when all senders disconnect. This means any current playback is stopped and the player queue is cleared.
+
+You can override this behavior such that the player is reset only when all senders are *explicitly* disconnected. A sender is explicitly disconnected when:
+
+- The user ends the Cast session by the tapping the 'Stop Casting' button in the sender app; or
+- The receiver has to end the Cast session due to incoming connection from a different client type (e.g. switching from YouTube to YouTube Music or vice versa) or occurrence of an irrecoverable error.
+
+An example of where a sender is *implicitly* disconnected is where the sender device has gone outside the reach of the receiver's network. In such cases, the sender app should automatically reconnect when it rejoins the network.
+
+To set the Reset Player On Disconnect Policy:
+
+```
+// Default policy is `Constants.RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED`
+const policy = Constants.RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_EXPLICITLY_DISCONNECTED;
+
+// At construction time
+const receiver = new YouTubeCastReceiver(player, {
+  app: {
+    resetPlayerOnDisconnectPolicy: policy
+    ...
+  }
+});
+
+// At runtime
+receiver.setResetPlayerOnDisconnectPolicy(policy);
+```
+
 ## Constants
 
 Constants are defined for convenience. For example:
@@ -999,6 +1031,18 @@ Mute policy stipulates whether volume level should be set to 0 when <code>player
 - `ZERO_VOLUME_LEVEL`: set volume level to 0.
 - `PRESERVE_VOLUME_LEVEL`: do not override volume level.
 - `AUTO`: preserve volume level or set it to 0, depending on whether connected senders support mute.
+</details>
+
+<details>
+<summary>Constants.RESET_PLAYER_ON_DISCONNECT_POLICIES</summary>
+<br />
+<p>
+Whether to reset the player (stop current playback and clear player queue) when all senders have disconnected.
+</p>
+
+**Properties**
+- `ALL_EXPLICITLY_DISCONNECTED`: Reset player only when all senders are *explicitly* disconnected.
+- `ALL_DISCONNECTED`: Reset player when all senders have disconnected, whether implicitly or explicitly.
 </details>
 
 # API

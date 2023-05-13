@@ -68,6 +68,11 @@ export const MUTE_POLICIES = {
   AUTO: 'auto'
 } as const;
 
+export const RESET_PLAYER_ON_DISCONNECT_POLICIES = {
+  ALL_EXPLICITLY_DISCONNECTED: 'allExplicitlyDisconnected',
+  ALL_DISCONNECTED: 'allDisconnected'
+} as const;
+
 /**
  * @hidden
  */
