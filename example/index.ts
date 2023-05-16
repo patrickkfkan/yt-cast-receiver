@@ -264,7 +264,7 @@ class FakePlayerDemo {
 
   #handleQueueEvent(event: PlaylistEvent) {
     let msg = '[FakePlayerDemo] ' as string | null;
-    const videoCount = event.videoIds ? event.videoIds.length : event.videoId ? '1' : 0;
+    const videoCount = event.videoIds ? event.videoIds.length : event.videoId ? 1 : 0;
     const byUser = event.user ? ` by ${event.user.name}` : null;
     switch (event.type) {
       case 'playlistAdded':
