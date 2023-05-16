@@ -21,7 +21,9 @@ export const PLAYLIST_EVENT_TYPES = {
 export interface PlaylistState {
   id: string | null;
   videoIds: string[];
+  previous: Video | null;
   current: Video | null;
+  next: Video | null;
   autoplay: Video | null;
 }
 
@@ -299,7 +301,9 @@ export default class Playlist extends EventEmitter {
     return {
       id: this.id,
       videoIds: this.videoIds,
+      previous: this.#previous,
       current: this.current,
+      next: this.hasNext ? this.#next : null,
       autoplay: this.autoplay
     };
   }
