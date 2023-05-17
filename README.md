@@ -644,6 +644,18 @@ Emitted when the queue has been updated and the update is not associated with an
 - `videoIds`: (Array<`string`>) the Ids of the videos in the updated queue.
 </details>
 
+<details>
+<summary><code>on('autoplayModeChange', (previous, current) => { ... });</code></summary>
+<br />
+<p>
+Emitted when the autoplay mode has changed.
+</p>
+
+- `previous`: (string) Previous autoplay mode. One of [Constants.AUTOPLAY_MODES](#constants).
+- `current`: (string) Current autoplay mode. One of [Constants.AUTOPLAY_MODES](#constants).
+
+</details>
+
 ## Autoplay on Connect
 
 By default, autoplay is enabled automatically on the sender app when a Cast session begins. You can disable this behaviour:

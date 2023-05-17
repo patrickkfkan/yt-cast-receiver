@@ -82,6 +82,7 @@ export default class Playlist extends EventEmitter {
     this.#autoplayMode = value;
     if (oldMode !== value) {
       await this.#refreshPreviousNext();
+      this.emit('autoplayModeChange', oldMode, value);
     }
   }
 
@@ -371,6 +372,7 @@ export default class Playlist extends EventEmitter {
     return this.#requestHandler;
   }
 
+  on(event: 'autoplayModeChange', listener: (previous: AutoplayMode, current: AutoplayMode) => void): this;
   on(event: 'playlistUpdated', listener: (event: Omit<PlaylistEvent, 'videoId' | 'user'>) => void): this;
   on(event: 'playlistCleared', listener: (event: Omit<PlaylistEvent, 'videoId' | 'videoIds'>) => void): this;
   on(event: 'videoSelected' | 'videoAdded' | 'videoRemoved', listener: (event: Omit<PlaylistEvent, 'videoIds'>) => void): this;
