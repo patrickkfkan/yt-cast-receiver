@@ -1085,6 +1085,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.2.3
+- [Added] Include `previous` and `next` videos in `PlaylistState`
+- [Added] `playlistUpdated` and `autoplayModeChange` queue events
+
 1.2.2
 - [Fixed] Export of `setResetPlayerOnDisconnectPolicy()` in `YouTubeCastReceiver`
 
