@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:8](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/PlaylistRequestHandler.ts#L8)
+[src/lib/app/PlaylistRequestHandler.ts:8](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PlaylistRequestHandler.ts#L8)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/PlaylistRequestHandler.ts#L7)
+[src/lib/app/PlaylistRequestHandler.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PlaylistRequestHandler.ts#L7)

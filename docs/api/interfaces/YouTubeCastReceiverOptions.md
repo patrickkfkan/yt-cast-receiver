@@ -25,7 +25,7 @@ YouTube app options.
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/YouTubeCastReceiver.ts#L23)
+[src/lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L23)
 
 ___
 
@@ -41,7 +41,7 @@ The `DataStore` instance used for persisting data such as session info.
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/YouTubeCastReceiver.ts#L46)
+[src/lib/YouTubeCastReceiver.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L46)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/YouTubeCastReceiver.ts#L25)
+[src/lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L25)
 
 ___
 
@@ -72,7 +72,7 @@ DIAL server options.
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/YouTubeCastReceiver.ts#L20)
+[src/lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L20)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/YouTubeCastReceiver.ts#L48)
+[src/lib/YouTubeCastReceiver.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L48)
 
 ___
 
@@ -92,4 +92,4 @@ ___
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/YouTubeCastReceiver.ts#L49)
+[src/lib/YouTubeCastReceiver.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L49)

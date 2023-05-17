@@ -9,6 +9,8 @@
 - [autoplay](PlaylistState.md#autoplay)
 - [current](PlaylistState.md#current)
 - [id](PlaylistState.md#id)
+- [next](PlaylistState.md#next)
+- [previous](PlaylistState.md#previous)
 - [videoIds](PlaylistState.md#videoids)
 
 ## Properties
@@ -19,7 +21,7 @@
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L25)
+[src/lib/app/Playlist.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L28)
 
 ___
 
@@ -29,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L24)
+[src/lib/app/Playlist.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L26)
 
 ___
 
@@ -39,7 +41,27 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L22)
+[src/lib/app/Playlist.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L23)
+
+___
+
+### next
+
+• **next**: ``null`` \| [`Video`](Video.md)
+
+#### Defined in
+
+[src/lib/app/Playlist.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L27)
+
+___
+
+### previous
+
+• **previous**: ``null`` \| [`Video`](Video.md)
+
+#### Defined in
+
+[src/lib/app/Playlist.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L25)
 
 ___
 
@@ -49,4 +71,4 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L23)
+[src/lib/app/Playlist.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L24)

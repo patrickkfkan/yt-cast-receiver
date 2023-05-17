@@ -42,7 +42,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:318](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L318)
+[src/lib/app/Playlist.ts:333](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L333)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:329](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L329)
+[src/lib/app/Playlist.ts:344](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L344)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:325](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L325)
+[src/lib/app/Playlist.ts:340](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L340)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:342](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L342)
+[src/lib/app/Playlist.ts:357](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L357)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:338](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L338)
+[src/lib/app/Playlist.ts:353](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L353)
 
 ___
 
@@ -114,7 +114,7 @@ Id of the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:260](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L260)
+[src/lib/app/Playlist.ts:273](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L273)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:333](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L333)
+[src/lib/app/Playlist.ts:348](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L348)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:349](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L349)
+[src/lib/app/Playlist.ts:364](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L364)
 
 ___
 
@@ -158,7 +158,7 @@ The number of videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:274](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L274)
+[src/lib/app/Playlist.ts:287](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L287)
 
 ___
 
@@ -174,7 +174,7 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:267](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L267)
+[src/lib/app/Playlist.ts:280](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L280)
 
 ## Methods
 
@@ -188,11 +188,53 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:298](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L298)
+[src/lib/app/Playlist.ts:311](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L311)
 
 ___
 
 ### on
+
+▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | ``"autoplayModeChange"`` |
+| `listener` | (`previous`: [`AutoplayMode`](../README.md#autoplaymode), `current`: [`AutoplayMode`](../README.md#autoplaymode)) => `void` |
+
+#### Returns
+
+[`Playlist`](Playlist.md)
+
+#### Overrides
+
+EventEmitter.on
+
+#### Defined in
+
+[src/lib/app/Playlist.ts:375](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L375)
+
+▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | ``"playlistUpdated"`` |
+| `listener` | (`event`: `Omit`<[`PlaylistEvent`](../interfaces/PlaylistEvent.md), ``"user"`` \| ``"videoId"``\>) => `void` |
+
+#### Returns
+
+[`Playlist`](Playlist.md)
+
+#### Overrides
+
+EventEmitter.on
+
+#### Defined in
+
+[src/lib/app/Playlist.ts:376](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L376)
 
 ▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
 
@@ -213,7 +255,7 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:360](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L360)
+[src/lib/app/Playlist.ts:377](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L377)
 
 ▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
 
@@ -234,7 +276,7 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:361](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L361)
+[src/lib/app/Playlist.ts:378](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L378)
 
 ▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
 
@@ -255,4 +297,4 @@ EventEmitter.on
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:362](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/Playlist.ts#L362)
+[src/lib/app/Playlist.ts:379](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L379)

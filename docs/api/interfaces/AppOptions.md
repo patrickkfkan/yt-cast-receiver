@@ -29,7 +29,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L29)
+[src/lib/app/YouTubeApp.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L29)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:51](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L51)
+[src/lib/app/YouTubeApp.ts:51](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L51)
 
 ___
 
@@ -53,7 +53,7 @@ true
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L37)
+[src/lib/app/YouTubeApp.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L37)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L53)
+[src/lib/app/YouTubeApp.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L53)
 
 ___
 
@@ -77,7 +77,7 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L33)
+[src/lib/app/YouTubeApp.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L33)
 
 ___
 
@@ -91,7 +91,7 @@ MUTE_POLICIES.AUTO
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L41)
+[src/lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L41)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L49)
+[src/lib/app/YouTubeApp.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L49)
 
 ___
 
@@ -119,7 +119,7 @@ RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L45)
+[src/lib/app/YouTubeApp.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L45)
 
 ___
 
@@ -133,7 +133,7 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L25)
+[src/lib/app/YouTubeApp.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L25)
 
 ___
 
@@ -143,4 +143,4 @@ ___
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/90cf03d/src/lib/app/YouTubeApp.ts#L21)
+[src/lib/app/YouTubeApp.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L21)
