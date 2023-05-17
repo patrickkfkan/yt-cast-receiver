@@ -15,7 +15,8 @@ export const PLAYLIST_EVENT_TYPES = {
   VIDEO_REMOVED: 'videoRemoved',
   PLAYLIST_SET: 'playlistSet',
   PLAYLIST_ADDED: 'playlistAdded',
-  PLAYLIST_CLEARED: 'playlistCleared'
+  PLAYLIST_CLEARED: 'playlistCleared',
+  PLAYLIST_UPDATED: 'playlistUpdated'
 } as const;
 
 export interface PlaylistState {
@@ -103,7 +104,7 @@ export default class Playlist extends EventEmitter {
       this.#next = null;
       this.#previous = null;
       this.#videoIds = [];
-
+      this.emit('playlistCleared', { type: 'playlistCleared' });
       return;
     }
 
@@ -154,6 +155,8 @@ export default class Playlist extends EventEmitter {
     }
 
     await this.#refreshPreviousNext();
+
+    let event: PlaylistEvent | null = null;
     if (data.eventDetails) {
       try {
         const eventDetails = JSON.parse(data.eventDetails);
@@ -183,7 +186,7 @@ export default class Playlist extends EventEmitter {
             emitEventType = null;
         }
         if (emitEventType) {
-          const event: PlaylistEvent = {
+          event = {
             type: emitEventType
           };
           if (eventDetails.user) {
@@ -198,16 +201,23 @@ export default class Playlist extends EventEmitter {
           if (eventDetails.videoIds) {
             event.videoIds = eventDetails.videoIds;
           }
-
-          this.emit(emitEventType, event);
         }
       }
       catch (error) {
         this.#logger.error('[yt-cast-receiver] Failed to parse playlist eventDetails:', data.eventDetails, error);
+        event = null;
       }
     }
 
+    if (!event) {
+      const emitEventType = message.name === 'setPlaylist' ? 'playlistSet' : 'playlistUpdated';
+      event = {
+        type: emitEventType,
+        videoIds: this.#videoIds
+      };
+    }
 
+    this.emit(event.type, event);
   }
 
   async #abortRefreshPreviousNext() {
@@ -361,6 +371,7 @@ export default class Playlist extends EventEmitter {
     return this.#requestHandler;
   }
 
+  on(event: 'playlistUpdated', listener: (event: Omit<PlaylistEvent, 'videoId' | 'user'>) => void): this;
   on(event: 'playlistCleared', listener: (event: Omit<PlaylistEvent, 'videoId' | 'videoIds'>) => void): this;
   on(event: 'videoSelected' | 'videoAdded' | 'videoRemoved', listener: (event: Omit<PlaylistEvent, 'videoIds'>) => void): this;
   on(event: 'playlistAdded' | 'playlistSet', listener: (event: Omit<PlaylistEvent, 'videoId'>) => void): this;

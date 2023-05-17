@@ -632,7 +632,17 @@ Emitted when the queue has been cleared.
   - `thumbnail`: (string) user avatar URI
 </details>
 
-Note that there is no guarantee that a mutation of the queue will result in an event being emitted. The events are intended to allow your application to show simple notifications such as 'Bob has added 100 videos to the queue'.
+<details>
+<summary><code>on('playlistUpdated', (event) => { ... });</code></summary>
+<br />
+<p>
+Emitted when the queue has been updated and the update is not associated with any of the aforementioned events.
+</p>
+
+`event`: (object)
+- `type`: (string) 'playlistUpdated'
+- `videoIds`: (Array<`string`>) the Ids of the videos in the updated queue.
+</details>
 
 ## Autoplay on Connect
 
