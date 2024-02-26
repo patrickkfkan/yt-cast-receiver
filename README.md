@@ -1085,6 +1085,9 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.2.4
+- [Fixed] YouTube.js lib errors in example
+
 1.2.3
 - [Added] Include `previous` and `next` videos in `PlaylistState`
 - [Added] `playlistUpdated` and `autoplayModeChange` queue events
