@@ -73,7 +73,7 @@
     "query-string": "^7.0.0",
     "timer-node": "^5.0.7",
     "uuid": "^9.0.0",
-    "youtubei.js": "^4.3.0"
+    "youtubei.js": "^9.1.0"
   },
   "keywords": [
     "youtube",
