@@ -1,4 +1,3 @@
-import { AbortSignal } from 'abort-controller';
 import Logger from '../utils/Logger.js';
 import Playlist from './Playlist.js';
 import Video from './Video.js';

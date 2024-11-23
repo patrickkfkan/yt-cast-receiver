@@ -1,5 +1,4 @@
 import EventEmitter from 'events';
-import fetch from 'node-fetch';
 import BindParams from './BindParams.js';
 import { Screen } from './Session.js';
 import { ConnectionError, DataError } from '../utils/Errors.js';

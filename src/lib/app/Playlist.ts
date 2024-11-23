@@ -1,4 +1,3 @@
-import AbortController from 'abort-controller';
 import EventEmitter from 'events';
 import { AUTOPLAY_MODES } from '../Constants.js';
 import { AutoplayMode } from '../Player.js';

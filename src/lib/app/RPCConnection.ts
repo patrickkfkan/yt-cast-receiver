@@ -1,7 +1,5 @@
 import EventEmitter from 'events';
-import fetch from 'node-fetch';
 import LineByLineReader from 'line-by-line';
-import AbortController from 'abort-controller';
 import { Readable } from 'stream';
 import Message from './Message.js';
 import BindParams from './BindParams.js';
@@ -75,11 +73,11 @@ export default class RPCConnection extends EventEmitter {
       this.#abortController = null;
     }
 
-    if (response.ok) {
+    if (response.ok && response.body) {
       this.#logger.debug('[yt-cast-receiver] RPC connection established.');
       this.#status = 'connected';
 
-      const readable = new Readable().wrap(response.body);
+      const readable = Readable.fromWeb(response.body as any);
       this.#reader = new LineByLineReader(readable, {
         encoding: 'utf8',
         skipEmptyLines: true
@@ -102,7 +100,7 @@ export default class RPCConnection extends EventEmitter {
       });
 
       this.#reader.on('end', this.#handleDisconnect.bind(this));
-      response.body.on('end', this.#handleDisconnect.bind(this));
+      readable.on('end', this.#handleDisconnect.bind(this));
 
       return;
     }

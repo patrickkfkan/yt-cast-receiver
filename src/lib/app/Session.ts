@@ -1,5 +1,4 @@
 import EventEmitter from 'events';
-import fetch from 'node-fetch';
 import { v4 as uuidv4 } from 'uuid';
 import AsyncTaskQueue, { Task } from '../utils/AsyncTaskQueue.js';
 import BindParams from './BindParams.js';
