@@ -1,9 +1,9 @@
 import Innertube, * as InnertubeLib from 'youtubei.js';
 import { CLIENTS } from '../Constants.js';
-import Client from './Client.js';
-import Playlist from './Playlist.js';
-import PlaylistRequestHandler, { PlaylistPreviousNextVideos } from './PlaylistRequestHandler.js';
-import Video from './Video.js';
+import type Client from './Client.js';
+import type Playlist from './Playlist.js';
+import PlaylistRequestHandler, { type PlaylistPreviousNextVideos } from './PlaylistRequestHandler.js';
+import type Video from './Video.js';
 
 type InnertubeEndpoint = InnertubeLib.YTNodes.NavigationEndpoint;
 
@@ -263,7 +263,7 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
           return;
         }
 
-        return this.markWatched(video, 2);
+        return await this.markWatched(video, 2);
       }
 
       throw Error('No playback tracking URL found');

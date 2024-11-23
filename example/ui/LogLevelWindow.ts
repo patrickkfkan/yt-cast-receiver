@@ -1,6 +1,6 @@
 import blessed from 'blessed';
 import { EOL } from 'os';
-import { LogLevel, LOG_LEVELS } from '../../dist/mjs/index.js';
+import { type LogLevel, LOG_LEVELS } from '../../dist/mjs/index.js';
 
 import UIComponent from './UIComponent.js';
 

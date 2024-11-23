@@ -1,11 +1,11 @@
 import express from 'express';
 import http from 'http';
 import dial from '@patrickkfkan/peer-dial';
-import YouTubeApp from '../app/YouTubeApp.js';
-import Logger from '../utils/Logger.js';
+import type YouTubeApp from '../app/YouTubeApp.js';
+import type Logger from '../utils/Logger.js';
 import { DialServerError } from '../utils/Errors.js';
 import { CONF_DEFAULTS, STATUSES } from '../Constants.js';
-import { ValueOf } from '../utils/Type.js';
+import { type ValueOf } from '../utils/Type.js';
 
 export interface DialOptions {
   port?: number;
@@ -48,7 +48,7 @@ function createDelegate(apps: Record<string, dial.App>, logger: Logger): dial.De
         (apps[appName].launch(launchData) as unknown as Promise<string>).then((pid: string) => {
           callback(pid);
         })
-          .catch((error) => {
+          .catch((error: unknown) => {
             logger.error('[yt-cast-receiver] DIAL server failed to launch app:', error);
             callback('');
           });
@@ -62,7 +62,7 @@ function createDelegate(apps: Record<string, dial.App>, logger: Logger): dial.De
      * This should never get called because `YouTubeApp.allowStop` is `false`. We stop YouTubeApp
      * manually in `YouTubeCastReceiver.stop()`.
      */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     stopApp: (appName: string, pid: string, callback: (data: boolean) => void): void => {
       // Do nothing
     }

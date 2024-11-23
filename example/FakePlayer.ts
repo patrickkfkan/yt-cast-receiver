@@ -1,6 +1,6 @@
 import { Timer } from 'timer-node';
-import { Player, PlayerState, PLAYER_STATUSES, Volume } from '../dist/mjs/index.js';
-import Video from '../dist/mjs/lib/app/Video.js';
+import { Player, type PlayerState, PLAYER_STATUSES, type Volume } from '../dist/mjs/index.js';
+import type Video from '../dist/mjs/lib/app/Video.js';
 import VideoLoader from './VideoLoader.js';
 
 export interface FakeState {
@@ -71,24 +71,24 @@ export default class FakePlayer extends Player {
     return this.#fakeSeek(position);
   }
 
-  protected async doSetVolume(volume: Volume): Promise<boolean> {
+  protected doSetVolume(volume: Volume): Promise<boolean> {
     this.volume = volume;
-    return true;
+    return Promise.resolve(true);
   }
 
-  protected async doGetVolume(): Promise<Volume> {
-    return this.volume;
+  protected doGetVolume(): Promise<Volume> {
+    return Promise.resolve(this.volume);
   }
 
-  protected async doGetPosition(): Promise<number> {
-    return this.seekOffset + Math.floor((this.timer.ms() / 1000));
+  protected doGetPosition(): Promise<number> {
+    return Promise.resolve(this.seekOffset + Math.floor((this.timer.ms() / 1000)));
   }
 
-  protected async doGetDuration(): Promise<number> {
-    return this.duration;
+  protected doGetDuration(): Promise<number> {
+    return Promise.resolve(this.duration);
   }
 
-  async #fakeResume() {
+  #fakeResume() {
     if (this.timer.isPaused()) {
       this.timer.resume();
     }
@@ -96,7 +96,7 @@ export default class FakePlayer extends Player {
       this.timer.start();
     }
     this.#startTimeout(this.duration - this.seekOffset);
-    return true;
+    return Promise.resolve(true);
   }
 
   async #fakePlay(video: Video, position: number) {
@@ -117,27 +117,27 @@ export default class FakePlayer extends Player {
     return false;
   }
 
-  async #fakePause() {
+  #fakePause() {
     this.timer.pause();
     this.#resetTimeout();
-    return true;
+    return Promise.resolve(true);
   }
 
-  async #fakeStop() {
+  #fakeStop() {
     this.seekOffset = 0;
     this.timer.stop().clear();
     this.#resetTimeout();
-    return true;
+    return Promise.resolve(true);
   }
 
-  async #fakeSeek(position: number) {
+  #fakeSeek(position: number) {
     this.timer.stop().clear();
     this.seekOffset = position;
     this.#resetTimeout();
     if (this.status === PLAYER_STATUSES.PLAYING) {
-      return this.#fakeResume();
+      return Promise.resolve(this.#fakeResume());
     }
-    return true;
+    return Promise.resolve(true);
   }
 
   #resetTimeout() {
@@ -150,24 +150,27 @@ export default class FakePlayer extends Player {
   #startTimeout(duration: number) {
     this.#resetTimeout();
     this.timeout = setTimeout(() => {
-      this.pause().then(() => {
+      void (async () => {
+        await this.pause();
         this.seekOffset = 0;
         this.timer.stop().clear();
         this.logger.info('[FakePlayer] Playback ended. Moving to next in list...');
-        this.next();
-      });
+        await this.next();
+      })();
     }, (duration + 1) * 1000);
   }
 
-  async #emitFakeState() {
-    this.emit('fakeState', {
-      status: this.status,
-      videoId: this.currentVideoId,
-      videoTitle: this.currentVideoTitle,
-      duration: await this.getDuration(),
-      position: await this.getPosition(),
-      volume: await this.getVolume()
-    });
+  #emitFakeState() {
+    void (async () => {
+      this.emit('fakeState', {
+        status: this.status,
+        videoId: this.currentVideoId,
+        videoTitle: this.currentVideoTitle,
+        duration: await this.getDuration(),
+        position: await this.getPosition(),
+        volume: await this.getVolume()
+      });
+    })();
   }
 
   on(event: 'fakeState', listener: (data: FakeState) => void): this;

@@ -2,9 +2,9 @@ import EventEmitter from 'events';
 import LineByLineReader from 'line-by-line';
 import { Readable } from 'stream';
 import Message from './Message.js';
-import BindParams from './BindParams.js';
+import type BindParams from './BindParams.js';
 import { AbortError, BadResponseError, ConnectionError } from '../utils/Errors.js';
-import Logger from '../utils/Logger.js';
+import type Logger from '../utils/Logger.js';
 import { URLS } from '../Constants.js';
 
 const MAX_RETRIES = 3;
@@ -62,7 +62,7 @@ export default class RPCConnection extends EventEmitter {
       retry++;
       if (retry <= MAX_RETRIES) {
         this.#logger.error(`[yt-cast-receiver] Retrying ${retry} / ${MAX_RETRIES}`);
-        return this.#doConnect(isReconnect, retry);
+        return await this.#doConnect(isReconnect, retry);
       }
 
       this.#status = 'disconnected';
@@ -83,7 +83,7 @@ export default class RPCConnection extends EventEmitter {
         skipEmptyLines: true
       });
 
-      this.#reader.on('line', async (line) => {
+      this.#reader.on('line', (line) => {
         if (this.#status === 'connected') {
           const messages = Message.parseIncoming(line);
           if (messages.length > 0) {
@@ -109,7 +109,7 @@ export default class RPCConnection extends EventEmitter {
     throw new BadResponseError('RPC connection request returned bad response', url, response);
   }
 
-  async #handleDisconnect() {
+  #handleDisconnect() {
     if (this.#status === 'disconnected') {
       // Already handled
       return;
@@ -126,12 +126,14 @@ export default class RPCConnection extends EventEmitter {
     if (prevStatus === 'connected') {
       // Disconnected by remote end or reader error - reconnect.
       this.#logger.debug('[yt-cast-receiver] RPC connection disconnected. Reconnecting...');
-      try {
-        await this.#doConnect(true);
-      }
-      catch (error) {
-        this.emit('terminate', error);
-      }
+      void (async () => {
+        try {
+          await this.#doConnect(true);
+        }
+        catch (error) {
+          this.emit('terminate', error);
+        }
+      })();
     }
     else {
       this.#logger.debug('[yt-cast-receiver] RPC connection closed.');

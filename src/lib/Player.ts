@@ -1,10 +1,10 @@
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
 import { AUTOPLAY_MODES, PLAYER_STATUSES } from './Constants.js';
-import Playlist, { PlaylistState } from './app/Playlist.js';
-import Logger from './utils/Logger.js';
-import { ValueOf } from './utils/Type.js';
-import Video from './app/Video.js';
+import Playlist, { type PlaylistState } from './app/Playlist.js';
+import type Logger from './utils/Logger.js';
+import { type ValueOf } from './utils/Type.js';
+import type Video from './app/Video.js';
 
 /**
  * One of the values in {@link AUTOPLAY_MODES}.
@@ -329,7 +329,8 @@ export default abstract class Player extends EventEmitter {
     this.#queue.reset();
     await this.stop(AID);
     this.#previousState = null;
-    this.#setStatusAndEmit(PLAYER_STATUSES.IDLE, AID);
+    this.#setStatusAndEmit(PLAYER_STATUSES.IDLE, AID)
+      .catch((error: unknown) => this.logger.error('[yt-cast-receiver] Caught error emitting status after player reset:', error));
   }
 
   /**

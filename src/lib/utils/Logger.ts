@@ -1,5 +1,5 @@
-import { LOG_LEVELS } from '../Constants';
-import { ValueOf } from './Type';
+import { type LOG_LEVELS } from '../Constants';
+import { type ValueOf } from './Type';
 
 /**
  * One of the values in {@link LOG_LEVELS}.

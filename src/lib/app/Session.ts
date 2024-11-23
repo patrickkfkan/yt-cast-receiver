@@ -1,16 +1,16 @@
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
-import AsyncTaskQueue, { Task } from '../utils/AsyncTaskQueue.js';
+import AsyncTaskQueue, { type Task } from '../utils/AsyncTaskQueue.js';
 import BindParams from './BindParams.js';
 import Message from './Message.js';
 import RPCConnection from './RPCConnection.js';
 import PairingCodeRequestService from './PairingCodeRequestService.js';
 import { BadResponseError, ConnectionError, DataError, IncompleteAPIDataError, SessionError } from '../utils/Errors.js';
-import Logger from '../utils/Logger.js';
+import type Logger from '../utils/Logger.js';
 import { CLIENTS, STATUSES, URLS } from '../Constants.js';
-import { ValueOf } from '../utils/Type.js';
-import Client from './Client.js';
-import DataStore from '../utils/DataStore.js';
+import { type ValueOf } from '../utils/Type.js';
+import type Client from './Client.js';
+import type DataStore from '../utils/DataStore.js';
 
 /**
  * @internal
@@ -189,14 +189,16 @@ export default class Session extends EventEmitter {
 
       // Refresh `LoungeToken` upon its expiry
       this.#clearLoungeTokenRefreshTimer();
-      this.#loungeTokenRefreshTimer = setTimeout(async () => {
-        try {
-          await this.#refreshLoungeToken();
-        }
-        catch (error) {
-          // Session must end if `LoungeToken` can't be obtained
-          this.end(error);
-        }
+      this.#loungeTokenRefreshTimer = setTimeout(() => {
+        void (async () => {
+          try {
+            await this.#refreshLoungeToken();
+          }
+          catch (error) {
+            // Session must end if `LoungeToken` can't be obtained
+            this.end(error).catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error ending session:', error));
+          }
+        })();
       }, loungeToken.refreshIntervalInMillis || 1123200000); // Fallback to 13 days
 
       const initSessionMessages = await this.#getInitSessionMessages();
@@ -214,7 +216,7 @@ export default class Session extends EventEmitter {
       }
       catch (error) {
         if (error instanceof IncompleteAPIDataError) {
-          throw new IncompleteAPIDataError(`(${this.#client.name}) Query string test failed`, (error as IncompleteAPIDataError).info?.missing as string[]);
+          throw new IncompleteAPIDataError(`(${this.#client.name}) Query string test failed`, (error).info?.missing as string[]);
         }
         throw error;
       }
@@ -233,7 +235,7 @@ export default class Session extends EventEmitter {
       this.#rpcConnection.on('messages', this.#handleMessage.bind(this));
       this.#rpcConnection.on('terminate', (error) => {
         this.#logger.error(`[yt-cast-receiver] (${this.#client.name}) RPC connection terminated due to error:`, error);
-        this.#refreshLoungeToken();
+        this.#refreshLoungeToken().catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error refreshing lounge token:', error));
       });
 
       try {
@@ -253,11 +255,11 @@ export default class Session extends EventEmitter {
       // Refreshing happens internally, so we need to emit the error instead of
       // Throwing it (i.e. don't pass it to `end()`).
       if (isRefreshing) {
-        this.end(error);
+        this.end(error).catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error ending session:', error));;
       }
       else {
         try {
-          this.end();
+          this.end().catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error ending session:', error));;
         }
         catch (err) {
           // Do nothing - we're quitting anyway.
@@ -270,7 +272,8 @@ export default class Session extends EventEmitter {
       // Session started successfully - store MDX context.
       const mdxContext = this.#mdxContext;
       this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Saving MDX context to data store:`, mdxContext);
-      this.#dataStore.set<MDXContext>(mdxContextStorageKey, mdxContext);
+      this.#dataStore.set<MDXContext>(mdxContextStorageKey, mdxContext)
+        .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error saving MDX context:', error));;
     }
   }
 
@@ -291,7 +294,8 @@ export default class Session extends EventEmitter {
       this.#clearDeferredMessages();
       try {
         await this.sendMessage(new Message.LoungeScreenDisconnected());
-        this.#taskQueue.start(); // In case stopped elsewhere (e.g. `#refreshLoungeToken()`)
+        this.#taskQueue.start()  // In case stopped elsewhere (e.g. `#refreshLoungeToken()`)
+          .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error starting task queue:', error));
       }
       catch (err) {
         // `sendMessage()` should work when status is 'running'.
@@ -521,14 +525,14 @@ export default class Session extends EventEmitter {
           existing.task.cancel();
         }
 
-        const timeout = setTimeout(async () => {
+        const timeout = setTimeout(() => {
           try {
             const task = this.#deferredMessages[key].task;
             delete this.#deferredMessages[key];
             this.#taskQueue.push(task);
           }
-          catch (error) {
-            reject(error);
+          catch (error: unknown) {
+            reject(error instanceof Error ? error : Error(String(error)));
           }
         }, interval);
 
@@ -556,15 +560,15 @@ export default class Session extends EventEmitter {
         this.#logger.error(`[yt-cast-receiver] (${this.client.name}) Error occurred in SendMessageTask:`, smTask.message, error);
         // Retry task after refreshToken, but if it fails again then we would have to end session.
         smTask.onError = (task: Task, error: any) => {
-          this.end(error);
+          this.end(error).catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error ending session:', error));
         };
         this.#taskQueue.unshift(smTask);
         this.#logger.debug(`[yt-cast-receiver] (${this.#client.name}) Retry task after refreshing lounge token...`);
         try {
-          this.#refreshLoungeToken();
+          this.#refreshLoungeToken().catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error refreshing lounge token:', error));
         }
         catch (err) {
-          this.end(err);
+          this.end(err).catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error ending session:', error));
         }
       }
     });
