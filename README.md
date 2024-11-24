@@ -1085,6 +1085,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.3.0
+- Update dependencies and libraries
+- This version now requires Node v18
+
 1.2.4
 - [Fixed] YouTube.js lib errors in example
 
