@@ -1,95 +1,111 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / YouTubeCastReceiverOptions
 
 # Interface: YouTubeCastReceiverOptions
 
 Options consumed by constructor of `YouTubeCastReceiver` class.
 
-## Table of contents
-
-### Properties
-
-- [app](YouTubeCastReceiverOptions.md#app)
-- [dataStore](YouTubeCastReceiverOptions.md#datastore)
-- [device](YouTubeCastReceiverOptions.md#device)
-- [dial](YouTubeCastReceiverOptions.md#dial)
-- [logLevel](YouTubeCastReceiverOptions.md#loglevel)
-- [logger](YouTubeCastReceiverOptions.md#logger)
-
 ## Properties
 
-### app
+### app?
 
-• `Optional` **app**: `Omit`<[`AppOptions`](AppOptions.md), ``"brand"`` \| ``"model"`` \| ``"logger"`` \| ``"screenName"`` \| ``"dataStore"``\>
+> `optional` **app**: `Omit`\<[`AppOptions`](AppOptions.md), `"brand"` \| `"model"` \| `"logger"` \| `"screenName"` \| `"dataStore"`\>
 
 YouTube app options.
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L23)
+[src/lib/YouTubeCastReceiver.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/YouTubeCastReceiver.ts#L24)
 
-___
+***
 
-### dataStore
+### dataStore?
 
-• `Optional` **dataStore**: ``false`` \| [`DataStore`](../classes/DataStore.md)
+> `optional` **dataStore**: `false` \| [`DataStore`](../classes/DataStore.md)
 
 The `DataStore` instance used for persisting data such as session info.
 
-**`Default`**
+#### Default
 
 `DefaultDataStore` instance
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L46)
+[src/lib/YouTubeCastReceiver.ts:47](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/YouTubeCastReceiver.ts#L47)
 
-___
+***
 
-### device
+### device?
 
-• `Optional` **device**: `Object`
+> `optional` **device**: `object`
 
-#### Type declaration
+#### brand?
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `brand?` | `string` | - |
-| `model?` | `string` | - |
-| `name?` | `string` | The name shown in a sender app's Cast menu, when the receiver device is discovered through DIAL. **`Default`** Hostname |
-| `screenName?` | `string` | The name shown in a sender app's Cast menu, when the receiver device was previously connected to through manual pairing. **`Default`** 'YouTube on <device.name>'' |
+> `optional` **brand**: `string`
+
+#### model?
+
+> `optional` **model**: `string`
+
+#### name?
+
+> `optional` **name**: `string`
+
+The name shown in a sender app's Cast menu, when the receiver device is discovered through DIAL.
+
+##### Default
+
+```ts
+Hostname
+```
+
+#### screenName?
+
+> `optional` **screenName**: `string`
+
+The name shown in a sender app's Cast menu, when the receiver device was previously connected to through manual pairing.
+
+##### Default
+
+```ts
+'YouTube on <device.name>''
+```
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L25)
+[src/lib/YouTubeCastReceiver.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/YouTubeCastReceiver.ts#L26)
 
-___
+***
 
-### dial
+### dial?
 
-• `Optional` **dial**: `Omit`<[`DialOptions`](DialOptions.md), ``"friendlyName"`` \| ``"manufacturer"`` \| ``"modelName"`` \| ``"logger"``\>
+> `optional` **dial**: `Omit`\<[`DialOptions`](DialOptions.md), `"friendlyName"` \| `"manufacturer"` \| `"modelName"` \| `"logger"`\>
 
 DIAL server options.
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L20)
+[src/lib/YouTubeCastReceiver.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/YouTubeCastReceiver.ts#L21)
 
-___
+***
 
-### logLevel
+### logger?
 
-• `Optional` **logLevel**: [`LogLevel`](../README.md#loglevel)
-
-#### Defined in
-
-[src/lib/YouTubeCastReceiver.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L48)
-
-___
-
-### logger
-
-• `Optional` **logger**: [`Logger`](Logger.md)
+> `optional` **logger**: [`Logger`](Logger.md)
 
 #### Defined in
 
-[src/lib/YouTubeCastReceiver.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/YouTubeCastReceiver.ts#L49)
+[src/lib/YouTubeCastReceiver.ts:50](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/YouTubeCastReceiver.ts#L50)
+
+***
+
+### logLevel?
+
+> `optional` **logLevel**: [`LogLevel`](../type-aliases/LogLevel.md)
+
+#### Defined in
+
+[src/lib/YouTubeCastReceiver.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/YouTubeCastReceiver.ts#L49)

@@ -1,146 +1,171 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / AppOptions
 
 # Interface: AppOptions
 
-## Table of contents
-
-### Properties
-
-- [brand](AppOptions.md#brand)
-- [dataStore](AppOptions.md#datastore)
-- [enableAutoplayOnConnect](AppOptions.md#enableautoplayonconnect)
-- [logger](AppOptions.md#logger)
-- [model](AppOptions.md#model)
-- [mutePolicy](AppOptions.md#mutepolicy)
-- [playlistRequestHandler](AppOptions.md#playlistrequesthandler)
-- [resetPlayerOnDisconnectPolicy](AppOptions.md#resetplayerondisconnectpolicy)
-- [screenApp](AppOptions.md#screenapp)
-- [screenName](AppOptions.md#screenname)
-
 ## Properties
 
-### brand
+### brand?
 
-• `Optional` **brand**: `string`
+> `optional` **brand**: `string`
 
-**`Default`**
+#### Default
 
+```ts
 CONF_DEFAULTS.BRAND
+```
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L29)
+[src/lib/app/YouTubeApp.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L30)
 
-___
+***
 
 ### dataStore
 
-• **dataStore**: ``null`` \| [`DataStore`](../classes/DataStore.md)
+> **dataStore**: `null` \| [`DataStore`](../classes/DataStore.md)
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:51](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L51)
+[src/lib/app/YouTubeApp.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L52)
 
-___
+***
 
-### enableAutoplayOnConnect
+### enableAutoplayOnConnect?
 
-• `Optional` **enableAutoplayOnConnect**: `boolean`
+> `optional` **enableAutoplayOnConnect**: `boolean`
 
-**`Default`**
+#### Default
 
+```ts
 true
+```
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L37)
+[src/lib/app/YouTubeApp.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L38)
 
-___
+***
 
 ### logger
 
-• **logger**: [`Logger`](Logger.md)
+> **logger**: [`Logger`](Logger.md)
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L53)
+[src/lib/app/YouTubeApp.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L54)
 
-___
+***
 
-### model
+### model?
 
-• `Optional` **model**: `string`
+> `optional` **model**: `string`
 
-**`Default`**
+#### Default
 
+```ts
 CONF_DEFAULTS.MODEL
+```
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L33)
+[src/lib/app/YouTubeApp.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L34)
 
-___
+***
 
-### mutePolicy
+### mutePolicy?
 
-• `Optional` **mutePolicy**: `ValueOf`<{ `AUTO`: ``"auto"`` = 'auto'; `PRESERVE_VOLUME_LEVEL`: ``"preserveLevel"`` = 'preserveLevel'; `ZERO_VOLUME_LEVEL`: ``"zeroLevel"`` = 'zeroLevel' }\>
+> `optional` **mutePolicy**: `ValueOf`\<`object`\>
 
-**`Default`**
+#### Type declaration
 
+##### AUTO
+
+> `readonly` **AUTO**: `"auto"` = `'auto'`
+
+##### PRESERVE\_VOLUME\_LEVEL
+
+> `readonly` **PRESERVE\_VOLUME\_LEVEL**: `"preserveLevel"` = `'preserveLevel'`
+
+##### ZERO\_VOLUME\_LEVEL
+
+> `readonly` **ZERO\_VOLUME\_LEVEL**: `"zeroLevel"` = `'zeroLevel'`
+
+#### Default
+
+```ts
 MUTE_POLICIES.AUTO
+```
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L41)
+[src/lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L42)
 
-___
+***
 
-### playlistRequestHandler
+### playlistRequestHandler?
 
-• `Optional` **playlistRequestHandler**: [`PlaylistRequestHandler`](../classes/PlaylistRequestHandler.md)
+> `optional` **playlistRequestHandler**: [`PlaylistRequestHandler`](../classes/PlaylistRequestHandler.md)
 
-**`Default`**
+#### Default
 
 `DefaultPlaylistRequestHandler` instance
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L49)
+[src/lib/app/YouTubeApp.ts:50](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L50)
 
-___
+***
 
-### resetPlayerOnDisconnectPolicy
+### resetPlayerOnDisconnectPolicy?
 
-• `Optional` **resetPlayerOnDisconnectPolicy**: `ValueOf`<{ `ALL_DISCONNECTED`: ``"allDisconnected"`` = 'allDisconnected'; `ALL_EXPLICITLY_DISCONNECTED`: ``"allExplicitlyDisconnected"`` = 'allExplicitlyDisconnected' }\>
+> `optional` **resetPlayerOnDisconnectPolicy**: `ValueOf`\<`object`\>
 
-**`Default`**
+#### Type declaration
 
+##### ALL\_DISCONNECTED
+
+> `readonly` **ALL\_DISCONNECTED**: `"allDisconnected"` = `'allDisconnected'`
+
+##### ALL\_EXPLICITLY\_DISCONNECTED
+
+> `readonly` **ALL\_EXPLICITLY\_DISCONNECTED**: `"allExplicitlyDisconnected"` = `'allExplicitlyDisconnected'`
+
+#### Default
+
+```ts
 RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED
+```
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L45)
+[src/lib/app/YouTubeApp.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L46)
 
-___
+***
 
-### screenApp
+### screenApp?
 
-• `Optional` **screenApp**: `string`
+> `optional` **screenApp**: `string`
 
-**`Default`**
+#### Default
 
+```ts
 CONF_DEFAULTS.SCREEN_APP
+```
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L25)
+[src/lib/app/YouTubeApp.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L26)
 
-___
+***
 
 ### screenName
 
-• **screenName**: `string`
+> **screenName**: `string`
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/YouTubeApp.ts#L21)
+[src/lib/app/YouTubeApp.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/YouTubeApp.ts#L22)
