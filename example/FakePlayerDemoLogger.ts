@@ -1,5 +1,5 @@
-import { DefaultLogger, LogLevel } from '../dist/mjs/index.js';
-import LogBox from './ui/LogBox.js';
+import { DefaultLogger, type LogLevel } from '../dist/mjs/index.js';
+import type LogBox from './ui/LogBox.js';
 
 /**
  * Custom implementation of {@link Logger} for use with {@link FakePlayerDemo}.

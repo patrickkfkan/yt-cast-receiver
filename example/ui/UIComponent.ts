@@ -1,4 +1,4 @@
-import blessed from 'blessed';
+import type blessed from 'blessed';
 import EventEmitter from 'events';
 
 export default abstract class UIComponent extends EventEmitter {

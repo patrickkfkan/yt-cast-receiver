@@ -1,3 +1,5 @@
+<a href='https://ko-fi.com/C0C5RGOOP' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 # yt-cast-receiver
 
 A YouTube Cast Receiver for Node that also supports casting from YouTube Music. Originally inspired by [TubeCast](https://github.com/enen92/script.tubecast).
@@ -1084,6 +1086,10 @@ $ npm run example:no-ui
 Note: demo uses port 8099.
 
 # Changelog
+
+1.3.0
+- Update dependencies and libraries
+- This version now requires Node v18
 
 1.2.4
 - [Fixed] YouTube.js lib errors in example

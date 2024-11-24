@@ -1,6 +1,6 @@
-import YouTubeCastReceiver, { Player, Logger, PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, LogLevel, STATUSES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../dist/mjs/index.js';
-import { PlaylistEvent } from '../dist/mjs/lib/app/Playlist.js';
-import FakePlayer, { FakeState } from './FakePlayer.js';
+import YouTubeCastReceiver, { type Player, type Logger, type PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, type LogLevel, STATUSES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../dist/mjs/index.js';
+import { type PlaylistEvent } from '../dist/mjs/lib/app/Playlist.js';
+import FakePlayer, { type FakeState } from './FakePlayer.js';
 import FakePlayerDemoLogger from './FakePlayerDemoLogger.js';
 import FakePlayerDemoScreen from './ui/FakePlayerDemoScreen.js';
 
@@ -124,7 +124,7 @@ class FakePlayerDemo {
       return;
     }
 
-    this.#screen.on('keypress', async (ch, key: {ch: string, name: string, shift: boolean, ctrl: boolean}) => {
+    this.#screen.on('keypress', (ch, key: {ch: string, name: string, shift: boolean, ctrl: boolean}) => {
       if (!this.#screen) {
         return;
       }
@@ -160,110 +160,115 @@ class FakePlayerDemo {
         return;
       }
 
-      if (key.name?.toLowerCase() === 'q') {
-        this.exit();
-      }
-      else if (key.name?.toLowerCase() === 'r') {
-        if (this.#receiver.status === STATUSES.RUNNING) {
-          await this.stop();
+      void (async () => {
+        if (key.name?.toLowerCase() === 'q') {
+          void this.exit();
         }
-        else if (this.#receiver.status === STATUSES.STOPPED) {
-          await this.start();
+        else if (key.name?.toLowerCase() === 'r') {
+          if (this.#receiver.status === STATUSES.RUNNING) {
+            await this.stop();
+          }
+          else if (this.#receiver.status === STATUSES.STOPPED) {
+            await this.start();
+          }
         }
-      }
-      else if (key.name === 'tab') {
-        this.#autoShowPlayer = false;
-        this.#screen.playerWindow.toggleVisibility();
-      }
-      else if (key.name?.toLowerCase() === 'h') {
-        this.#screen.helpWindow.toggleVisibility();
-      }
-      else if (key.name?.toLowerCase() === 'l') {
-        this.#screen.logLevelWindow.toggleVisibility();
-      }
-      else if (key.name === 'space') {
-        if (this.#player.status === PLAYER_STATUSES.PLAYING) {
-          await this.#player.pause();
-        }
-        else if (this.#player.status === PLAYER_STATUSES.PAUSED) {
-          await this.#player.resume();
-        }
-      }
-      else if (key.ch === '<') {
-        if (this.#player.queue.hasPrevious) {
-          await this.#player.previous();
-        }
-      }
-      else if (key.ch === '>') {
-        if (this.#player.queue.hasNext) {
-          await this.#player.next();
-        }
-      }
-      else if (key.name === 'left') {
-        const position = await this.#player.getPosition();
-        await this.#player.seek(Math.max(position - 10, 0));
-      }
-      else if (key.name === 'right') {
-        const position = await this.#player.getPosition();
-        const duration = await this.#player.getDuration();
-        await this.#player.seek(Math.min(position + 10, duration));
-      }
-      else if (key.ch === '+') {
-        const volume = await this.#player.getVolume();
-        const baseLevel = volume.muted ? 0 : volume.level;
-        await this.#player.setVolume({
-          level: Math.min(baseLevel + 5, 100),
-          muted: false
-        });
-      }
-      else if (key.ch === '-') {
-        const volume = await this.#player.getVolume();
-        if (volume.muted) {
+        else if (!this.#screen) {
           return;
         }
-        await this.#player.setVolume({
-          level: Math.max(volume.level - 5, 0),
-          muted: volume.muted
-        });
-      }
-      else if (key.name?.toLowerCase() === 'm') {
-        const volume = await this.#player.getVolume();
-        await this.#player.setVolume({
-          ...volume,
-          muted: !volume.muted
-        });
-      }
-      else if (key.name === 'up') {
-        this.#screen.logBox.scroll(-1);
-      }
-      else if (key.name === 'down') {
-        this.#screen.logBox.scroll(1);
-      }
-      else if (key.name === 'pageup') {
-        this.#screen.logBox.pageUp();
-      }
-      else if (key.name === 'pagedown') {
-        this.#screen.logBox.pageDown();
-      }
-      else if (key.name === 'home' && key.ctrl) {
-        this.#screen.logBox.scrollToBeginning();
-      }
-      else if (key.name === 'end' && key.ctrl) {
-        this.#screen.logBox.scrollToEnd();
-      }
-      else if (key.name === 'escape') {
-        if (this.#screen.helpWindow.visible) {
-          this.#screen.helpWindow.hide();
+        else if (key.name === 'tab') {
+          this.#autoShowPlayer = false;
+          this.#screen.playerWindow.toggleVisibility();
         }
-        else if (this.#screen.playerWindow.visible) {
-          this.#screen.playerWindow.hide();
+        else if (key.name?.toLowerCase() === 'h') {
+          this.#screen.helpWindow.toggleVisibility();
         }
-      }
+        else if (key.name?.toLowerCase() === 'l') {
+          this.#screen.logLevelWindow.toggleVisibility();
+        }
+        else if (key.name === 'space') {
+          if (this.#player.status === PLAYER_STATUSES.PLAYING) {
+            await this.#player.pause();
+          }
+          else if (this.#player.status === PLAYER_STATUSES.PAUSED) {
+            await this.#player.resume();
+          }
+        }
+        else if (key.ch === '<') {
+          if (this.#player.queue.hasPrevious) {
+            await this.#player.previous();
+          }
+        }
+        else if (key.ch === '>') {
+          if (this.#player.queue.hasNext) {
+            await this.#player.next();
+          }
+        }
+        else if (key.name === 'left') {
+          const position = await this.#player.getPosition();
+          await this.#player.seek(Math.max(position - 10, 0));
+        }
+        else if (key.name === 'right') {
+          const position = await this.#player.getPosition();
+          const duration = await this.#player.getDuration();
+          await this.#player.seek(Math.min(position + 10, duration));
+        }
+        else if (key.ch === '+') {
+          const volume = await this.#player.getVolume();
+          const baseLevel = volume.muted ? 0 : volume.level;
+          await this.#player.setVolume({
+            level: Math.min(baseLevel + 5, 100),
+            muted: false
+          });
+        }
+        else if (key.ch === '-') {
+          const volume = await this.#player.getVolume();
+          if (volume.muted) {
+            return;
+          }
+          await this.#player.setVolume({
+            level: Math.max(volume.level - 5, 0),
+            muted: volume.muted
+          });
+        }
+        else if (key.name?.toLowerCase() === 'm') {
+          const volume = await this.#player.getVolume();
+          await this.#player.setVolume({
+            ...volume,
+            muted: !volume.muted
+          });
+        }
+        else if (key.name === 'up') {
+          this.#screen.logBox.scroll(-1);
+        }
+        else if (key.name === 'down') {
+          this.#screen.logBox.scroll(1);
+        }
+        else if (key.name === 'pageup') {
+          this.#screen.logBox.pageUp();
+        }
+        else if (key.name === 'pagedown') {
+          this.#screen.logBox.pageDown();
+        }
+        else if (key.name === 'home' && key.ctrl) {
+          this.#screen.logBox.scrollToBeginning();
+        }
+        else if (key.name === 'end' && key.ctrl) {
+          this.#screen.logBox.scrollToEnd();
+        }
+        else if (key.name === 'escape') {
+          if (this.#screen.helpWindow.visible) {
+            this.#screen.helpWindow.hide();
+          }
+          else if (this.#screen.playerWindow.visible) {
+            this.#screen.playerWindow.hide();
+          }
+        }
+      })();
     });
   }
 
   #handleQueueEvent(event: PlaylistEvent) {
-    let msg = '[FakePlayerDemo] ' as string | null;
+    let msg: string | null = '[FakePlayerDemo] ';
     const videoCount = event.videoIds ? event.videoIds.length : event.videoId ? 1 : 0;
     const byUser = event.user ? ` by ${event.user.name}` : null;
     switch (event.type) {
@@ -397,4 +402,4 @@ class FakePlayerDemo {
 }
 
 const demo = new FakePlayerDemo();
-demo.start();
+void demo.start();

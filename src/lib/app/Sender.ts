@@ -1,6 +1,6 @@
 import { CLIENTS } from '../Constants.js';
 import { DataError } from '../utils/Errors.js';
-import Client from './Client.js';
+import type Client from './Client.js';
 
 /**
  * A `Sender` object holds information about a sender.

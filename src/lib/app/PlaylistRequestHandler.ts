@@ -1,7 +1,6 @@
-import { AbortSignal } from 'abort-controller';
-import Logger from '../utils/Logger.js';
-import Playlist from './Playlist.js';
-import Video from './Video.js';
+import type Logger from '../utils/Logger.js';
+import type Playlist from './Playlist.js';
+import type Video from './Video.js';
 
 export interface PlaylistPreviousNextVideos {
   previous?: Video | null;

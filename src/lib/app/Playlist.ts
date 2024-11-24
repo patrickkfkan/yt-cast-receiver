@@ -1,13 +1,12 @@
-import AbortController from 'abort-controller';
 import EventEmitter from 'events';
 import { AUTOPLAY_MODES } from '../Constants.js';
-import { AutoplayMode } from '../Player.js';
-import Logger from '../utils/Logger.js';
-import { ValueOf } from '../utils/Type.js';
-import Client from './Client.js';
-import Message from './Message.js';
-import PlaylistRequestHandler from './PlaylistRequestHandler.js';
-import Video from './Video.js';
+import { type AutoplayMode } from '../Player.js';
+import type Logger from '../utils/Logger.js';
+import { type ValueOf } from '../utils/Type.js';
+import type Client from './Client.js';
+import type Message from './Message.js';
+import type PlaylistRequestHandler from './PlaylistRequestHandler.js';
+import type Video from './Video.js';
 
 export const PLAYLIST_EVENT_TYPES = {
   VIDEO_SELECTED: 'videoSelected',
@@ -221,7 +220,7 @@ export default class Playlist extends EventEmitter {
     this.emit(event.type, event);
   }
 
-  async #abortRefreshPreviousNext() {
+  #abortRefreshPreviousNext() {
     if (this.#previousNextAbortController) {
       this.#previousNextAbortController.abort();
       this.#previousNextAbortController = null;

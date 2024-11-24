@@ -1,186 +1,188 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / Playlist
 
 # Class: Playlist
 
 Representation of the player queue.
 
-## Hierarchy
+## Extends
 
 - `EventEmitter`
-
-  ↳ **`Playlist`**
-
-## Table of contents
-
-### Accessors
-
-- [autoplay](Playlist.md#autoplay)
-- [autoplayMode](Playlist.md#autoplaymode)
-- [current](Playlist.md#current)
-- [hasNext](Playlist.md#hasnext)
-- [hasPrevious](Playlist.md#hasprevious)
-- [id](Playlist.md#id)
-- [isLast](Playlist.md#islast)
-- [isUpdating](Playlist.md#isupdating)
-- [length](Playlist.md#length)
-- [videoIds](Playlist.md#videoids)
-
-### Methods
-
-- [getState](Playlist.md#getstate)
-- [on](Playlist.md#on)
 
 ## Accessors
 
 ### autoplay
 
-• `get` **autoplay**(): ``null`` \| [`Video`](../interfaces/Video.md)
+#### Get Signature
 
-#### Returns
+> **get** **autoplay**(): `null` \| [`Video`](../interfaces/Video.md)
 
-``null`` \| [`Video`](../interfaces/Video.md)
+##### Returns
+
+`null` \| [`Video`](../interfaces/Video.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:333](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L333)
+[src/lib/app/Playlist.ts:332](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L332)
 
-___
+***
 
 ### autoplayMode
 
-• `get` **autoplayMode**(): [`AutoplayMode`](../README.md#autoplaymode)
+#### Get Signature
 
-#### Returns
+> **get** **autoplayMode**(): [`AutoplayMode`](../type-aliases/AutoplayMode.md)
 
-[`AutoplayMode`](../README.md#autoplaymode)
+##### Returns
+
+[`AutoplayMode`](../type-aliases/AutoplayMode.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:344](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L344)
+[src/lib/app/Playlist.ts:343](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L343)
 
-___
+***
 
 ### current
 
-• `get` **current**(): ``null`` \| [`Video`](../interfaces/Video.md)
+#### Get Signature
 
-#### Returns
+> **get** **current**(): `null` \| [`Video`](../interfaces/Video.md)
 
-``null`` \| [`Video`](../interfaces/Video.md)
+##### Returns
+
+`null` \| [`Video`](../interfaces/Video.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:340](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L340)
+[src/lib/app/Playlist.ts:339](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L339)
 
-___
+***
 
 ### hasNext
 
-• `get` **hasNext**(): `boolean`
+#### Get Signature
 
-#### Returns
+> **get** **hasNext**(): `boolean`
+
+##### Returns
 
 `boolean`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:357](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L357)
+[src/lib/app/Playlist.ts:356](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L356)
 
-___
+***
 
 ### hasPrevious
 
-• `get` **hasPrevious**(): `boolean`
+#### Get Signature
 
-#### Returns
+> **get** **hasPrevious**(): `boolean`
+
+##### Returns
 
 `boolean`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:353](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L353)
+[src/lib/app/Playlist.ts:352](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L352)
 
-___
+***
 
 ### id
 
-• `get` **id**(): ``null`` \| `string`
+#### Get Signature
+
+> **get** **id**(): `null` \| `string`
 
 Id of the playlist.
 
-#### Returns
+##### Returns
 
-``null`` \| `string`
+`null` \| `string`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:273](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L273)
+[src/lib/app/Playlist.ts:272](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L272)
 
-___
+***
 
 ### isLast
 
-• `get` **isLast**(): `boolean`
+#### Get Signature
 
-#### Returns
+> **get** **isLast**(): `boolean`
+
+##### Returns
 
 `boolean`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:348](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L348)
+[src/lib/app/Playlist.ts:347](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L347)
 
-___
+***
 
 ### isUpdating
 
-• `get` **isUpdating**(): `boolean`
+#### Get Signature
 
-#### Returns
+> **get** **isUpdating**(): `boolean`
+
+##### Returns
 
 `boolean`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:364](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L364)
+[src/lib/app/Playlist.ts:363](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L363)
 
-___
+***
 
 ### length
 
-• `get` **length**(): `number`
+#### Get Signature
+
+> **get** **length**(): `number`
 
 The number of videos in the playlist.
 
-#### Returns
+##### Returns
 
 `number`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:287](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L287)
+[src/lib/app/Playlist.ts:286](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L286)
 
-___
+***
 
 ### videoIds
 
-• `get` **videoIds**(): `string`[]
+#### Get Signature
+
+> **get** **videoIds**(): `string`[]
 
 The Ids of the videos in the playlist.
 
-#### Returns
+##### Returns
 
 `string`[]
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:280](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L280)
+[src/lib/app/Playlist.ts:279](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L279)
 
 ## Methods
 
-### getState
+### getState()
 
-▸ **getState**(): [`PlaylistState`](../interfaces/PlaylistState.md)
+> **getState**(): [`PlaylistState`](../interfaces/PlaylistState.md)
 
 #### Returns
 
@@ -188,113 +190,150 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:311](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L311)
+[src/lib/app/Playlist.ts:310](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L310)
 
-___
+***
 
-### on
+### on()
 
-▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+#### on(event, listener)
 
-#### Parameters
+> **on**(`event`, `listener`): `this`
 
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"autoplayModeChange"`` |
-| `listener` | (`previous`: [`AutoplayMode`](../README.md#autoplaymode), `current`: [`AutoplayMode`](../README.md#autoplaymode)) => `void` |
+Adds the `listener` function to the end of the listeners array for the
+event named `eventName`. No checks are made to see if the `listener` has
+already been added. Multiple calls passing the same combination of `eventName` and `listener` will result in the `listener` being added, and called, multiple
+times.
 
-#### Returns
+```js
+server.on('connection', (stream) => {
+  console.log('someone connected!');
+});
+```
 
-[`Playlist`](Playlist.md)
+Returns a reference to the `EventEmitter`, so that calls can be chained.
 
-#### Overrides
+By default, event listeners are invoked in the order they are added. The`emitter.prependListener()` method can be used as an alternative to add the
+event listener to the beginning of the listeners array.
 
-EventEmitter.on
+```js
+const myEE = new EventEmitter();
+myEE.on('foo', () => console.log('a'));
+myEE.prependListener('foo', () => console.log('b'));
+myEE.emit('foo');
+// Prints:
+//   b
+//   a
+```
 
-#### Defined in
+##### Parameters
 
-[src/lib/app/Playlist.ts:375](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L375)
+• **event**: `"autoplayModeChange"`
 
-▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+• **listener**
 
-#### Parameters
+The callback function
 
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"playlistUpdated"`` |
-| `listener` | (`event`: `Omit`<[`PlaylistEvent`](../interfaces/PlaylistEvent.md), ``"user"`` \| ``"videoId"``\>) => `void` |
+##### Returns
 
-#### Returns
+`this`
 
-[`Playlist`](Playlist.md)
+##### Since
 
-#### Overrides
+v0.1.101
 
-EventEmitter.on
+##### Overrides
 
-#### Defined in
+`EventEmitter.on`
 
-[src/lib/app/Playlist.ts:376](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L376)
+##### Defined in
 
-▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+[src/lib/app/Playlist.ts:374](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L374)
 
-#### Parameters
+#### on(event, listener)
 
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"playlistCleared"`` |
-| `listener` | (`event`: `Omit`<[`PlaylistEvent`](../interfaces/PlaylistEvent.md), ``"videoId"`` \| ``"videoIds"``\>) => `void` |
+> **on**(`event`, `listener`): `this`
 
-#### Returns
+##### Parameters
 
-[`Playlist`](Playlist.md)
+• **event**: `"playlistUpdated"`
 
-#### Overrides
+• **listener**
 
-EventEmitter.on
+##### Returns
 
-#### Defined in
+`this`
 
-[src/lib/app/Playlist.ts:377](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L377)
+##### Overrides
 
-▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+`EventEmitter.on`
 
-#### Parameters
+##### Defined in
 
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"videoSelected"`` \| ``"videoAdded"`` \| ``"videoRemoved"`` |
-| `listener` | (`event`: `Omit`<[`PlaylistEvent`](../interfaces/PlaylistEvent.md), ``"videoIds"``\>) => `void` |
+[src/lib/app/Playlist.ts:375](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L375)
 
-#### Returns
+#### on(event, listener)
 
-[`Playlist`](Playlist.md)
+> **on**(`event`, `listener`): `this`
 
-#### Overrides
+##### Parameters
 
-EventEmitter.on
+• **event**: `"playlistCleared"`
 
-#### Defined in
+• **listener**
 
-[src/lib/app/Playlist.ts:378](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L378)
+##### Returns
 
-▸ **on**(`event`, `listener`): [`Playlist`](Playlist.md)
+`this`
 
-#### Parameters
+##### Overrides
 
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"playlistSet"`` \| ``"playlistAdded"`` |
-| `listener` | (`event`: `Omit`<[`PlaylistEvent`](../interfaces/PlaylistEvent.md), ``"videoId"``\>) => `void` |
+`EventEmitter.on`
 
-#### Returns
+##### Defined in
 
-[`Playlist`](Playlist.md)
+[src/lib/app/Playlist.ts:376](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L376)
 
-#### Overrides
+#### on(event, listener)
 
-EventEmitter.on
+> **on**(`event`, `listener`): `this`
 
-#### Defined in
+##### Parameters
 
-[src/lib/app/Playlist.ts:379](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L379)
+• **event**: `"videoSelected"` \| `"videoAdded"` \| `"videoRemoved"`
+
+• **listener**
+
+##### Returns
+
+`this`
+
+##### Overrides
+
+`EventEmitter.on`
+
+##### Defined in
+
+[src/lib/app/Playlist.ts:377](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L377)
+
+#### on(event, listener)
+
+> **on**(`event`, `listener`): `this`
+
+##### Parameters
+
+• **event**: `"playlistSet"` \| `"playlistAdded"`
+
+• **listener**
+
+##### Returns
+
+`this`
+
+##### Overrides
+
+`EventEmitter.on`
+
+##### Defined in
+
+[src/lib/app/Playlist.ts:378](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L378)

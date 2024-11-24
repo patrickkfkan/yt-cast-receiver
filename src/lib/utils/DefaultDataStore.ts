@@ -11,9 +11,10 @@ export default class DefaultDataStore extends DataStore {
   constructor() {
     super();
     this.#storage = storage.create();
-    this.#storage.init();
+    this.#storage.init().catch((error: unknown) => this.logger.error('[yt-cast-receiver] DefaultDataStore: caught error in storage.init():', error));
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   async set<T>(key: string, value: T): Promise<void> {
     try {
       await this.#storage.set(key, value);

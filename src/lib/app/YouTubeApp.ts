@@ -1,20 +1,21 @@
 import EventEmitter from 'events';
-import * as dial from '@patrickkfkan/peer-dial';
+import type * as dial from '@patrickkfkan/peer-dial';
 import queryString from 'query-string';
 import { v4 as uuidv4 } from 'uuid';
-import Player, { AutoplayMode, PlayerState, Volume } from '../Player.js';
+import {type AutoplayMode, type PlayerState, type Volume} from '../Player.js';
+import type Player from '../Player.js';
 import Message from './Message.js';
 import Session from './Session.js';
-import PairingCodeRequestService from './PairingCodeRequestService.js';
+import type PairingCodeRequestService from './PairingCodeRequestService.js';
 import Sender from './Sender.js';
 import { AppError, SenderConnectionError, IncompleteAPIDataError } from '../utils/Errors.js';
-import Logger from '../utils/Logger.js';
+import type Logger from '../utils/Logger.js';
 import { AUTOPLAY_MODES, STATUSES, CONF_DEFAULTS, PLAYER_STATUSES, CLIENTS, MUTE_POLICIES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../Constants.js';
-import { ValueOf } from '../utils/Type.js';
-import PlaylistRequestHandler from './PlaylistRequestHandler.js';
+import { type ValueOf } from '../utils/Type.js';
+import type PlaylistRequestHandler from './PlaylistRequestHandler.js';
 import DefaultPlaylistRequestHandler from './DefaultPlaylistRequestHandler.js';
-import { ClientKey } from './Client.js';
-import DataStore from '../utils/DataStore.js';
+import { type ClientKey } from './Client.js';
+import type DataStore from '../utils/DataStore.js';
 
 export interface AppOptions {
 
@@ -146,10 +147,14 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     try {
       const startPromises = clientKeys.map((key) => {
         const session = this.#sessions[key];
-        session.on('messages', this.#handleIncomingMessage.bind(this));
+        session.on('messages', (message, session) => {
+          this.#handleIncomingMessage(message, session)
+            .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error handling incoming message:', error));
+        });
         session.on('terminate', (error) => {
           // Session terminated. So should YouTubeApp.
-          this.stop(error);
+          this.stop(error)
+            .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error terminating YouTubeApp:', error));
         });
         return session.begin();
       });
@@ -158,15 +163,17 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     }
     catch (error) {
       this.#player.removeListener('state', this.#playerStateListener);
-      clientKeys.forEach(async (key) => {
-        const session = this.#sessions[key];
-        session.removeAllListeners();
-        try {
-          await session.end();
-        }
-        catch (err) {
-          // Do nothing
-        }
+      clientKeys.forEach((key) => {
+        void (async () => {
+          const session = this.#sessions[key];
+          session.removeAllListeners();
+          try {
+            await session.end();
+          }
+          catch (err) {
+            // Do nothing
+          }
+        })();
       });
 
       this.state = STATUSES.STOPPED;
@@ -177,6 +184,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   }
 
   // Implements
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async launch(data: string): Promise<string> {
     const launchData = queryString.parse(data);
     this.#logger.debug('[yt-cast-receiver] YouTubeApp received DIAL launch request. Launch data:', launchData);
@@ -221,7 +229,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         this.emit('senderDisconnect', c, false);
       });
       this.#activeSession = targetSession;
-      oldSession.sendMessage(new Message.LoungeScreenDisconnected());
+      oldSession.sendMessage(new Message.LoungeScreenDisconnected())
+        .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error sending message:', error));
     }
     this.#logger.debug(`[yt-cast-receiver] Active session switched to '${targetSession.client.name}'.`);
   }
@@ -240,7 +249,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     if (stateBefore.autoplay?.id !== stateAfter.autoplay?.id) {
       sendMessages.push(new Message.AutoplayUpNext(AID, stateAfter.autoplay?.id || null));
     }
-    this.#activeSession.sendMessage(sendMessages);
+    this.#activeSession.sendMessage(sendMessages)
+      .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error sending message:', error));;
   }
 
   async #setAutoplayModeBySenderCapabilities(AID: number | null) {
@@ -318,12 +328,12 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
   async #handleIncomingMessage(message: Message | Message[], session: Session): Promise<void> {
     if (Array.isArray(message)) {
       for (const c of message) {
-        await this.#handleIncomingMessage(c as Message, session);
+        await this.#handleIncomingMessage(c, session);
       }
       return;
     }
 
-    const { AID, name, payload } = message as Message;
+    const { AID, name, payload } = message;
     const isSessionActive = session === this.#activeSession;
     const client = session.client;
 
@@ -333,11 +343,11 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     const sendMessages = [];
 
     switch (name) {
-      case 'getNowPlaying':
+      case 'getNowPlaying': {
         sendMessages.push(new Message.NowPlaying(AID, isSessionActive ? await this.#player.getState() : null));
         break;
-
-      case 'loungeStatus':
+      }
+      case 'loungeStatus': {
         let loungeDevices;
         try {
           loungeDevices = JSON.parse(payload.devices);
@@ -407,9 +417,9 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           }
         }
         break;
-
+      }
       case 'setPlaylist':
-      case 'updatePlaylist':
+      case 'updatePlaylist': {
         if (!isSessionActive) return;
 
         this.#logger.debug(`[yt-cast-receiver] '${message.name}' message payload:`, payload);
@@ -420,7 +430,8 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         const msgPayloadLastVideoId = message.payload?.videoIds?.split(',').pop();
         let autoplayDismissed = false;
         if (queueVideoIds[queueVideoIds.length - 1] !== msgPayloadLastVideoId) {
-          session.sendMessage(new Message.AutoplayUpNext(AID, null));
+          session.sendMessage(new Message.AutoplayUpNext(AID, null))
+            .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error sending message:', error));;
           autoplayDismissed = true;
         }
 
@@ -455,38 +466,38 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           }
         }
         break;
-
-      case 'next':
+      }
+      case 'next': {
         if (!isSessionActive) return;
         await this.#player.next(AID);
         break;
-
-      case 'previous':
+      }
+      case 'previous': {
         if (!isSessionActive) return;
         await this.#player.previous(AID);
         break;
-
-      case 'pause':
+      }
+      case 'pause': {
         if (!isSessionActive) return;
         await this.#player.pause(AID);
         break;
-
-      case 'stopVideo':
+      }
+      case 'stopVideo': {
         if (!isSessionActive) return;
         await this.#player.stop(AID);
         break;
-
-      case 'seekTo':
+      }
+      case 'seekTo': {
         if (!isSessionActive) return;
         await this.#player.seek(parseInt(payload.newTime, 10));
         break;
-
-      case 'getVolume':
+      }
+      case 'getVolume': {
         const volume = await this.#player.getVolume();
         sendMessages.push(new Message.OnVolumeChanged(AID, volume));
         break;
-
-      case 'setVolume':
+      }
+      case 'setVolume': {
         if (!isSessionActive) return;
 
         let mutedBool = false;
@@ -505,23 +516,24 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           await this.#player.setVolume(newVolume, AID);
         }
         break;
-
-      case 'play':
+      }
+      case 'play': {
         if (!isSessionActive) return;
         await this.#player.resume(AID);
         break;
-
-      case 'setAutoplayMode':
+      }
+      case 'setAutoplayMode': {
         if (!isSessionActive) return;
         await this.#setAutoplayMode(AID, payload.autoplayMode);
         break;
-
+      }
       default:
         this.#logger.debug(`[yt-cast-receiver] (AID: ${AID}) (${client.name}) Not handled: '${name}'`);
     }
 
     if (sendMessages.length > 0) {
-      session.sendMessage(sendMessages);
+      session.sendMessage(sendMessages)
+        .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error sending message:', error));;
     }
   }
 
@@ -697,10 +709,12 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
         // We could be responding to a series of 'setVolume' messages. To reduce
         // Lag on sender side, we only send the latest 'onVolumeChanged' message after
         // A short interval of no further such messages.
-        this.#activeSession.sendMessage(messages, { key: 'onVolumeChanged', interval: 200 });
+        this.#activeSession.sendMessage(messages, { key: 'onVolumeChanged', interval: 200 })
+          .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error sending message:', error));;
       }
       else {
-        this.#activeSession.sendMessage(messages);
+        this.#activeSession.sendMessage(messages)
+          .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error sending message:', error));;
       }
     }
   }

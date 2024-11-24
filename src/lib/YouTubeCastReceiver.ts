@@ -1,15 +1,16 @@
 import EventEmitter from 'events';
-import Player from './Player.js';
-import YouTubeApp, { AppOptions } from './app/YouTubeApp.js';
-import DialServer, { DialOptions } from './dial/DialServer.js';
-import Logger, { LogLevel } from './utils/Logger.js';
+import type Player from './Player.js';
+import YouTubeApp, { type AppOptions } from './app/YouTubeApp.js';
+import DialServer, { type DialOptions } from './dial/DialServer.js';
+import {type LogLevel} from './utils/Logger.js';
+import type Logger from './utils/Logger.js';
 import DefaultLogger from './utils/DefaultLogger.js';
-import { RESET_PLAYER_ON_DISCONNECT_POLICIES, STATUSES } from './Constants.js';
-import PairingCodeRequestService from './app/PairingCodeRequestService.js';
-import Sender from './app/Sender.js';
-import { ValueOf } from './utils/Type.js';
+import { type RESET_PLAYER_ON_DISCONNECT_POLICIES, STATUSES } from './Constants.js';
+import type PairingCodeRequestService from './app/PairingCodeRequestService.js';
+import type Sender from './app/Sender.js';
+import { type ValueOf } from './utils/Type.js';
 import { hostname } from 'os';
-import DataStore from './utils/DataStore.js';
+import type DataStore from './utils/DataStore.js';
 import DefaultDataStore from './utils/DefaultDataStore.js';
 
 /**
@@ -113,15 +114,17 @@ export default class YouTubeCastReceiver extends EventEmitter {
       this.emit('error', error);
     });
 
-    this.#app.on('terminate', async (error) => {
-      try {
-        await this.stop();
-      }
-      catch (error) {
-        // Do nothing - we're quitting anyway
-      }
-      this.#logger.error('[yt-cast-receiver] Receiver terminated due to error:', error);
-      this.emit('terminate', error);
+    this.#app.on('terminate', (error) => {
+      void (async () => {
+        try {
+          await this.stop();
+        }
+        catch (error) {
+          // Do nothing - we're quitting anyway
+        }
+        this.#logger.error('[yt-cast-receiver] Receiver terminated due to error:', error);
+        this.emit('terminate', error);
+      })();
     });
 
     this.#status = STATUSES.STOPPED;

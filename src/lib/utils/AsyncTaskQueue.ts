@@ -30,14 +30,14 @@ export default class AsyncTaskQueue {
   setAutoStart(value: boolean) {
     this.#autostart = value;
     if (value && this.#tasks.length > 0) {
-      this.start();
+      void this.start();
     }
   }
 
   push(task: Task) {
     this.#tasks.push(task);
     if (this.#stopped && this.#autostart) {
-      this.start();
+      void this.start();
     }
   }
 
@@ -51,7 +51,7 @@ export default class AsyncTaskQueue {
     while (this.#tasks.length > 0 && !this.#stopped) {
       const task = this.#tasks.shift();
       try {
-        task && await task.run();
+        if (task) await task.run();
       }
       catch (error) {
         failedTask = { task, error };

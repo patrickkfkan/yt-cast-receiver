@@ -1,59 +1,55 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / PlaylistEvent
 
 # Interface: PlaylistEvent
-
-## Table of contents
-
-### Properties
-
-- [type](PlaylistEvent.md#type)
-- [user](PlaylistEvent.md#user)
-- [videoId](PlaylistEvent.md#videoid)
-- [videoIds](PlaylistEvent.md#videoids)
 
 ## Properties
 
 ### type
 
-• **type**: [`PlaylistEventType`](../README.md#playlisteventtype)
+> **type**: [`PlaylistEventType`](../type-aliases/PlaylistEventType.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L34)
+[src/lib/app/Playlist.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L33)
 
-___
+***
 
-### user
+### user?
 
-• `Optional` **user**: `Object`
+> `optional` **user**: `object`
 
-#### Type declaration
+#### name
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `thumbnail` | `string` |
+> **name**: `string`
 
-#### Defined in
+#### thumbnail
 
-[src/lib/app/Playlist.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L37)
-
-___
-
-### videoId
-
-• `Optional` **videoId**: `string`
+> **thumbnail**: `string`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L35)
+[src/lib/app/Playlist.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L36)
 
-___
+***
 
-### videoIds
+### videoId?
 
-• `Optional` **videoIds**: `string`[]
+> `optional` **videoId**: `string`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L36)
+[src/lib/app/Playlist.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L34)
+
+***
+
+### videoIds?
+
+> `optional` **videoIds**: `string`[]
+
+#### Defined in
+
+[src/lib/app/Playlist.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L35)

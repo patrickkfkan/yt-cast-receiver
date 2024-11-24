@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import queryString from 'query-string';
-import { LoungeToken, MDXContext } from './Session.js';
-import Message from './Message.js';
+import { type LoungeToken, type MDXContext } from './Session.js';
+import type Message from './Message.js';
 import { IncompleteAPIDataError } from '../utils/Errors.js';
 
 /** @internal */

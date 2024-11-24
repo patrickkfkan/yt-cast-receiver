@@ -1,7 +1,6 @@
 import EventEmitter from 'events';
-import fetch from 'node-fetch';
-import BindParams from './BindParams.js';
-import { Screen } from './Session.js';
+import type BindParams from './BindParams.js';
+import { type Screen } from './Session.js';
 import { ConnectionError, DataError } from '../utils/Errors.js';
 import { STATUSES, URLS } from '../Constants.js';
 
@@ -57,7 +56,7 @@ export default class PairingCodeRequestService extends EventEmitter {
     }
 
     this.#status = STATUSES.RUNNING;
-    this.#getCodeAndEmit();
+    void this.#getCodeAndEmit();
   }
 
   /**
@@ -82,7 +81,7 @@ export default class PairingCodeRequestService extends EventEmitter {
   #startRefreshTimer(interval = REFRESH_INTERVAL) {
     this.#clearRefreshTimer();
     this.#refreshTimer = setTimeout(() => {
-      this.#getCodeAndEmit();
+      void this.#getCodeAndEmit();
     }, interval);
   }
 

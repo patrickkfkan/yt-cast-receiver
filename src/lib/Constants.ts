@@ -1,4 +1,5 @@
-import Client, { ClientKey } from './app/Client';
+import {type ClientKey} from './app/Client';
+import type Client from './app/Client';
 
 const YOUTUBE_BASE_URL = 'https://www.youtube.com';
 

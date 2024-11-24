@@ -1,3 +1,7 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / DefaultLogger
 
 # Class: DefaultLogger
@@ -6,76 +10,53 @@
 
 - [`Logger`](../interfaces/Logger.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](DefaultLogger.md#constructor)
-
-### Properties
-
-- [color](DefaultLogger.md#color)
-- [level](DefaultLogger.md#level)
-
-### Methods
-
-- [checkLevel](DefaultLogger.md#checklevel)
-- [debug](DefaultLogger.md#debug)
-- [error](DefaultLogger.md#error)
-- [info](DefaultLogger.md#info)
-- [process](DefaultLogger.md#process)
-- [setLevel](DefaultLogger.md#setlevel)
-- [toOutput](DefaultLogger.md#tooutput)
-- [toStrings](DefaultLogger.md#tostrings)
-- [warn](DefaultLogger.md#warn)
-
 ## Constructors
 
-### constructor
+### new DefaultLogger()
 
-• **new DefaultLogger**(`color?`)
+> **new DefaultLogger**(`color`): [`DefaultLogger`](DefaultLogger.md)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `color` | `boolean` | `true` |
+• **color**: `boolean` = `true`
+
+#### Returns
+
+[`DefaultLogger`](DefaultLogger.md)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:19](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L19)
+[src/lib/utils/DefaultLogger.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L20)
 
 ## Properties
 
 ### color
 
-• `Protected` **color**: `boolean`
+> `protected` **color**: `boolean`
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L17)
+[src/lib/utils/DefaultLogger.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L18)
 
-___
+***
 
 ### level
 
-• `Protected` **level**: [`LogLevel`](../README.md#loglevel)
+> `protected` **level**: [`LogLevel`](../type-aliases/LogLevel.md)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:16](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L16)
+[src/lib/utils/DefaultLogger.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L17)
 
 ## Methods
 
-### checkLevel
+### checkLevel()
 
-▸ `Protected` **checkLevel**(`targetLevel`): `boolean`
+> `protected` **checkLevel**(`targetLevel`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetLevel` | [`LogLevel`](../README.md#loglevel) |
+• **targetLevel**: [`LogLevel`](../type-aliases/LogLevel.md)
 
 #### Returns
 
@@ -83,19 +64,17 @@ ___
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:44](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L44)
+[src/lib/utils/DefaultLogger.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L45)
 
-___
+***
 
-### debug
+### debug()
 
-▸ **debug**(`...msg`): `void`
+> **debug**(...`msg`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `...msg` | `any`[] |
+• ...**msg**: `any`[]
 
 #### Returns
 
@@ -103,23 +82,21 @@ ___
 
 #### Implementation of
 
-[Logger](../interfaces/Logger.md).[debug](../interfaces/Logger.md#debug)
+[`Logger`](../interfaces/Logger.md).[`debug`](../interfaces/Logger.md#debug)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:36](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L36)
+[src/lib/utils/DefaultLogger.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L37)
 
-___
+***
 
-### error
+### error()
 
-▸ **error**(`...msg`): `void`
+> **error**(...`msg`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `...msg` | `any`[] |
+• ...**msg**: `any`[]
 
 #### Returns
 
@@ -127,23 +104,21 @@ ___
 
 #### Implementation of
 
-[Logger](../interfaces/Logger.md).[error](../interfaces/Logger.md#error)
+[`Logger`](../interfaces/Logger.md).[`error`](../interfaces/Logger.md#error)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L24)
+[src/lib/utils/DefaultLogger.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L25)
 
-___
+***
 
-### info
+### info()
 
-▸ **info**(`...msg`): `void`
+> **info**(...`msg`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `...msg` | `any`[] |
+• ...**msg**: `any`[]
 
 #### Returns
 
@@ -151,24 +126,23 @@ ___
 
 #### Implementation of
 
-[Logger](../interfaces/Logger.md).[info](../interfaces/Logger.md#info)
+[`Logger`](../interfaces/Logger.md).[`info`](../interfaces/Logger.md#info)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:32](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L32)
+[src/lib/utils/DefaultLogger.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L33)
 
-___
+***
 
-### process
+### process()
 
-▸ `Protected` **process**(`targetLevel`, `msg`): `void`
+> `protected` **process**(`targetLevel`, `msg`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetLevel` | [`LogLevel`](../README.md#loglevel) |
-| `msg` | `any`[] |
+• **targetLevel**: [`LogLevel`](../type-aliases/LogLevel.md)
+
+• **msg**: `any`[]
 
 #### Returns
 
@@ -176,19 +150,17 @@ ___
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:48](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L48)
+[src/lib/utils/DefaultLogger.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L49)
 
-___
+***
 
-### setLevel
+### setLevel()
 
-▸ **setLevel**(`value`): `void`
+> **setLevel**(`value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | [`LogLevel`](../README.md#loglevel) |
+• **value**: [`LogLevel`](../type-aliases/LogLevel.md)
 
 #### Returns
 
@@ -196,24 +168,23 @@ ___
 
 #### Implementation of
 
-[Logger](../interfaces/Logger.md).[setLevel](../interfaces/Logger.md#setlevel)
+[`Logger`](../interfaces/Logger.md).[`setLevel`](../interfaces/Logger.md#setlevel)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:40](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L40)
+[src/lib/utils/DefaultLogger.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L41)
 
-___
+***
 
-### toOutput
+### toOutput()
 
-▸ `Protected` **toOutput**(`targetLevel`, `msg`): `void`
+> `protected` **toOutput**(`targetLevel`, `msg`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `targetLevel` | [`LogLevel`](../README.md#loglevel) |
-| `msg` | `string`[] |
+• **targetLevel**: [`LogLevel`](../type-aliases/LogLevel.md)
+
+• **msg**: `string`[]
 
 #### Returns
 
@@ -221,19 +192,17 @@ ___
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:87](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L87)
+[src/lib/utils/DefaultLogger.ts:88](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L88)
 
-___
+***
 
-### toStrings
+### toStrings()
 
-▸ `Protected` **toStrings**(`msg`): `string`[]
+> `protected` **toStrings**(`msg`): `string`[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `msg` | `any`[] |
+• **msg**: `any`[]
 
 #### Returns
 
@@ -241,19 +210,17 @@ ___
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L54)
+[src/lib/utils/DefaultLogger.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L55)
 
-___
+***
 
-### warn
+### warn()
 
-▸ **warn**(`...msg`): `void`
+> **warn**(...`msg`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `...msg` | `any`[] |
+• ...**msg**: `any`[]
 
 #### Returns
 
@@ -261,8 +228,8 @@ ___
 
 #### Implementation of
 
-[Logger](../interfaces/Logger.md).[warn](../interfaces/Logger.md#warn)
+[`Logger`](../interfaces/Logger.md).[`warn`](../interfaces/Logger.md#warn)
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/DefaultLogger.ts#L28)
+[src/lib/utils/DefaultLogger.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultLogger.ts#L29)

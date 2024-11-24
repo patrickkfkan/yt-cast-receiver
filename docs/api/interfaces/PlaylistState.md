@@ -1,74 +1,67 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / PlaylistState
 
 # Interface: PlaylistState
-
-## Table of contents
-
-### Properties
-
-- [autoplay](PlaylistState.md#autoplay)
-- [current](PlaylistState.md#current)
-- [id](PlaylistState.md#id)
-- [next](PlaylistState.md#next)
-- [previous](PlaylistState.md#previous)
-- [videoIds](PlaylistState.md#videoids)
 
 ## Properties
 
 ### autoplay
 
-• **autoplay**: ``null`` \| [`Video`](Video.md)
+> **autoplay**: `null` \| [`Video`](Video.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:28](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L28)
+[src/lib/app/Playlist.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L27)
 
-___
+***
 
 ### current
 
-• **current**: ``null`` \| [`Video`](Video.md)
+> **current**: `null` \| [`Video`](Video.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L26)
+[src/lib/app/Playlist.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L25)
 
-___
+***
 
 ### id
 
-• **id**: ``null`` \| `string`
+> **id**: `null` \| `string`
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L23)
+[src/lib/app/Playlist.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L22)
 
-___
+***
 
 ### next
 
-• **next**: ``null`` \| [`Video`](Video.md)
+> **next**: `null` \| [`Video`](Video.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L27)
+[src/lib/app/Playlist.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L26)
 
-___
+***
 
 ### previous
 
-• **previous**: ``null`` \| [`Video`](Video.md)
+> **previous**: `null` \| [`Video`](Video.md)
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L25)
+[src/lib/app/Playlist.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L24)
 
-___
+***
 
 ### videoIds
 
-• **videoIds**: `string`[]
+> **videoIds**: `string`[]
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:24](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/Playlist.ts#L24)
+[src/lib/app/Playlist.ts:23](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L23)

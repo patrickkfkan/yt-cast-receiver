@@ -1,83 +1,74 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / SenderConnectionError
 
 # Class: SenderConnectionError
 
-## Hierarchy
+## Extends
 
 - [`YouTubeCastReceiverError`](YouTubeCastReceiverError.md)
 
-  ↳ **`SenderConnectionError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](SenderConnectionError.md#constructor)
-
-### Properties
-
-- [cause](SenderConnectionError.md#cause)
-- [info](SenderConnectionError.md#info)
-
-### Methods
-
-- [getCauses](SenderConnectionError.md#getcauses)
-
 ## Constructors
 
-### constructor
+### new SenderConnectionError()
 
-• **new SenderConnectionError**(`message`, `cause?`, `action?`)
+> **new SenderConnectionError**(`message`, `cause`?, `action`?): [`SenderConnectionError`](SenderConnectionError.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `message` | `string` |
-| `cause?` | `any` |
-| `action?` | ``"unknown"`` \| ``"connect"`` \| ``"disconnect"`` |
+• **message**: `string`
+
+• **cause?**: `any`
+
+• **action?**: `"unknown"` \| `"connect"` \| `"disconnect"`
+
+#### Returns
+
+[`SenderConnectionError`](SenderConnectionError.md)
 
 #### Overrides
 
-[YouTubeCastReceiverError](YouTubeCastReceiverError.md).[constructor](YouTubeCastReceiverError.md#constructor)
+[`YouTubeCastReceiverError`](YouTubeCastReceiverError.md).[`constructor`](YouTubeCastReceiverError.md#constructors)
 
 #### Defined in
 
-[src/lib/utils/Errors.ts:85](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/Errors.ts#L85)
+[src/lib/utils/Errors.ts:85](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/Errors.ts#L85)
 
 ## Properties
 
-### cause
+### cause?
 
-• `Optional` **cause**: `any`
-
-#### Inherited from
-
-[YouTubeCastReceiverError](YouTubeCastReceiverError.md).[cause](YouTubeCastReceiverError.md#cause)
-
-#### Defined in
-
-[src/lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/Errors.ts#L3)
-
-___
-
-### info
-
-• `Optional` **info**: `Record`<`string`, `any`\>
+> `optional` **cause**: `any`
 
 #### Inherited from
 
-[YouTubeCastReceiverError](YouTubeCastReceiverError.md).[info](YouTubeCastReceiverError.md#info)
+[`YouTubeCastReceiverError`](YouTubeCastReceiverError.md).[`cause`](YouTubeCastReceiverError.md#cause)
 
 #### Defined in
 
-[src/lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/Errors.ts#L4)
+[src/lib/utils/Errors.ts:3](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/Errors.ts#L3)
+
+***
+
+### info?
+
+> `optional` **info**: `Record`\<`string`, `any`\>
+
+#### Inherited from
+
+[`YouTubeCastReceiverError`](YouTubeCastReceiverError.md).[`info`](YouTubeCastReceiverError.md#info)
+
+#### Defined in
+
+[src/lib/utils/Errors.ts:4](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/Errors.ts#L4)
 
 ## Methods
 
-### getCauses
+### getCauses()
 
-▸ **getCauses**(): `any`[]
+> **getCauses**(): `any`[]
 
 #### Returns
 
@@ -85,8 +76,8 @@ ___
 
 #### Inherited from
 
-[YouTubeCastReceiverError](YouTubeCastReceiverError.md).[getCauses](YouTubeCastReceiverError.md#getcauses)
+[`YouTubeCastReceiverError`](YouTubeCastReceiverError.md).[`getCauses`](YouTubeCastReceiverError.md#getcauses)
 
 #### Defined in
 
-[src/lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/utils/Errors.ts#L17)
+[src/lib/utils/Errors.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/Errors.ts#L17)

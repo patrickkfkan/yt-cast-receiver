@@ -1,3 +1,7 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / DefaultPlaylistRequestHandler
 
 # Class: DefaultPlaylistRequestHandler
@@ -6,67 +10,53 @@ Default implementation of the `PlaylistRequestHandler` abstract class.
 Uses [YouTube.js](https://github.com/LuanRT/YouTube.js) for fetching data
 from YouTube.
 
-## Hierarchy
+## Extends
 
 - [`PlaylistRequestHandler`](PlaylistRequestHandler.md)
 
-  ↳ **`DefaultPlaylistRequestHandler`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](DefaultPlaylistRequestHandler.md#constructor)
-
-### Accessors
-
-- [logger](DefaultPlaylistRequestHandler.md#logger)
-
-### Methods
-
-- [getPreviousNextVideos](DefaultPlaylistRequestHandler.md#getpreviousnextvideos)
-- [getPreviousNextVideosAbortable](DefaultPlaylistRequestHandler.md#getpreviousnextvideosabortable)
-- [markWatched](DefaultPlaylistRequestHandler.md#markwatched)
-- [reset](DefaultPlaylistRequestHandler.md#reset)
-- [setLogger](DefaultPlaylistRequestHandler.md#setlogger)
-
 ## Constructors
 
-### constructor
+### new DefaultPlaylistRequestHandler()
 
-• **new DefaultPlaylistRequestHandler**()
+> **new DefaultPlaylistRequestHandler**(): [`DefaultPlaylistRequestHandler`](DefaultPlaylistRequestHandler.md)
+
+#### Returns
+
+[`DefaultPlaylistRequestHandler`](DefaultPlaylistRequestHandler.md)
 
 #### Overrides
 
-[PlaylistRequestHandler](PlaylistRequestHandler.md).[constructor](PlaylistRequestHandler.md#constructor)
+[`PlaylistRequestHandler`](PlaylistRequestHandler.md).[`constructor`](PlaylistRequestHandler.md#constructors)
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/DefaultPlaylistRequestHandler.ts#L33)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/DefaultPlaylistRequestHandler.ts#L33)
 
 ## Accessors
 
 ### logger
 
-• `get` **logger**(): [`Logger`](../interfaces/Logger.md)
+#### Get Signature
 
-#### Returns
+> **get** **logger**(): [`Logger`](../interfaces/Logger.md)
+
+##### Returns
 
 [`Logger`](../interfaces/Logger.md)
 
 #### Inherited from
 
-PlaylistRequestHandler.logger
+[`PlaylistRequestHandler`](PlaylistRequestHandler.md).[`logger`](PlaylistRequestHandler.md#logger)
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PlaylistRequestHandler.ts#L66)
+[src/lib/app/PlaylistRequestHandler.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L65)
 
 ## Methods
 
-### getPreviousNextVideos
+### getPreviousNextVideos()
 
-▸ **getPreviousNextVideos**(`target`, `playlist`): `Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
+> **getPreviousNextVideos**(`target`, `playlist`): `Promise`\<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
 
 Given `target` video that resides in `playlist`, implementations shall fetch
 the previous and next videos in the list.
@@ -82,77 +72,79 @@ must satisfy the [Video](../interfaces/Video.md) interface constraint.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `target` | [`Video`](../interfaces/Video.md) | Target video for which the previous and next videos are obtained. |
-| `playlist` | [`Playlist`](Playlist.md) | The `Playlist` instance making the request. |
+• **target**: [`Video`](../interfaces/Video.md)
+
+Target video for which the previous and next videos are obtained.
+
+• **playlist**: [`Playlist`](Playlist.md)
+
+The `Playlist` instance making the request.
 
 #### Returns
 
-`Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
+`Promise`\<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
 
 (Object)
 
 #### Overrides
 
-[PlaylistRequestHandler](PlaylistRequestHandler.md).[getPreviousNextVideos](PlaylistRequestHandler.md#getpreviousnextvideos)
+[`PlaylistRequestHandler`](PlaylistRequestHandler.md).[`getPreviousNextVideos`](PlaylistRequestHandler.md#getpreviousnextvideos)
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/DefaultPlaylistRequestHandler.ts#L53)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/DefaultPlaylistRequestHandler.ts#L53)
 
-___
+***
 
-### getPreviousNextVideosAbortable
+### getPreviousNextVideosAbortable()
 
-▸ **getPreviousNextVideosAbortable**(`target`, `playlist`, `abortSignal`): `Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
+> **getPreviousNextVideosAbortable**(`target`, `playlist`, `abortSignal`): `Promise`\<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | [`Video`](../interfaces/Video.md) |
-| `playlist` | [`Playlist`](Playlist.md) |
-| `abortSignal` | `AbortSignal` |
+• **target**: [`Video`](../interfaces/Video.md)
+
+• **playlist**: [`Playlist`](Playlist.md)
+
+• **abortSignal**: `AbortSignal`
 
 #### Returns
 
-`Promise`<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
+`Promise`\<[`PlaylistPreviousNextVideos`](../interfaces/PlaylistPreviousNextVideos.md)\>
 
 #### Inherited from
 
-[PlaylistRequestHandler](PlaylistRequestHandler.md).[getPreviousNextVideosAbortable](PlaylistRequestHandler.md#getpreviousnextvideosabortable)
+[`PlaylistRequestHandler`](PlaylistRequestHandler.md).[`getPreviousNextVideosAbortable`](PlaylistRequestHandler.md#getpreviousnextvideosabortable)
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PlaylistRequestHandler.ts#L22)
+[src/lib/app/PlaylistRequestHandler.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L21)
 
-___
+***
 
-### markWatched
+### markWatched()
 
-▸ **markWatched**(`video`, `run?`): `Promise`<`void`\>
+> **markWatched**(`video`, `run`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `video` | [`Video`](../interfaces/Video.md) | `undefined` |
-| `run` | ``2`` \| ``1`` | `1` |
+• **video**: [`Video`](../interfaces/Video.md)
+
+• **run**: `1` \| `2` = `1`
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:208](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/DefaultPlaylistRequestHandler.ts#L208)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:208](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/DefaultPlaylistRequestHandler.ts#L208)
 
-___
+***
 
-### reset
+### reset()
 
-▸ **reset**(): `void`
+> **reset**(): `void`
 
 Resets the handler to its initial state. By default, this method does nothing.
 Implementations shall override this method if need be.
@@ -163,23 +155,21 @@ Implementations shall override this method if need be.
 
 #### Overrides
 
-[PlaylistRequestHandler](PlaylistRequestHandler.md).[reset](PlaylistRequestHandler.md#reset)
+[`PlaylistRequestHandler`](PlaylistRequestHandler.md).[`reset`](PlaylistRequestHandler.md#reset)
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:278](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/DefaultPlaylistRequestHandler.ts#L278)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:278](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/DefaultPlaylistRequestHandler.ts#L278)
 
-___
+***
 
-### setLogger
+### setLogger()
 
-▸ **setLogger**(`logger`): `void`
+> **setLogger**(`logger`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `logger` | [`Logger`](../interfaces/Logger.md) |
+• **logger**: [`Logger`](../interfaces/Logger.md)
 
 #### Returns
 
@@ -187,8 +177,8 @@ ___
 
 #### Inherited from
 
-[PlaylistRequestHandler](PlaylistRequestHandler.md).[setLogger](PlaylistRequestHandler.md#setlogger)
+[`PlaylistRequestHandler`](PlaylistRequestHandler.md).[`setLogger`](PlaylistRequestHandler.md#setlogger)
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PlaylistRequestHandler.ts#L18)
+[src/lib/app/PlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L17)

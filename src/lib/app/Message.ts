@@ -1,6 +1,6 @@
 import removeNewline from 'newline-remove';
 import { AUTOPLAY_MODES, PLAYER_STATUSES } from '../Constants.js';
-import { AutoplayMode, PlayerNavInfo, PlayerState, Volume } from '../Player.js';
+import { type AutoplayMode, type PlayerNavInfo, type PlayerState, type Volume } from '../Player.js';
 
 /**
  * @internal
@@ -78,7 +78,7 @@ export class Message {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+ 
 export namespace Message {
 
   /**

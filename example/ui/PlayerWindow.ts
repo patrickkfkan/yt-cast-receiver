@@ -1,6 +1,6 @@
 import blessed from 'blessed';
-import { PLAYER_STATUSES, Volume } from '../../dist/mjs/index.js';
-import { FakeState } from '../FakePlayer.js';
+import { PLAYER_STATUSES, type Volume } from '../../dist/mjs/index.js';
+import { type FakeState } from '../FakePlayer.js';
 import UIComponent from './UIComponent.js';
 
 export default class PlayerWindow extends UIComponent {
@@ -132,10 +132,12 @@ export default class PlayerWindow extends UIComponent {
 
   startSeekbarTimer(fetch: { position: () => Promise<number>, duration: () => Promise<number> }) {
     this.stopSeekbarTimer();
-    this.#seekbarTimer = setInterval(async () => {
-      const position = await fetch.position();
-      const duration = await fetch.duration();
-      this.#updateSeekbar({ position, duration });
+    this.#seekbarTimer = setInterval(() => {
+      void (async () => {
+        const position = await fetch.position();
+        const duration = await fetch.duration();
+        this.#updateSeekbar({ position, duration });
+      })();
     }, 1000);
   }
 

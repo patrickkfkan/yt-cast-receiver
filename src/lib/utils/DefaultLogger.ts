@@ -1,7 +1,8 @@
 import util from 'util';
 import { LOG_LEVELS } from '../Constants.js';
 import YouTubeCastReceiverError from './Errors.js';
-import Logger, { LogLevel } from './Logger.js';
+import {type LogLevel} from './Logger.js';
+import type Logger from './Logger.js';
 
 const LOG_LEVEL_ORDER = [
   LOG_LEVELS.NONE,

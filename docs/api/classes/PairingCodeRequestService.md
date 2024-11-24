@@ -1,3 +1,7 @@
+[**yt-cast-receiver**](../README.md) • **Docs**
+
+***
+
 [yt-cast-receiver](../README.md) / PairingCodeRequestService
 
 # Class: PairingCodeRequestService
@@ -23,121 +27,33 @@ service.stop();
 
 Note that the service stops on `error` event.
 
-## Hierarchy
+## Extends
 
 - `EventEmitter`
-
-  ↳ **`PairingCodeRequestService`**
-
-## Table of contents
-
-### Accessors
-
-- [status](PairingCodeRequestService.md#status)
-
-### Events
-
-- [on](PairingCodeRequestService.md#on)
-
-### Methods
-
-- [start](PairingCodeRequestService.md#start)
-- [stop](PairingCodeRequestService.md#stop)
 
 ## Accessors
 
 ### status
 
-• `get` **status**(): ``"stopped"`` \| ``"running"``
+#### Get Signature
+
+> **get** **status**(): `"stopped"` \| `"running"`
 
 Service status
 
-#### Returns
+##### Returns
 
-``"stopped"`` \| ``"running"``
-
-#### Defined in
-
-[src/lib/app/PairingCodeRequestService.ts:160](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PairingCodeRequestService.ts#L160)
-
-## Events
-
-### on
-
-▸ **on**(`event`, `listener`): [`PairingCodeRequestService`](PairingCodeRequestService.md)
-
-Emitted when service is requesting pairing code.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"request"`` |
-| `listener` | () => `void` |
-
-#### Returns
-
-[`PairingCodeRequestService`](PairingCodeRequestService.md)
-
-#### Overrides
-
-EventEmitter.on
+`"stopped"` \| `"running"`
 
 #### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:141](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PairingCodeRequestService.ts#L141)
-
-▸ **on**(`event`, `listener`): [`PairingCodeRequestService`](PairingCodeRequestService.md)
-
-Emitted when service has obtained pairing code.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"response"`` |
-| `listener` | (`code`: `string`) => `void` |
-
-#### Returns
-
-[`PairingCodeRequestService`](PairingCodeRequestService.md)
-
-#### Overrides
-
-EventEmitter.on
-
-#### Defined in
-
-[src/lib/app/PairingCodeRequestService.ts:147](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PairingCodeRequestService.ts#L147)
-
-▸ **on**(`event`, `listener`): [`PairingCodeRequestService`](PairingCodeRequestService.md)
-
-Emitted when service encountered error. The service stops on this event.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `event` | ``"error"`` |
-| `listener` | (`error`: `Error`) => `void` |
-
-#### Returns
-
-[`PairingCodeRequestService`](PairingCodeRequestService.md)
-
-#### Overrides
-
-EventEmitter.on
-
-#### Defined in
-
-[src/lib/app/PairingCodeRequestService.ts:153](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PairingCodeRequestService.ts#L153)
+[src/lib/app/PairingCodeRequestService.ts:159](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L159)
 
 ## Methods
 
-### start
+### start()
 
-▸ **start**(): `void`
+> **start**(): `void`
 
 Starts the service.
 
@@ -147,13 +63,13 @@ Starts the service.
 
 #### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PairingCodeRequestService.ts#L54)
+[src/lib/app/PairingCodeRequestService.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L53)
 
-___
+***
 
-### stop
+### stop()
 
-▸ **stop**(): `void`
+> **stop**(): `void`
 
 Stops the service.
 
@@ -163,4 +79,80 @@ Stops the service.
 
 #### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:66](https://github.com/patrickkfkan/yt-cast-receiver/blob/630ac05/src/lib/app/PairingCodeRequestService.ts#L66)
+[src/lib/app/PairingCodeRequestService.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L65)
+
+## Events
+
+### on()
+
+#### on(event, listener)
+
+> **on**(`event`, `listener`): `this`
+
+Emitted when service is requesting pairing code.
+
+##### Parameters
+
+• **event**: `"request"`
+
+• **listener**
+
+##### Returns
+
+`this`
+
+##### Overrides
+
+`EventEmitter.on`
+
+##### Defined in
+
+[src/lib/app/PairingCodeRequestService.ts:140](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L140)
+
+#### on(event, listener)
+
+> **on**(`event`, `listener`): `this`
+
+Emitted when service has obtained pairing code.
+
+##### Parameters
+
+• **event**: `"response"`
+
+• **listener**
+
+##### Returns
+
+`this`
+
+##### Overrides
+
+`EventEmitter.on`
+
+##### Defined in
+
+[src/lib/app/PairingCodeRequestService.ts:146](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L146)
+
+#### on(event, listener)
+
+> **on**(`event`, `listener`): `this`
+
+Emitted when service encountered error. The service stops on this event.
+
+##### Parameters
+
+• **event**: `"error"`
+
+• **listener**
+
+##### Returns
+
+`this`
+
+##### Overrides
+
+`EventEmitter.on`
+
+##### Defined in
+
+[src/lib/app/PairingCodeRequestService.ts:152](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L152)
