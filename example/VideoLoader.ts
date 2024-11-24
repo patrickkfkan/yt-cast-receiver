@@ -16,6 +16,9 @@ export interface VideoInfo extends BasicInfo {
 
 /**
  * Uses [YouTube.js](https://github.com/LuanRT/YouTube.js) for fetching video info.
+ * 
+ * Note - due to YT changing their API occasionally, stream URLs obtained in this example might not actually work.
+ * See https://github.com/patrickkfkan/volumio-ytcr for example of real-world usage of yt-cast-receiver. 
  */
 export default class VideoLoader {
 
