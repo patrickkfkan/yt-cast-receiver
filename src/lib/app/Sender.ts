@@ -16,6 +16,8 @@ export default class Sender {
     name: string;
     thumbnail: string;
   };
+  obfuscatedGaiaId: string | null;
+  ownerObfuscatedGaiaId: string | null;
 
   /** @internal */
   constructor(data: any) {
@@ -36,6 +38,8 @@ export default class Sender {
     catch (_error: unknown) {
       this.device = {};
     }
+    this.obfuscatedGaiaId = data.obfuscatedGaiaId || null;
+    this.ownerObfuscatedGaiaId = data.ownerObfuscatedGaiaId || null;
   }
 
   /**
