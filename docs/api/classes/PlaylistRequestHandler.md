@@ -36,7 +36,7 @@ Handles requests made by a `Playlist` instance.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L65)
+[src/lib/app/PlaylistRequestHandler.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L65)
 
 ## Methods
 
@@ -74,7 +74,7 @@ The `Playlist` instance making the request.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L55)
+[src/lib/app/PlaylistRequestHandler.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L55)
 
 ***
 
@@ -96,7 +96,7 @@ The `Playlist` instance making the request.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L21)
+[src/lib/app/PlaylistRequestHandler.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L21)
 
 ***
 
@@ -113,7 +113,7 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:61](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L61)
+[src/lib/app/PlaylistRequestHandler.ts:61](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L61)
 
 ***
 
@@ -131,4 +131,4 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PlaylistRequestHandler.ts#L17)
+[src/lib/app/PlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L17)

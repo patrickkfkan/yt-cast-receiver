@@ -47,7 +47,7 @@ Service status
 
 #### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:159](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L159)
+[src/lib/app/PairingCodeRequestService.ts:159](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PairingCodeRequestService.ts#L159)
 
 ## Methods
 
@@ -63,7 +63,7 @@ Starts the service.
 
 #### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L53)
+[src/lib/app/PairingCodeRequestService.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PairingCodeRequestService.ts#L53)
 
 ***
 
@@ -79,7 +79,7 @@ Stops the service.
 
 #### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L65)
+[src/lib/app/PairingCodeRequestService.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PairingCodeRequestService.ts#L65)
 
 ## Events
 
@@ -107,7 +107,7 @@ Emitted when service is requesting pairing code.
 
 ##### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:140](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L140)
+[src/lib/app/PairingCodeRequestService.ts:140](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PairingCodeRequestService.ts#L140)
 
 #### on(event, listener)
 
@@ -131,7 +131,7 @@ Emitted when service has obtained pairing code.
 
 ##### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:146](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L146)
+[src/lib/app/PairingCodeRequestService.ts:146](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PairingCodeRequestService.ts#L146)
 
 #### on(event, listener)
 
@@ -155,4 +155,4 @@ Emitted when service encountered error. The service stops on this event.
 
 ##### Defined in
 
-[src/lib/app/PairingCodeRequestService.ts:152](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/PairingCodeRequestService.ts#L152)
+[src/lib/app/PairingCodeRequestService.ts:152](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PairingCodeRequestService.ts#L152)

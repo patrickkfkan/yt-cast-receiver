@@ -28,7 +28,7 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[src/lib/utils/DefaultDataStore.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultDataStore.ts#L11)
+[src/lib/utils/DefaultDataStore.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultDataStore.ts#L11)
 
 ## Accessors
 
@@ -48,7 +48,7 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[src/lib/utils/DataStore.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DataStore.ts#L15)
+[src/lib/utils/DataStore.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DataStore.ts#L15)
 
 ## Methods
 
@@ -62,7 +62,7 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[src/lib/utils/DefaultDataStore.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultDataStore.ts#L37)
+[src/lib/utils/DefaultDataStore.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultDataStore.ts#L37)
 
 ***
 
@@ -88,7 +88,7 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[src/lib/utils/DefaultDataStore.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultDataStore.ts#L27)
+[src/lib/utils/DefaultDataStore.ts:27](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultDataStore.ts#L27)
 
 ***
 
@@ -116,7 +116,7 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[src/lib/utils/DefaultDataStore.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DefaultDataStore.ts#L18)
+[src/lib/utils/DefaultDataStore.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultDataStore.ts#L18)
 
 ***
 
@@ -138,4 +138,4 @@ Default `DataStore` implementation that uses [node-persist](https://github.com/s
 
 #### Defined in
 
-[src/lib/utils/DataStore.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/utils/DataStore.ts#L7)
+[src/lib/utils/DataStore.ts:7](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DataStore.ts#L7)

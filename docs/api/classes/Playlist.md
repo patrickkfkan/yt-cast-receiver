@@ -26,7 +26,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:332](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L332)
+[src/lib/app/Playlist.ts:332](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L332)
 
 ***
 
@@ -42,7 +42,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:343](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L343)
+[src/lib/app/Playlist.ts:343](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L343)
 
 ***
 
@@ -58,7 +58,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:339](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L339)
+[src/lib/app/Playlist.ts:339](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L339)
 
 ***
 
@@ -74,7 +74,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:356](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L356)
+[src/lib/app/Playlist.ts:356](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L356)
 
 ***
 
@@ -90,7 +90,7 @@ Representation of the player queue.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:352](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L352)
+[src/lib/app/Playlist.ts:352](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L352)
 
 ***
 
@@ -108,7 +108,7 @@ Id of the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:272](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L272)
+[src/lib/app/Playlist.ts:272](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L272)
 
 ***
 
@@ -124,7 +124,7 @@ Id of the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:347](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L347)
+[src/lib/app/Playlist.ts:347](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L347)
 
 ***
 
@@ -140,7 +140,7 @@ Id of the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:363](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L363)
+[src/lib/app/Playlist.ts:363](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L363)
 
 ***
 
@@ -158,7 +158,7 @@ The number of videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:286](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L286)
+[src/lib/app/Playlist.ts:286](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L286)
 
 ***
 
@@ -176,7 +176,7 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:279](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L279)
+[src/lib/app/Playlist.ts:279](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L279)
 
 ## Methods
 
@@ -190,7 +190,7 @@ The Ids of the videos in the playlist.
 
 #### Defined in
 
-[src/lib/app/Playlist.ts:310](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L310)
+[src/lib/app/Playlist.ts:310](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L310)
 
 ***
 
@@ -248,7 +248,7 @@ v0.1.101
 
 ##### Defined in
 
-[src/lib/app/Playlist.ts:374](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L374)
+[src/lib/app/Playlist.ts:374](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L374)
 
 #### on(event, listener)
 
@@ -270,7 +270,7 @@ v0.1.101
 
 ##### Defined in
 
-[src/lib/app/Playlist.ts:375](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L375)
+[src/lib/app/Playlist.ts:375](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L375)
 
 #### on(event, listener)
 
@@ -292,7 +292,7 @@ v0.1.101
 
 ##### Defined in
 
-[src/lib/app/Playlist.ts:376](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L376)
+[src/lib/app/Playlist.ts:376](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L376)
 
 #### on(event, listener)
 
@@ -314,7 +314,7 @@ v0.1.101
 
 ##### Defined in
 
-[src/lib/app/Playlist.ts:377](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L377)
+[src/lib/app/Playlist.ts:377](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L377)
 
 #### on(event, listener)
 
@@ -336,4 +336,4 @@ v0.1.101
 
 ##### Defined in
 
-[src/lib/app/Playlist.ts:378](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/app/Playlist.ts#L378)
+[src/lib/app/Playlist.ts:378](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L378)

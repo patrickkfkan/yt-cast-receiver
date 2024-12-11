@@ -14,7 +14,7 @@
 
 #### Defined in
 
-[src/lib/Player.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/Player.ts#L35)
+[src/lib/Player.ts:35](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/Player.ts#L35)
 
 ***
 
@@ -26,7 +26,7 @@ Boolean indicating whether there is next video in player queue
 
 #### Defined in
 
-[src/lib/Player.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/Player.ts#L33)
+[src/lib/Player.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/Player.ts#L33)
 
 ***
 
@@ -38,4 +38,4 @@ Boolean indicating whether there is previous video in player queue
 
 #### Defined in
 
-[src/lib/Player.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/7898fbce0f56a5f9871c7ea968fa6c6f4e21202f/src/lib/Player.ts#L30)
+[src/lib/Player.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/Player.ts#L30)
