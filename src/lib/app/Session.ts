@@ -261,7 +261,7 @@ export default class Session extends EventEmitter {
         try {
           this.end().catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error ending session:', error));;
         }
-        catch (err) {
+        catch (_error: unknown) {
           // Do nothing - we're quitting anyway.
         }
 
@@ -297,7 +297,7 @@ export default class Session extends EventEmitter {
         this.#taskQueue.start()  // In case stopped elsewhere (e.g. `#refreshLoungeToken()`)
           .catch((error: unknown) => this.#logger.error('[yt-cast-receiver] Caught error starting task queue:', error));
       }
-      catch (err) {
+      catch (_error: unknown) {
         // `sendMessage()` should work when status is 'running'.
         // But otherwise there is no guarantee that current state is valid to allow
         // Message to be sent successfully.

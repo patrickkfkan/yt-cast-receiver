@@ -170,7 +170,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
           try {
             await session.end();
           }
-          catch (err) {
+          catch (_error: unknown) {
             // Do nothing
           }
         })();
@@ -644,7 +644,7 @@ export default class YouTubeApp extends EventEmitter implements dial.App {
     try {
       await Promise.all(stopPromises);
     }
-    catch (err) {
+    catch (_error: unknown) {
       this.#logger.warn('[yt-cast-receiver] Ignoring error while stopping YouTubeApp:', error);
     }
 

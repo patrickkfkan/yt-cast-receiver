@@ -119,7 +119,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
         try {
           await this.stop();
         }
-        catch (error) {
+        catch (_error: unknown) {
           // Do nothing - we're quitting anyway
         }
         this.#logger.error('[yt-cast-receiver] Receiver terminated due to error:', error);
@@ -151,7 +151,7 @@ export default class YouTubeCastReceiver extends EventEmitter {
           await this.#server.stop();
         }
       }
-      catch (err) {
+      catch (_error: unknown) {
         // Do nothing
       }
       this.#status = STATUSES.STOPPED;

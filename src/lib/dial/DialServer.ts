@@ -63,7 +63,7 @@ function createDelegate(apps: Record<string, dial.App>, logger: Logger): dial.De
      * manually in `YouTubeCastReceiver.stop()`.
      */
      
-    stopApp: (appName: string, pid: string, callback: (data: boolean) => void): void => {
+    stopApp: (_appName: string, _pid: string, _callback: (data: boolean) => void): void => {
       // Do nothing
     }
   };

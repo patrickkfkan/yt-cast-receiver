@@ -393,7 +393,7 @@ class FakePlayerDemo {
     try {
       await this.stop();
     }
-    catch (error) {
+    catch (_error: unknown) {
       this.#logger.warn('[FakePlayerDemo] Error occurred while stopping receiver. Exiting uncleanly...');
     }
     this.#logger.info('[FakePlayerDemo] Bye!');

@@ -164,7 +164,7 @@ export default class VideoLoader {
           const format = innertubeVideoInfo?.chooseFormat({ type: formatType, quality: 'best' });
           streamUrl = format ? format.decipher(this.#innertube.session.player) : null;
         }
-        catch (error) {
+        catch (_error: unknown) {
           streamUrl = null;
         }
       }

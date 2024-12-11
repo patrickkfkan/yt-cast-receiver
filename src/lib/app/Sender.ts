@@ -33,7 +33,7 @@ export default class Sender {
     try {
       this.device = data.device ? JSON.parse(data.device) : {};
     }
-    catch (error) {
+    catch (_error: unknown) {
       this.device = {};
     }
   }
