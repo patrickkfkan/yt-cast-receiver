@@ -1087,6 +1087,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.3.1
+- Update YouTube.js lib
+- Add `GaiaId` props to `Sender`
+
 1.3.0
 - Update dependencies and libraries
 - This version now requires Node v18
