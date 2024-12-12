@@ -1,6 +1,6 @@
 {
   "name": "yt-cast-receiver",
-  "version": "1.2.4",
+  "version": "1.2.4-node14-compat",
   "type": "module",
   "description": "YouTube Cast Receiver for Node. Supports casting from YouTube and YouTube Music.",
   "scripts": {
@@ -40,7 +40,7 @@
     "dist": "./dist"
   },
   "engines": {
-    "node": ">=16.16.0"
+    "node": ">=14"
   },
   "devDependencies": {
     "@types/blessed": "^0.1.21",
