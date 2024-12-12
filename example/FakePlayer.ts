@@ -1,6 +1,6 @@
 import { Timer } from 'timer-node';
-import { Player, PlayerState, PLAYER_STATUSES, Volume } from '../dist/mjs/index.js';
-import Video from '../dist/mjs/lib/app/Video.js';
+import { Player, PlayerState, PLAYER_STATUSES, Volume } from '../dist/cjs/index.js';
+import Video from '../dist/cjs/lib/app/Video.js';
 import VideoLoader from './VideoLoader.js';
 
 export interface FakeState {

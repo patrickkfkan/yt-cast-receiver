@@ -1,4 +1,4 @@
-import { DefaultLogger, LogLevel } from '../dist/mjs/index.js';
+import { DefaultLogger, LogLevel } from '../dist/cjs/index.js';
 import LogBox from './ui/LogBox.js';
 
 /**

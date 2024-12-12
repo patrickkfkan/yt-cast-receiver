@@ -1,5 +1,5 @@
 import blessed from 'blessed';
-import { PLAYER_STATUSES, Volume } from '../../dist/mjs/index.js';
+import { PLAYER_STATUSES, Volume } from '../../dist/cjs/index.js';
 import { FakeState } from '../FakePlayer.js';
 import UIComponent from './UIComponent.js';
 

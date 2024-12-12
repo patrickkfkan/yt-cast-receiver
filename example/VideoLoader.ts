@@ -1,5 +1,5 @@
 import Innertube, * as InnertubeLib from 'youtubei.js';
-import { Video } from '../dist/mjs';
+import { Video } from '../dist/cjs';
 
 interface BasicInfo {
   src: 'yt' | 'ytmusic';

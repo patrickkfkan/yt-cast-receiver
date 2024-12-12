@@ -7,12 +7,13 @@
     "build": "npm run prepare",
     "build:esm": "npx tsc -p tsconfig-esm.json",
     "build:cjs": "npx tsc -p tsconfig.json",
+    "build:example": "rm -rf example-dist && npx tsc -p tsconfig-example.json && cp example/package.json example-dist/",
     "prepare": "rm -rf dist && npm run build:esm && npm run build:cjs && bash fixup.sh",
     "lint": "npx eslint ./src && npx eslint ./example",
     "lint:fix": "npx eslint ./src --fix && npx eslint ./example --fix",
     "doc": "npx typedoc",
-    "example": "npx ts-node -P ./tsconfig-esm.json --esm ./example",
-    "example:no-ui": "npx ts-node -P ./tsconfig-esm.json --esm ./example --no-ui"
+    "example": "npm run build:example && node ./example-dist/index.js",
+    "example:no-ui": "npm run build:example && node ./example-dist/index.js --no-ui"
   },
   "main": "./dist/cjs/index-cjs.js",
   "module": "./dist/mjs/index.js",
@@ -53,7 +54,6 @@
     "@typescript-eslint/parser": "^5.56.0",
     "eslint": "^8.57.0",
     "eslint-plugin-tsdoc": "^0.2.17",
-    "ts-node": "^10.9.1",
     "typedoc": "^0.23.28",
     "typedoc-plugin-markdown": "^3.14.0",
     "typedoc-plugin-rename-defaults": "^0.6.4",
