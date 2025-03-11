@@ -1085,6 +1085,9 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.2.5-node14-compat
+- Update YT lib
+
 1.2.4-node14-compat
 - Modified from main branch v1.2.4 for Node v14 compatibility
 
