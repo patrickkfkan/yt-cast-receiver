@@ -1087,6 +1087,9 @@ Note: demo uses port 8099.
 
 # Changelog
 
+1.3.3
+- Update YouTube.js lib
+
 1.3.2
 - Update YouTube.js lib
 
