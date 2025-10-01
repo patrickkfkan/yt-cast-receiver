@@ -37,7 +37,8 @@ export default class DefaultPlaylistRequestHandler extends PlaylistRequestHandle
 
   async #init() {
     if (!this.#innertube) {
-      this.#innertube = await Innertube.create();
+      // https://github.com/LuanRT/YouTube.js/issues/1043
+      this.#innertube = await Innertube.create({player_id: '0004de42'});
       this.#innertubeInitialClient = { ...this.#innertube.session.context.client };
       this.#innertubeTVClient = {
         ...this.#innertube.session.context.client,
