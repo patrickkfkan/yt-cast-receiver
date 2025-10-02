@@ -1,7 +1,7 @@
 {
   "name": "yt-cast-receiver",
-  "version": "2.0.0",
-  "type": "module",
+  "version": "2.0.0-volumio-ytcr",
+  "type": "commonjs",
   "description": "YouTube Cast Receiver for Node. Supports casting from YouTube and YouTube Music.",
   "scripts": {
     "build": "npx tsc -p tsconfig.json",
@@ -57,7 +57,7 @@
     "query-string": "^7.0.0",
     "timer-node": "^5.0.7",
     "uuid": "^9.0.0",
-    "youtubei.js": "^15.1.1"
+    "youtubei.js": "git+https://github.com/patrickkfkan/Volumio-YouTube.js#v1.5.0"
   },
   "keywords": [
     "youtube",
