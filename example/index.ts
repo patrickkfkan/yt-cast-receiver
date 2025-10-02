@@ -1,5 +1,5 @@
-import YouTubeCastReceiver, { type Player, type Logger, type PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, type LogLevel, STATUSES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../dist/mjs/index.js';
-import { type PlaylistEvent } from '../dist/mjs/lib/app/Playlist.js';
+import YouTubeCastReceiver, { type Player, type Logger, type PairingCodeRequestService, PLAYER_STATUSES, LOG_LEVELS, type LogLevel, STATUSES, RESET_PLAYER_ON_DISCONNECT_POLICIES } from '../dist/index.js';
+import { type PlaylistEvent } from '../dist/lib/app/Playlist.js';
 import FakePlayer, { type FakeState } from './FakePlayer.js';
 import FakePlayerDemoLogger from './FakePlayerDemoLogger.js';
 import FakePlayerDemoScreen from './ui/FakePlayerDemoScreen.js';

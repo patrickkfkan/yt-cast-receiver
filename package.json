@@ -4,31 +4,16 @@
   "type": "module",
   "description": "YouTube Cast Receiver for Node. Supports casting from YouTube and YouTube Music.",
   "scripts": {
-    "build": "npm run prepare",
-    "build:esm": "npx tsc -p tsconfig-esm.json",
-    "build:cjs": "npx tsc -p tsconfig.json",
-    "prepare": "rm -rf dist && npm run build:esm && npm run build:cjs && bash fixup.sh",
+    "build": "npx tsc -p tsconfig.json",
+    "prepare": "rm -rf dist && npm run build",
     "lint": "npx eslint ./src && npx eslint ./example",
     "lint:fix": "npx eslint ./src --fix && npx eslint ./example --fix",
     "doc": "npx typedoc",
     "example": "npx tsx ./example/index.ts",
     "example:no-ui": "npx tsx ./example/index.ts --no-ui"
   },
-  "main": "./dist/cjs/index-cjs.js",
-  "module": "./dist/mjs/index.js",
-  "types": "./dist/mjs/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/mjs/index.d.ts",
-        "default": "./dist/mjs/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.ts",
-        "default": "./dist/cjs/index-cjs.js"
-      }
-    }
-  },
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "author": "Patrick Kan <patrickkfkan@gmail.com> (https://github.com/patrickkfkan)",
   "repository": {
     "type": "git",

@@ -38,10 +38,7 @@ npm i yt-cast-receiver --save
 
 First, implement your player by extending the `Player` class:
 ```
-// ESM
 import { Player } from 'yt-cast-receiver';
-// or CJS
-const { Player } = require('yt-cast-receiver');
 
 class MyPlayer extends Player {
   ...
@@ -163,8 +160,6 @@ Once you have implemented your player, you create a `YouTubeCastReceiver` instan
 ```
 // ESM
 import YouTubeCastReceiver from 'yt-cast-receiver';
-// or CJS
-const YouTubeCastReceiver = require('yt-cast-receiver');
 
 // Your player implementation
 const player = new MyPlayer();
@@ -457,8 +452,6 @@ player.notifyExternalStateChange();
 
 Manual pairing, aka 'Link with TV Code', allows a sender to connect to the receiver even when they are not on the same network. For this, you need to obtain a pairing code for the user to enter into the sender app.
 
-> YouTube Music does not support this feature.
-
 A pairing code refreshes every five minutes. Thus, the receiver provides a `PairingCodeRequestService` for obtaining the pairing code and automatically refreshing it at five-minute intervals:
 
 ```
@@ -718,7 +711,6 @@ The <code>Logger</code> interface defines the following methods you have to impl
 Example:
 
 ```
-// ESM + Typescript:
 import { Logger, LogLevel } from 'yt-cast-receiver';
 
 class MyLogger implements Logger {
@@ -737,15 +729,6 @@ class MyLogger implements Logger {
   setLevel(value: LogLevel): void {
     ...
   }
-}
-
-// CJS; no Typescript
-class MyLogger {
-  error(...msg) { ... }
-  warn(...msg) { ... }
-  info(...msg) { ... }
-  debug(...msg) { ... }
-  setLevel(value) { ... }
 }
 ```
 
@@ -932,8 +915,6 @@ Constants are defined for convenience. For example:
 ```
 // ESM
 import { Constants } from 'yt-cast-receiver';
-// CJS
-const { Constants } = require('yt-cast-receiver')
 
 // Instead of:
 receiver.setLogLevel('error');
@@ -1134,7 +1115,7 @@ Note: demo uses port 8099.
 - New features:
   - Support casting from YouTube Music (credit: [dgalli1](https://github.com/dgalli1))
   - Allow multiple sender connections
-  - Support manual pairing, aka Link with TV Code (YouTube only)
+  - Support manual pairing, aka Link with TV Code
   - Provide player implementations with sufficient data to play private media (such as uploads in your YouTube Music library)
   - Improved logging
 
