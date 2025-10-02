@@ -16,7 +16,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L11)
+[src/lib/app/Sender.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L11)
 
 ***
 
@@ -26,7 +26,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L13)
+[src/lib/app/Sender.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L13)
 
 ***
 
@@ -36,7 +36,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L12)
+[src/lib/app/Sender.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L12)
 
 ***
 
@@ -46,7 +46,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L14)
+[src/lib/app/Sender.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L14)
 
 ***
 
@@ -56,7 +56,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L9)
+[src/lib/app/Sender.ts:9](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L9)
 
 ***
 
@@ -66,7 +66,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L10)
+[src/lib/app/Sender.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L10)
 
 ***
 
@@ -76,7 +76,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:19](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L19)
+[src/lib/app/Sender.ts:19](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L19)
 
 ***
 
@@ -86,7 +86,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L20)
+[src/lib/app/Sender.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L20)
 
 ***
 
@@ -104,7 +104,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L15)
+[src/lib/app/Sender.ts:15](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L15)
 
 ## Methods
 
@@ -118,7 +118,7 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:61](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L61)
+[src/lib/app/Sender.ts:61](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L61)
 
 ***
 
@@ -132,4 +132,4 @@ A `Sender` object holds information about a sender.
 
 #### Defined in
 
-[src/lib/app/Sender.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Sender.ts#L65)
+[src/lib/app/Sender.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Sender.ts#L65)

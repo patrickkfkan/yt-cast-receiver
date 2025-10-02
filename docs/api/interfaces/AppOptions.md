@@ -20,7 +20,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L30)
+[src/lib/app/YouTubeApp.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L30)
 
 ***
 
@@ -30,7 +30,7 @@ CONF_DEFAULTS.BRAND
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L52)
+[src/lib/app/YouTubeApp.ts:52](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L52)
 
 ***
 
@@ -46,7 +46,7 @@ true
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L38)
+[src/lib/app/YouTubeApp.ts:38](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L38)
 
 ***
 
@@ -56,7 +56,7 @@ true
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L54)
+[src/lib/app/YouTubeApp.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L54)
 
 ***
 
@@ -72,7 +72,7 @@ CONF_DEFAULTS.MODEL
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L34)
+[src/lib/app/YouTubeApp.ts:34](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L34)
 
 ***
 
@@ -102,7 +102,7 @@ MUTE_POLICIES.AUTO
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L42)
+[src/lib/app/YouTubeApp.ts:42](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L42)
 
 ***
 
@@ -116,7 +116,7 @@ MUTE_POLICIES.AUTO
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:50](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L50)
+[src/lib/app/YouTubeApp.ts:50](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L50)
 
 ***
 
@@ -142,7 +142,7 @@ RESET_PLAYER_ON_DISCONNECT_POLICIES.ALL_DISCONNECTED
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L46)
+[src/lib/app/YouTubeApp.ts:46](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L46)
 
 ***
 
@@ -158,7 +158,7 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L26)
+[src/lib/app/YouTubeApp.ts:26](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L26)
 
 ***
 
@@ -168,4 +168,4 @@ CONF_DEFAULTS.SCREEN_APP
 
 #### Defined in
 
-[src/lib/app/YouTubeApp.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/YouTubeApp.ts#L22)
+[src/lib/app/YouTubeApp.ts:22](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/YouTubeApp.ts#L22)

@@ -1068,6 +1068,11 @@ Note: demo uses port 8099.
 
 # Changelog
 
+2.0.0
+- Fix "Failed to extract signature decipher algorithm" error ([@BlackCetha](https://github.com/BlackCetha) - PR [#8](https://github.com/patrickkfkan/yt-cast-receiver/pull/8))
+- Update YouTube.js lib
+- Drop CJS support. Why? Because the YouTube.js library is now ESM-only.
+
 1.3.3
 - Update YouTube.js lib
 

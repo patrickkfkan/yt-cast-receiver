@@ -10,4 +10,4 @@
 
 ## Defined in
 
-[src/lib/app/Playlist.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/Playlist.ts#L30)
+[src/lib/app/Playlist.ts:30](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/Playlist.ts#L30)

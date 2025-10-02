@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[src/lib/utils/Logger.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/Logger.ts#L13)
+[src/lib/utils/Logger.ts:13](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/Logger.ts#L13)
 
 ***
 
@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/utils/Logger.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/Logger.ts#L10)
+[src/lib/utils/Logger.ts:10](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/Logger.ts#L10)
 
 ***
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/lib/utils/Logger.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/Logger.ts#L12)
+[src/lib/utils/Logger.ts:12](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/Logger.ts#L12)
 
 ***
 
@@ -76,7 +76,7 @@
 
 #### Defined in
 
-[src/lib/utils/Logger.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/Logger.ts#L14)
+[src/lib/utils/Logger.ts:14](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/Logger.ts#L14)
 
 ***
 
@@ -94,4 +94,4 @@
 
 #### Defined in
 
-[src/lib/utils/Logger.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/Logger.ts#L11)
+[src/lib/utils/Logger.ts:11](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/Logger.ts#L11)

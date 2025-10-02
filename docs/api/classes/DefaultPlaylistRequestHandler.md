@@ -30,7 +30,7 @@ from YouTube.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/DefaultPlaylistRequestHandler.ts#L33)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/DefaultPlaylistRequestHandler.ts#L33)
 
 ## Accessors
 
@@ -50,7 +50,7 @@ from YouTube.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L65)
+[src/lib/app/PlaylistRequestHandler.ts:65](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/PlaylistRequestHandler.ts#L65)
 
 ## Methods
 
@@ -92,7 +92,7 @@ The `Playlist` instance making the request.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:53](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/DefaultPlaylistRequestHandler.ts#L53)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:54](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/DefaultPlaylistRequestHandler.ts#L54)
 
 ***
 
@@ -118,7 +118,7 @@ The `Playlist` instance making the request.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L21)
+[src/lib/app/PlaylistRequestHandler.ts:21](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/PlaylistRequestHandler.ts#L21)
 
 ***
 
@@ -138,7 +138,7 @@ The `Playlist` instance making the request.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:208](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/DefaultPlaylistRequestHandler.ts#L208)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:209](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/DefaultPlaylistRequestHandler.ts#L209)
 
 ***
 
@@ -159,7 +159,7 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[src/lib/app/DefaultPlaylistRequestHandler.ts:278](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/DefaultPlaylistRequestHandler.ts#L278)
+[src/lib/app/DefaultPlaylistRequestHandler.ts:279](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/DefaultPlaylistRequestHandler.ts#L279)
 
 ***
 
@@ -181,4 +181,4 @@ Implementations shall override this method if need be.
 
 #### Defined in
 
-[src/lib/app/PlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/app/PlaylistRequestHandler.ts#L17)
+[src/lib/app/PlaylistRequestHandler.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/app/PlaylistRequestHandler.ts#L17)

@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L20)
+[src/lib/utils/DefaultLogger.ts:20](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L20)
 
 ## Properties
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L18)
+[src/lib/utils/DefaultLogger.ts:18](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L18)
 
 ***
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L17)
+[src/lib/utils/DefaultLogger.ts:17](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L17)
 
 ## Methods
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L45)
+[src/lib/utils/DefaultLogger.ts:45](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L45)
 
 ***
 
@@ -86,7 +86,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L37)
+[src/lib/utils/DefaultLogger.ts:37](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L37)
 
 ***
 
@@ -108,7 +108,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L25)
+[src/lib/utils/DefaultLogger.ts:25](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L25)
 
 ***
 
@@ -130,7 +130,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L33)
+[src/lib/utils/DefaultLogger.ts:33](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L33)
 
 ***
 
@@ -150,7 +150,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L49)
+[src/lib/utils/DefaultLogger.ts:49](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L49)
 
 ***
 
@@ -172,7 +172,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L41)
+[src/lib/utils/DefaultLogger.ts:41](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L41)
 
 ***
 
@@ -192,7 +192,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:88](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L88)
+[src/lib/utils/DefaultLogger.ts:88](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L88)
 
 ***
 
@@ -210,7 +210,7 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L55)
+[src/lib/utils/DefaultLogger.ts:55](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L55)
 
 ***
 
@@ -232,4 +232,4 @@
 
 #### Defined in
 
-[src/lib/utils/DefaultLogger.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/bd89142d74e28aee740c2fbc2ea3a853e286e8db/src/lib/utils/DefaultLogger.ts#L29)
+[src/lib/utils/DefaultLogger.ts:29](https://github.com/patrickkfkan/yt-cast-receiver/blob/e384300201bf276a725286875fe0fb4b45f5c05f/src/lib/utils/DefaultLogger.ts#L29)
