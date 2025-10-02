@@ -26,6 +26,9 @@ class FakePlayerDemo {
     // Create UI (if not disabled)
     const screen = this.#screen = !noUI ? new FakePlayerDemoScreen() : null;
 
+    // Show `PlayerWindow` automatically when playback starts
+    this.#autoShowPlayer = !!screen;
+
     // If UI enabled, create our own logger instance, telling it to output to the `LogBox` UI component.
     const screenLogger = screen ? new FakePlayerDemoLogger(screen.logBox) : null;
 
@@ -109,8 +112,6 @@ class FakePlayerDemo {
 
       // Listen to UI keypress events
       this.#registerKeyPressListener();
-      // Show `PlayerWindow` automatically when playback starts
-      this.#autoShowPlayer = true;
     }
 
     // Service for fetching pairing code for manual pairing (aka Link with TV code)

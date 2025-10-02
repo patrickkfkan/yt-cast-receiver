@@ -75,6 +75,8 @@ export default class PlayerWindow extends UIComponent {
       content: '{green-fg}Volume:{/} -'
     });
 
+    this.#seekbarTimer = null;
+
     this.#seekbarWrapper.append(this.#positionLabel);
     this.#seekbarWrapper.append(this.#seekbar);
     this.#seekbarWrapper.append(this.#durationLabel);

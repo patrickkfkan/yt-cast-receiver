@@ -23,11 +23,13 @@ export interface VideoInfo extends BasicInfo {
 export default class VideoLoader {
 
   #innertube: Innertube | null;
-  #innertubeInitialClient: InnertubeLib.Context['client'];
-  #innertubeTVClient: InnertubeLib.Context['client'];
+  #innertubeInitialClient: InnertubeLib.Context['client'] | null;
+  #innertubeTVClient: InnertubeLib.Context['client'] | null;
 
   constructor() {
     this.#innertube = null;
+    this.#innertubeInitialClient = null;
+    this.#innertubeTVClient = null;
   }
 
   async #init() {
@@ -47,7 +49,7 @@ export default class VideoLoader {
     if (!this.#innertube) {
       await this.#init();
     }
-    if (!this.#innertube) {
+    if (!this.#innertube || !this.#innertubeTVClient || !this.#innertubeInitialClient) {
       throw Error('VideoLoader not initialized');
     }
 
