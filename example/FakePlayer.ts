@@ -111,7 +111,7 @@ export default class FakePlayer extends Player {
       this.currentVideoTitle = info.title;
       this.timer.start();
       this.#startTimeout(duration - this.seekOffset);
-      this.duration = Number(duration);
+      this.duration = duration;
       return true;
     }
     return false;
