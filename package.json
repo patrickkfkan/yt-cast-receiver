@@ -57,7 +57,7 @@
     "node-persist": "^3.1.3",
     "query-string": "^7.0.0",
     "uuid": "^9.0.0",
-    "youtubei.js": "git+https://github.com/patrickkfkan/Volumio-YouTube.js#v1.5.0"
+    "volumio-youtubei.js": "github:patrickkfkan/Volumio-YouTube.js#v1.6.0"
   },
   "keywords": [
     "youtube",

@@ -1,4 +1,4 @@
-import Innertube, * as InnertubeLib from 'youtubei.js';
+import Innertube, * as InnertubeLib from 'volumio-youtubei.js';
 import { type Video } from '../dist';
 
 interface BasicInfo {

@@ -1,4 +1,4 @@
-import Innertube, * as InnertubeLib from 'youtubei.js';
+import Innertube, * as InnertubeLib from 'volumio-youtubei.js';
 import { CLIENTS } from '../Constants.js';
 import type Client from './Client.js';
 import type Playlist from './Playlist.js';
