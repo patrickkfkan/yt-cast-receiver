@@ -15,11 +15,74 @@ export interface VideoInfo extends BasicInfo {
 }
 
 /**
- * Uses [YouTube.js](https://github.com/LuanRT/YouTube.js) for fetching video info.
+ * Notes:
  * 
- * Note - due to YT changing their API occasionally, stream URLs obtained in this example might not actually work.
- * See https://github.com/patrickkfkan/volumio-ytcr for example of real-world usage of yt-cast-receiver. 
+ * `VideoLoader` uses [YouTube.js](https://github.com/LuanRT/YouTube.js) to retrieve video metadata.
+ * 
+ * ⚠️ Stream URL fetching is disabled because doing so requires executing arbitrary JavaScript.
+ * For details, see: https://ytjs.dev/guide/getting-started.html#providing-a-custom-javascript-interpreter
+ * The example still functions because `FakePlayer` doesn't actually play anything so it doesn't need
+ * the stream URL.
+ * 
+ * You can enable stream URL fetching in this example by setting `allowArbitraryCodeExecution` below to `true`.
+ * If you do so, keep in mind that there is no guard against malicious code execution here.
+ * In a real-world application, you should consider sandboxing the executed code. One way would be to use
+ * `isolated-vm` as suggested by @BlackCetha: https://github.com/patrickkfkan/yt-cast-receiver/issues/9.
  */
+
+const allowArbitraryCodeExecution = false;
+
+if (allowArbitraryCodeExecution) {
+  // Called by Innertube when deciphering stream URLs
+  InnertubeLib.Platform.shim.eval = (data: InnertubeLib.Types.BuildScriptResult, env: Record<string, InnertubeLib.Types.VMPrimative>) => {
+    const properties = [];
+
+    if(env.n) {
+      properties.push(`n: exportedVars.nFunction("${env.n}")`)
+    }
+
+    if (env.sig) {
+      properties.push(`sig: exportedVars.sigFunction("${env.sig}")`)
+    }
+
+    const code = `${data.output}\nreturn { ${properties.join(', ')} }`;
+
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval
+    return new Function(code)();
+  }
+}
+
+async function getStreamUrl(innertube: Innertube, videoInfo: InnertubeLib.YT.VideoInfo) {
+  if (!allowArbitraryCodeExecution) {
+    return null;
+  }
+  let streamUrl;
+  if (videoInfo.basic_info.is_live) {
+    streamUrl = videoInfo.streaming_data?.hls_manifest_url ||
+      videoInfo.streaming_data?.dash_manifest_url ||
+      null;
+  }
+  else {
+    // Fetch stream URL with `chooseFormat()`:
+    const allFormats = [
+      ...videoInfo.streaming_data?.formats || [],
+      ...videoInfo.streaming_data?.adaptive_formats || []
+    ];
+    const hasAudioFormat = allFormats.some((f) => f.has_audio) ? 'audio' : false;
+    const hasVideoFormat = allFormats.some((f) => f.has_video) ? 'video' : false;
+    const hasAudioAndVideoFormat = allFormats.some((f) => f.has_audio && f.has_video) ? 'video+audio' : false;
+    const formatType = hasAudioAndVideoFormat || hasVideoFormat || hasAudioFormat || undefined;
+    try {
+      const format = videoInfo?.chooseFormat({ type: formatType, quality: 'best' });
+      streamUrl = format ? await format.decipher(innertube.session.player) : null;
+    }
+    catch (_error: unknown) {
+      streamUrl = null;
+    }
+  }
+  return streamUrl;
+}
+
 export default class VideoLoader {
 
   #innertube: Innertube | null;
@@ -63,7 +126,7 @@ export default class VideoLoader {
       isMdxPlayback: true,
       playbackContext: {
         contentPlaybackContext: {
-          signatureTimestamp: this.#innertube.session.player?.sts || 0
+          signatureTimestamp: this.#innertube.session.player?.signature_timestamp || 0
         }
       }
     } as any;
@@ -135,46 +198,15 @@ export default class VideoLoader {
       // But first revert to initial client in innertube context, otherwise livestreams will only have DASH manifest URL
       // - we would like to fetch complete streaming data.
       this.#innertube.session.context.client = { ...this.#innertubeInitialClient };
-      if (basicInfo.src === 'ytmusic') {
-        // For YouTube Music, it is also necessary to set `payload.client` to 'YTMUSIC'. Innertube will modify
-        // `context.client` with YouTube Music client info before submitting it to the '/player' endpoint.
-        payload.client = 'YTMUSIC';
-      }
       const playerResponse = await this.#innertube.actions.execute('/player', payload) as any;
 
       // Wrap it in innertube VideoInfo. Why? Because it offers many useful methods like `chooseFormat()`.
       const innertubeVideoInfo = new InnertubeLib.YT.VideoInfo([ playerResponse ], this.#innertube.actions, cpn);
 
-      let streamUrl: any;
-      if (innertubeVideoInfo.basic_info.is_live) {
-        streamUrl = {
-          dash: innertubeVideoInfo.streaming_data?.dash_manifest_url,
-          hls: innertubeVideoInfo.streaming_data?.hls_manifest_url
-        };
-      }
-      else {
-        // Fetch stream URL with `chooseFormat()`:
-        const allFormats = [
-          ...innertubeVideoInfo.streaming_data?.formats || [],
-          ...innertubeVideoInfo.streaming_data?.adaptive_formats || []
-        ];
-        const hasAudioFormat = allFormats.some((f) => f.has_audio) ? 'audio' : false;
-        const hasVideoFormat = allFormats.some((f) => f.has_video) ? 'video' : false;
-        const hasAudioAndVideoFormat = allFormats.some((f) => f.has_audio && f.has_video) ? 'video+audio' : false;
-        const formatType = hasAudioAndVideoFormat || hasVideoFormat || hasAudioFormat || undefined;
-        try {
-          const format = innertubeVideoInfo?.chooseFormat({ type: formatType, quality: 'best' });
-          streamUrl = format ? format.decipher(this.#innertube.session.player) : null;
-        }
-        catch (_error: unknown) {
-          streamUrl = null;
-        }
-      }
-
       const result = {
         ...basicInfo,
         duration: innertubeVideoInfo.basic_info.duration || 0,
-        streamUrl
+        streamUrl: await getStreamUrl(this.#innertube, innertubeVideoInfo)
       } as VideoInfo;
 
       return result;

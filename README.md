@@ -1068,6 +1068,10 @@ Note: demo uses port 8099.
 
 # Changelog
 
+2.1.0
+- Update YouTube.js lib
+- Disable stream URL fetching in example
+
 2.0.0
 - Fix "Failed to extract signature decipher algorithm" error ([@BlackCetha](https://github.com/BlackCetha) - PR [#8](https://github.com/patrickkfkan/yt-cast-receiver/pull/8))
 - Update YouTube.js lib
